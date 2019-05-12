@@ -11,6 +11,7 @@ public class DeliveryLocation extends Location {
 
     /**
      * Public constructor of the class.
+     *
      * @param coordinates of the location
      */
     public DeliveryLocation(Coordinates coordinates) {

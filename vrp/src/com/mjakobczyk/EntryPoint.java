@@ -9,6 +9,7 @@ public class EntryPoint {
 
     /**
      * main method runs application.
+     *
      * @param args from command line
      */
     public static void main(String[] args) {
