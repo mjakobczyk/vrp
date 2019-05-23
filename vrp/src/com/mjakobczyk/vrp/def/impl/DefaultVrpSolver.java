@@ -38,7 +38,17 @@ public class DefaultVrpSolver implements VrpSolver {
      */
     @Override
     public Optional<VrpOutput> solve() {
+        if (getVrpDataProvider() == null) {
+            log.log(Level.SEVERE, "No VrpDataProvider was provided.");
+            return Optional.empty();
+        }
+
         final Optional<VrpInput> optionalVrpInput = getVrpDataProvider().getVrpInput();
+
+        if (getVrpSolutionProvider() == null) {
+            log.log(Level.SEVERE, "No VrpSolutionProvider was provided.");
+            return Optional.empty();
+        }
 
         if (optionalVrpInput.isPresent()) {
             return getVrpSolutionProvider().solve(optionalVrpInput.get());
