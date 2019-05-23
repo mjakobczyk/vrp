@@ -1,4 +1,4 @@
-package com.mjakobczyk.vrp;
+package com.mjakobczyk.vrp.model;
 
 /**
  * VrpOutput describes output data from a Vehicle Routing Problem algorithm.

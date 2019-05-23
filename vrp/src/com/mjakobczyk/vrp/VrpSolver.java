@@ -1,13 +1,18 @@
 package com.mjakobczyk.vrp;
 
+import com.mjakobczyk.vrp.model.VrpOutput;
+
+import java.util.Optional;
+
 /**
- * VrpSolver describes solving Vehicle Routing Problem.
+ * VrpSolver allows consistent solution for VRP.
  */
 public interface VrpSolver {
 
     /**
-     * Solve performs all the necessary calculations to solve
-     * Vehicle Routing Problem.
+     * Solve starts calculations and provides a solution for given data.
+     *
+     * @return VrpOutput as a solution
      */
-    VrpOutput solve(final VrpInput vrpInput);
+    Optional<VrpOutput> solve();
 }

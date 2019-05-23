@@ -1,11 +1,15 @@
 package com.mjakobczyk.application;
 
-import com.mjakobczyk.vrp.VrpDataProvider;
-import com.mjakobczyk.vrp.VrpOutput;
-import com.mjakobczyk.vrp.impl.def.DefaultVrpManager;
-import com.mjakobczyk.vrp.VrpSolver;
-import com.mjakobczyk.vrp.impl.def.DefaultVrpDataProvider;
-import com.mjakobczyk.vrp.impl.def.DefaultVrpSolver;
+import com.mjakobczyk.vrp.def.VrpDataProvider;
+import com.mjakobczyk.vrp.def.VrpSolutionProvider;
+import com.mjakobczyk.vrp.def.impl.DefaultVrpSolver;
+import com.mjakobczyk.vrp.def.impl.DefaultVrpSolutionProvider;
+import com.mjakobczyk.vrp.model.VrpOutput;
+import com.mjakobczyk.vrp.def.impl.DefaultVrpDataProvider;
+
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Application is a singleton which enables running calculations.
@@ -13,30 +17,40 @@ import com.mjakobczyk.vrp.impl.def.DefaultVrpSolver;
 public class Application {
 
     /**
+     * Application logger, providing data about runtime behaviour.
+     */
+    private static final Logger log = Logger.getLogger(String.valueOf(Application.class));
+
+    /**
      * Single instance of the class in a static context.
      */
     private static Application instance = new Application();
 
     /**
-     * DefaultVrpManager that controls algorithm flow.
+     * DefaultVrpSolver that controls algorithm flow.
      */
-    private DefaultVrpManager defaultVrpManager;
+    private DefaultVrpSolver defaultVrpManager;
 
     /**
      * Run methods starts the application.
      */
     public void run() {
-        System.out.println("Mock: Application run()");
-        final VrpOutput vrpOutput = this.defaultVrpManager.solve();
-        if (vrpOutput != null) {
-            System.out.println(vrpOutput.toString());
+        log.log(Level.INFO, "Running Application...");
+
+        final Optional<VrpOutput> optionalVrpOutput = this.defaultVrpManager.solve();
+
+        if (optionalVrpOutput.isEmpty()) {
+            log.log(Level.SEVERE, "VrpOutput has not been collected.");
+        } else {
+            log.log(Level.INFO, "VrpOutput has been obtained successfully.");
         }
+
     }
 
     /**
      * Public getter for static class instance.
      *
-     * @return
+     * @return Application instance
      */
     public static Application getInstance() {
         return instance;
@@ -49,7 +63,8 @@ public class Application {
     private Application() {
         // TODO: implement mechanism for choosing type of provider and solver
         final VrpDataProvider vrpDataProvider = new DefaultVrpDataProvider();
-        final VrpSolver vrpSolver = new DefaultVrpSolver();
-        this.defaultVrpManager = new DefaultVrpManager(vrpDataProvider, vrpSolver);
+        final VrpSolutionProvider vrpSolutionProvider = new DefaultVrpSolutionProvider();
+
+        this.defaultVrpManager = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }
 }
