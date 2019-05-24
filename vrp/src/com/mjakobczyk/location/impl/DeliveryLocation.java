@@ -14,7 +14,7 @@ public class DeliveryLocation extends Location {
      *
      * @param coordinates of the location
      */
-    public DeliveryLocation(Coordinates coordinates) {
+    public DeliveryLocation(final Coordinates coordinates) {
         super(coordinates);
     }
 }

@@ -9,13 +9,13 @@ import com.mjakobczyk.coordinates.Coordinates;
 public abstract class Location {
 
     /**
-     * Every location has its own coordinates that allow
-     * to define its position.
+     * Every location has its own coordinates that allows to define its position.
      */
     protected Coordinates coordinates;
 
     /**
      * Getter for location's coordinates.
+     *
      * @return coordinates
      */
     public Coordinates getCoordinates() {
@@ -24,9 +24,10 @@ public abstract class Location {
 
     /**
      * Public constructor of the class.
+     *
      * @param coordinates of the location
      */
-    public Location(Coordinates coordinates) {
+    public Location(final Coordinates coordinates) {
         this.coordinates = coordinates;
     }
 }
