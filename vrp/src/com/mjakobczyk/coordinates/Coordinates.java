@@ -25,4 +25,22 @@ public class Coordinates {
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
     }
+
+    /**
+     * Getter for first coordinate.
+     *
+     * @return first coordinate
+     */
+    public int getCoordinateX() {
+        return coordinateX;
+    }
+
+    /**
+     * Getter for second coordinate.
+     *
+     * @return second coordinate
+     */
+    public int getCoordinateY() {
+        return coordinateY;
+    }
 }

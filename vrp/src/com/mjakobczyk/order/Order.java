@@ -14,20 +14,20 @@ public class Order {
     private Location location;
 
     /**
-     * Getter for order's location.
-     *
-     * @return location of the order
-     */
-    public Location getLocation() {
-        return location;
-    }
-
-    /**
      * Public constructor of the class.
      *
      * @param location of the order
      */
     public Order(final Location location) {
         this.location = location;
+    }
+
+    /**
+     * Getter for order's location.
+     *
+     * @return location of the order
+     */
+    public Location getLocation() {
+        return location;
     }
 }
