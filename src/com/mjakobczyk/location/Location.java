@@ -9,24 +9,26 @@ import com.mjakobczyk.coordinates.Coordinates;
 public abstract class Location {
 
     /**
-     * Every location has its own coordinates that allow
-     * to define its position.
+     * Every location has its own coordinates that allows to define its position.
      */
-    protected Coordinates coordinates;
+    private Coordinates coordinates;
+
+    /**
+     * Public constructor of the class.
+     *
+     * @param coordinates of the location
+     */
+    public Location(final Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
 
     /**
      * Getter for location's coordinates.
+     *
      * @return coordinates
      */
     public Coordinates getCoordinates() {
         return coordinates;
     }
 
-    /**
-     * Public constructor of the class.
-     * @param coordinates of the location
-     */
-    public Location(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
 }

@@ -1,4 +1,8 @@
-package com.mjakobczyk.vrp;
+package com.mjakobczyk.vrp.def;
+
+import com.mjakobczyk.vrp.model.VrpInput;
+
+import java.util.Optional;
 
 /**
  * VrpDataProvider arranges input and output data for Vehicle Routing Problem.
@@ -10,5 +14,5 @@ public interface VrpDataProvider {
      *
      * @return input data
      */
-    VrpInput getVrpInput();
+    Optional<VrpInput> getVrpInput();
 }

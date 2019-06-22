@@ -1,4 +1,4 @@
-package com.mjakobczyk.vrp;
+package com.mjakobczyk.vrp.model;
 
 import com.mjakobczyk.location.Location;
 

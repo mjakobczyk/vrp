@@ -14,7 +14,6 @@
 *.sdf
 *.tax2010
 *.vcf
-*.xml
 
 ### Intellij+iml ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
@@ -196,3 +195,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/java,data,linux,macos,windows,intellij+iml
+
+# Maven
+log/
+target/
