@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class DefaultVrpSolverTest {
 
@@ -25,7 +26,7 @@ public class DefaultVrpSolverTest {
         final Optional<VrpOutput> result = testSubject.solve();
 
         // then
-        assertTrue(result.isEmpty());
+        assertThat(result.isEmpty()).isTrue();
     }
 
     @Test
@@ -38,7 +39,7 @@ public class DefaultVrpSolverTest {
         final Optional<VrpOutput> result = testSubject.solve();
 
         // then
-        assertTrue(result.isEmpty());
+        assertThat(result.isEmpty()).isTrue();
     }
 
     @Test
@@ -51,7 +52,7 @@ public class DefaultVrpSolverTest {
         final Optional<VrpOutput> result = testSubject.solve();
 
         // then
-        assertTrue(result.isEmpty());
+        assertThat(result.isEmpty()).isTrue();
     }
 
     @Test
@@ -65,6 +66,6 @@ public class DefaultVrpSolverTest {
         final Optional<VrpOutput> result = testSubject.solve();
 
         // then
-        assertTrue(result.isEmpty());
+        assertThat(result.isEmpty()).isTrue();
     }
 }
