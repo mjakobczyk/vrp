@@ -1,15 +1,15 @@
 package com.mjakobczyk.vrp.def.impl;
 
 import com.mjakobczyk.vrp.*;
-import com.mjakobczyk.vrp.def.VrpDataProvider;
-import com.mjakobczyk.vrp.def.VrpSolutionProvider;
+import com.mjakobczyk.vrp.VrpDataProvider;
+import com.mjakobczyk.vrp.VrpSolutionProvider;
 import com.mjakobczyk.vrp.model.VrpOutput;
 
 import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * DefaultVrpSolver integrates multiple services together to provide a consistent\
+ * DefaultVrpSolver integrates multiple services together to provide a consistent
  * solution for VRP.
  */
 public class DefaultVrpSolver extends VrpSolver {

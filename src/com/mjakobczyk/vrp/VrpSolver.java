@@ -1,8 +1,5 @@
 package com.mjakobczyk.vrp;
 
-import com.mjakobczyk.vrp.def.VrpDataProvider;
-import com.mjakobczyk.vrp.def.VrpSolutionProvider;
-import com.mjakobczyk.vrp.def.impl.DefaultVrpSolver;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 

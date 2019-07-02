@@ -1,7 +1,7 @@
 package com.mjakobczyk.vrp.def.impl;
 
-import com.mjakobczyk.vrp.def.VrpDataProvider;
-import com.mjakobczyk.vrp.def.VrpSolutionProvider;
+import com.mjakobczyk.vrp.VrpDataProvider;
+import com.mjakobczyk.vrp.VrpSolutionProvider;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import org.junit.jupiter.api.Test;
 
