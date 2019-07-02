@@ -3,33 +3,21 @@ package com.mjakobczyk.vrp.def.impl;
 import com.mjakobczyk.vrp.*;
 import com.mjakobczyk.vrp.def.VrpDataProvider;
 import com.mjakobczyk.vrp.def.VrpSolutionProvider;
-import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * DefaultVrpSolver integrates multiple services together to provide a consistent\
  * solution for VRP.
  */
-public class DefaultVrpSolver implements VrpSolver {
+public class DefaultVrpSolver extends VrpSolver {
 
     /**
      * DefaultVrpSolver logger, providing data about runtime behaviour.
      */
-    private static final Logger log = Logger.getLogger(String.valueOf(DefaultVrpSolver.class));
-
-    /**
-     * VrpDataProvider for VRP.
-     */
-    private final VrpDataProvider vrpDataProvider;
-
-    /**
-     * VrpSolutionProvider as chosen implementation of the algorithm.
-     */
-    private final VrpSolutionProvider vrpSolutionProvider;
+    private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpSolver.class));
 
     /**
      * Default implementation of solving VRP.
@@ -38,52 +26,26 @@ public class DefaultVrpSolver implements VrpSolver {
      */
     @Override
     public Optional<VrpOutput> solve() {
-        if (getVrpDataProvider() == null) {
-            log.log(Level.SEVERE, "No VrpDataProvider was provided.");
-            return Optional.empty();
-        }
-
-        final Optional<VrpInput> optionalVrpInput = getVrpDataProvider().getVrpInput();
-
-        if (getVrpSolutionProvider() == null) {
-            log.log(Level.SEVERE, "No VrpSolutionProvider was provided.");
-            return Optional.empty();
-        }
-
-        if (optionalVrpInput.isPresent()) {
-            return getVrpSolutionProvider().solve(optionalVrpInput.get());
-        }
-
-        log.log(Level.SEVERE, "No data was provided from VrpDataProvider to VrpSolver. Algorithm could not proceed");
-        return Optional.empty();
+        return super.solve();
     }
 
     /**
-     * Getter for VrpDataProvider.
+     * Logger provider for DefaultVrpSolver.
      *
-     * @return VrpDataProvider
+     * @return logger
      */
-    protected VrpDataProvider getVrpDataProvider() {
-        return vrpDataProvider;
+    @Override
+    protected Logger logger() {
+        return LOG;
     }
 
     /**
-     * Getter for VrpSolutionProvider.
-     *
-     * @return VrpSolutionProvider
-     */
-    protected VrpSolutionProvider getVrpSolutionProvider() {
-        return vrpSolutionProvider;
-    }
-
-    /**
-     * Constructor for DefaultVrpSolver.
+     * Constructor of DefaultVrpSolver.
      *
      * @param vrpDataProvider     for data
      * @param vrpSolutionProvider for algorithm implementation
      */
     public DefaultVrpSolver(final VrpDataProvider vrpDataProvider, final VrpSolutionProvider vrpSolutionProvider) {
-        this.vrpDataProvider = vrpDataProvider;
-        this.vrpSolutionProvider = vrpSolutionProvider;
+        super(vrpDataProvider, vrpSolutionProvider);
     }
 }

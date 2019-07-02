@@ -16,12 +16,11 @@ public class DefaultVrpSolutionProvider implements VrpSolutionProvider {
     /**
      * DefaultVrpSolutionProvider logger, providing data about runtime behaviour.
      */
-    private static final Logger log = Logger.getLogger(String.valueOf(DefaultVrpSolutionProvider.class));
+    private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpSolutionProvider.class));
 
     @Override
     public Optional<VrpOutput> solve(final VrpInput vrpInput) {
-        // TODO: provide default solve implementation
-        log.log(Level.INFO, "DefaultVrpSolutionProvider#solve does not contain valuable implementation yet.");
+        LOG.log(Level.INFO, "DefaultVrpSolutionProvider#solve does not contain valuable implementation yet.");
 
         return Optional.empty();
     }

@@ -16,12 +16,11 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
     /**
      * DefaultVrpDataProvider logger, providing data about runtime behaviour.
      */
-    private static final Logger log = Logger.getLogger(String.valueOf(DefaultVrpDataProvider.class));
+    private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpDataProvider.class));
 
     @Override
     public Optional<VrpInput> getVrpInput() {
-        // TODO: implement generating VrpInput
-        log.log(Level.INFO, "DefaultVrpSolutionProvider#getVrpInput does not contain valuable implementation yet.");
+        LOG.log(Level.INFO, "DefaultVrpSolutionProvider#getVrpInput does not contain valuable implementation yet.");
 
         return Optional.empty();
     }
