@@ -44,7 +44,7 @@ public abstract class VrpSolver {
             return getVrpSolutionProvider().solve(optionalVrpInput.get());
         }
 
-        logger().log(Level.SEVERE, "No data was provided from VrpDataProvider to VrpSolver. Algorithm could not proceed");
+        logger().log(Level.SEVERE, "No data was provided from VrpDataProvider to VrpSolver. Algorithm could not proceed.");
         return Optional.empty();
     }
 

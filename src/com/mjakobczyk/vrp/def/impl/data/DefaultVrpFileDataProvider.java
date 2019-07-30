@@ -23,39 +23,9 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpFileDataProvider.class));
 
-    /**
-     * Name of the file that contains VRP data.
-     */
-    private static final String DEFAULT_VRP_DATA_FILE_NAME = "defaultVrpDataFile";
-
-    /**
-     * Name of the file containg VRP data.
-     */
-    private final String fileName;
-
-    @Override
-    public Optional<VrpInput> getVrpInput() {
-        final Optional<File> optionalFile;
-
-        if (this.fileName.isEmpty()) {
-            optionalFile = this.resolveFileFromResources(DefaultVrpFileDataProvider.DEFAULT_VRP_DATA_FILE_NAME);
-        } else {
-            optionalFile = this.resolveFileFromPath(this.fileName);
-        }
-
-        if (optionalFile.isEmpty()) {
-            LOG.log(Level.INFO, "Provided default VRP data file does not contain data or does not exist.");
-            return Optional.empty();
-        }
-
-        LOG.log(Level.INFO, "DefaultVrpSolutionProvider#getVrpInput does not contain valuable implementation yet.");
-
-        return Optional.empty();
-    }
-
     @Override
     public Optional<File> resolveFileFromPath(final String path) {
-        // TODO
+        LOG.log(Level.INFO, this.getClass().getName() + "#resolveFileFromPath does not contain any valuable implementation yet.");
 
         return Optional.empty();
     }
@@ -63,11 +33,11 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
     @Override
     public Optional<File> resolveFileFromResources(final String fileName) {
         final ClassLoader classLoader = getClass().getClassLoader();
-        final URL resource = classLoader.getResource(DefaultVrpFileDataProvider.DEFAULT_VRP_DATA_FILE_NAME);
+        final URL resource = classLoader.getResource(fileName);
 
         if (resource == null) {
             LOG.log(Level.SEVERE,
-                    "File " + DefaultVrpFileDataProvider.DEFAULT_VRP_DATA_FILE_NAME + " could not have been found!");
+                    "File " + fileName + " could not have been found!");
             return Optional.empty();
         } else {
             return Optional.of(new File(resource.getFile()));
@@ -92,11 +62,8 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
     }
 
     /**
-     * Constructor of VrpFileDataProvider.
-     *
-     * @param fileName that contains data
+     * Constructor of DefaultVrpFileDataProvider.
      */
-    public DefaultVrpFileDataProvider(final String fileName) {
-        this.fileName = fileName;
+    public DefaultVrpFileDataProvider() {
     }
 }

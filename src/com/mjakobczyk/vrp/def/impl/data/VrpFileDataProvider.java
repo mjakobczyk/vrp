@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * VrpFileDataProvider describes providing data from file to solve VRP.
  */
-public interface VrpFileDataProvider extends VrpDataProvider {
+public interface VrpFileDataProvider {
 
     /**
      * Returns file resolved from given path.
