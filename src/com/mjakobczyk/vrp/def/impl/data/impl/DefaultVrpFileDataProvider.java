@@ -1,5 +1,6 @@
-package com.mjakobczyk.vrp.def.impl.data;
+package com.mjakobczyk.vrp.def.impl.data.impl;
 
+import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.model.VrpInput;
 
 import java.io.BufferedReader;

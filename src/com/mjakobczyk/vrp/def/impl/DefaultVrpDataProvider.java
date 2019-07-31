@@ -1,7 +1,7 @@
 package com.mjakobczyk.vrp.def.impl;
 
 import com.mjakobczyk.vrp.VrpDataProvider;
-import com.mjakobczyk.vrp.def.impl.data.DefaultVrpFileDataProvider;
+import com.mjakobczyk.vrp.def.impl.data.impl.DefaultVrpFileDataProvider;
 import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.model.VrpInput;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +26,7 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
     /**
      * Name of the file that contains VRP data.
      */
-    private static final String DEFAULT_VRP_DATA_FILE_NAME = "defaultVrpDataFile";
+    private static final String DEFAULT_VRP_DATA_FILE_NAME = "defaultVrpDataFile.txt";
 
     /**
      * Name of the file containing VRP data.

@@ -12,7 +12,7 @@ public class EntryPoint {
      *
      * @param args from command line
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         Application application = Application.getInstance();
         application.run();
     }

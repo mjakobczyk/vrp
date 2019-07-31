@@ -74,7 +74,7 @@ public abstract class VrpSolver {
      * @param vrpDataProvider     for data
      * @param vrpSolutionProvider for algorithm implementation
      */
-    public VrpSolver(VrpDataProvider vrpDataProvider, VrpSolutionProvider vrpSolutionProvider) {
+    public VrpSolver(final VrpDataProvider vrpDataProvider, final VrpSolutionProvider vrpSolutionProvider) {
         this.vrpDataProvider = vrpDataProvider;
         this.vrpSolutionProvider = vrpSolutionProvider;
     }
