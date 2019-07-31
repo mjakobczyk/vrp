@@ -93,7 +93,7 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
      *
      * @return VrpFileDataProvider object
      */
-    public VrpFileDataProvider getVrpFileDataProvider() {
+    protected VrpFileDataProvider getVrpFileDataProvider() {
         return vrpFileDataProvider;
     }
 
