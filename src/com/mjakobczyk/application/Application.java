@@ -1,7 +1,8 @@
 package com.mjakobczyk.application;
 
-import com.mjakobczyk.vrp.def.VrpDataProvider;
-import com.mjakobczyk.vrp.def.VrpSolutionProvider;
+import com.mjakobczyk.vrp.VrpDataProvider;
+import com.mjakobczyk.vrp.VrpSolutionProvider;
+import com.mjakobczyk.vrp.VrpSolver;
 import com.mjakobczyk.vrp.def.impl.DefaultVrpSolver;
 import com.mjakobczyk.vrp.def.impl.DefaultVrpSolutionProvider;
 import com.mjakobczyk.vrp.model.VrpOutput;
@@ -29,7 +30,7 @@ public class Application {
     /**
      * DefaultVrpSolver that controls algorithm flow.
      */
-    private DefaultVrpSolver defaultVrpManager;
+    private VrpSolver vrpSolver;
 
     /**
      * Run methods starts the application.
@@ -37,7 +38,7 @@ public class Application {
     public void run() {
         log.log(Level.INFO, "Running Application...");
 
-        final Optional<VrpOutput> optionalVrpOutput = this.defaultVrpManager.solve();
+        final Optional<VrpOutput> optionalVrpOutput = this.vrpSolver.solve();
 
         if (optionalVrpOutput.isEmpty()) {
             log.log(Level.SEVERE, "VrpOutput has not been collected.");
@@ -65,6 +66,6 @@ public class Application {
         final VrpDataProvider vrpDataProvider = new DefaultVrpDataProvider();
         final VrpSolutionProvider vrpSolutionProvider = new DefaultVrpSolutionProvider();
 
-        this.defaultVrpManager = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
+        this.vrpSolver = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }
 }
