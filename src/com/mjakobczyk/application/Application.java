@@ -3,10 +3,10 @@ package com.mjakobczyk.application;
 import com.mjakobczyk.vrp.VrpDataProvider;
 import com.mjakobczyk.vrp.VrpSolutionProvider;
 import com.mjakobczyk.vrp.VrpSolver;
-import com.mjakobczyk.vrp.def.impl.DefaultVrpSolver;
-import com.mjakobczyk.vrp.def.impl.DefaultVrpSolutionProvider;
+import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpDataProvider;
+import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolutionProvider;
+import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
 import com.mjakobczyk.vrp.model.VrpOutput;
-import com.mjakobczyk.vrp.def.impl.DefaultVrpDataProvider;
 
 import java.util.Optional;
 import java.util.logging.Level;
@@ -45,7 +45,6 @@ public class Application {
         } else {
             log.log(Level.INFO, "VrpOutput has been obtained successfully.");
         }
-
     }
 
     /**
@@ -63,9 +62,12 @@ public class Application {
      */
     private Application() {
         // TODO: implement mechanism for choosing type of provider and solver
-        final VrpDataProvider vrpDataProvider = new DefaultVrpDataProvider();
-        final VrpSolutionProvider vrpSolutionProvider = new DefaultVrpSolutionProvider();
+//        final VrpDataProvider vrpDataProvider = new DefaultVrpDataProvider();
+        final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider();
+//        final VrpSolutionProvider vrpSolutionProvider = new DefaultVrpSolutionProvider();
+        final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider();
 
-        this.vrpSolver = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
+//        this.vrpSolver = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
+        this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }
 }

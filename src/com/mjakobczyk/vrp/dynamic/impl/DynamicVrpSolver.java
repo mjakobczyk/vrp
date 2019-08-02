@@ -37,7 +37,7 @@ public class DynamicVrpSolver extends VrpSolver {
      * @param vrpDataProvider     for data
      * @param vrpSolutionProvider for algorithm implementation
      */
-    public DynamicVrpSolver(VrpDataProvider vrpDataProvider, VrpSolutionProvider vrpSolutionProvider) {
+    public DynamicVrpSolver(final VrpDataProvider vrpDataProvider, final VrpSolutionProvider vrpSolutionProvider) {
         super(vrpDataProvider, vrpSolutionProvider);
     }
 }
