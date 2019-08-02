@@ -13,13 +13,12 @@ import java.io.IOException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-class DefaultVrpDataProviderTest {
+public class DefaultVrpDataProviderTest {
 
     private static final String FILE_NAME = "fileName";
     private static final String FILE_ABSOLUTE_PATH = "fileAbsolutePath";

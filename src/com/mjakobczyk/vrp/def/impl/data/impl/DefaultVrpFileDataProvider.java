@@ -1,13 +1,20 @@
 package com.mjakobczyk.vrp.def.impl.data.impl;
 
+import com.mjakobczyk.coordinates.Coordinates;
+import com.mjakobczyk.location.Location;
+import com.mjakobczyk.location.impl.DeliveryLocation;
 import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.model.VrpInput;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,12 +61,22 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
 
         try (final FileReader fileReader = new FileReader(file);
              final BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-
-            // TODO
             final Stream<String> lines = bufferedReader.lines();
-        }
 
-        return Optional.empty();
+            final List<Location> locations = new ArrayList<>();
+
+            lines.forEach(line -> locations.add(getLocationFromInputFileLine(line)));
+
+            return Optional.of(new VrpInput(locations));
+        } catch (final FileNotFoundException e) {
+            LOG.log(Level.SEVERE, this.getClass().getName() + " " + e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    protected Location getLocationFromInputFileLine(final String line) {
+        final List<String> coordinates = Arrays.asList(line.split(" "));
+        return new DeliveryLocation(new Coordinates(Integer.parseInt(coordinates.get(0)), Integer.parseInt(coordinates.get(1))));
     }
 
     /**
@@ -67,4 +84,5 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
      */
     public DefaultVrpFileDataProvider() {
     }
+
 }
