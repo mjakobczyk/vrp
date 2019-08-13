@@ -5,7 +5,7 @@ import com.mjakobczyk.location.Location;
 import com.mjakobczyk.location.impl.DeliveryLocation;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
-import com.mjakobczyk.vrp.model.def.DefaultVrpInput;
+import com.mjakobczyk.vrp.def.model.DefaultVrpInput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

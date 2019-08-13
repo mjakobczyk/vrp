@@ -1,4 +1,4 @@
-package com.mjakobczyk.vrp.model.def;
+package com.mjakobczyk.vrp.def.model;
 
 import com.mjakobczyk.location.Location;
 import com.mjakobczyk.vrp.model.VrpInput;
@@ -15,7 +15,7 @@ public class DefaultVrpInput extends VrpInput {
      *
      * @param locations list
      */
-    public DefaultVrpInput(List<Location> locations) {
+    public DefaultVrpInput(final List<Location> locations) {
         super(locations);
     }
 }

@@ -3,7 +3,7 @@ package com.mjakobczyk.vrp.def.impl.solution.impl;
 import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
-import com.mjakobczyk.vrp.model.def.DefaultVrpOutput;
+import com.mjakobczyk.vrp.def.model.DefaultVrpOutput;
 
 import java.util.Optional;
 import java.util.logging.Logger;

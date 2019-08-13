@@ -33,7 +33,7 @@ public abstract class VrpOutput {
     }
 
     /**
-     * Getter of VrpLocations
+     * Getter of VrpLocations.
      *
      * @return VrpLocations
      */

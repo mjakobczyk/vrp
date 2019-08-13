@@ -1,4 +1,4 @@
-package com.mjakobczyk.vrp.model.def;
+package com.mjakobczyk.vrp.def.model;
 
 import com.mjakobczyk.location.Location;
 import com.mjakobczyk.vrp.model.VrpOutput;
@@ -15,7 +15,7 @@ public class DefaultVrpOutput extends VrpOutput {
      *
      * @param locations list
      */
-    public DefaultVrpOutput(List<Location> locations) {
+    public DefaultVrpOutput(final List<Location> locations) {
         super(locations);
     }
 }

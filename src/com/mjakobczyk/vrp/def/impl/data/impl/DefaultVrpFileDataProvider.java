@@ -5,7 +5,7 @@ import com.mjakobczyk.location.Location;
 import com.mjakobczyk.location.impl.DeliveryLocation;
 import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.model.VrpInput;
-import com.mjakobczyk.vrp.model.def.DefaultVrpInput;
+import com.mjakobczyk.vrp.def.model.DefaultVrpInput;
 
 import java.io.BufferedReader;
 import java.io.File;
