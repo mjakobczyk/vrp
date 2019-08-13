@@ -5,6 +5,7 @@ import com.mjakobczyk.location.Location;
 import com.mjakobczyk.location.impl.DeliveryLocation;
 import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.model.VrpInput;
+import com.mjakobczyk.vrp.model.def.DefaultVrpInput;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -67,7 +68,7 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
 
             lines.forEach(line -> locations.add(getLocationFromInputFileLine(line)));
 
-            return Optional.of(new VrpInput(locations));
+            return Optional.of(new DefaultVrpInput(locations));
         } catch (final FileNotFoundException e) {
             LOG.log(Level.SEVERE, this.getClass().getName() + " " + e.getMessage());
             return Optional.empty();

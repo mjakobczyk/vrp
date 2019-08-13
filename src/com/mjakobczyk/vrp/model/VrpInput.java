@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * VrpInput describes input data for a VRP algorithm.
  */
-public class VrpInput {
+public abstract class VrpInput {
 
     /**
      * List of locations.

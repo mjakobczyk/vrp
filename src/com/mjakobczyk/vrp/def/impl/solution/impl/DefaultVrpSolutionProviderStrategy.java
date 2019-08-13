@@ -3,6 +3,7 @@ package com.mjakobczyk.vrp.def.impl.solution.impl;
 import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
+import com.mjakobczyk.vrp.model.def.DefaultVrpOutput;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -28,6 +29,6 @@ public class DefaultVrpSolutionProviderStrategy implements VrpSolutionProviderSt
     }
 
     protected VrpOutput mapVrpInputToVrpOutput(final VrpInput vrpInput) {
-        return new VrpOutput(vrpInput.getLocations());
+        return new DefaultVrpOutput(vrpInput.getLocations());
     }
 }

@@ -5,6 +5,7 @@ import com.mjakobczyk.location.Location;
 import com.mjakobczyk.location.impl.DeliveryLocation;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
+import com.mjakobczyk.vrp.model.def.DefaultVrpInput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,6 +60,6 @@ class DefaultVrpSolutionProviderStrategyTest {
         final List<Location> locations = new ArrayList<>(LOCATIONS_COUNT);
         locations.add(new DeliveryLocation(new Coordinates(FIRST_LOCATION_FIRST_COORDINATE, FIRST_LOCATION_SECOND_COORDINATE)));
         locations.add(new DeliveryLocation(new Coordinates(SECOND_LOCATION_FIRST_COORDINATE, SECOND_LOCATION_SECOND_COORDINATE)));
-        return new VrpInput(locations);
+        return new DefaultVrpInput(locations);
     }
 }
