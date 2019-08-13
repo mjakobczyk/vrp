@@ -26,7 +26,7 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
     /**
      * Name of the file that contains VRP data.
      */
-    private static final String DEFAULT_VRP_DATA_FILE_NAME = "defaultVrpDataFile.txt";
+    private String defaultVrpDataFileName;
 
     /**
      * Name of the file containing VRP data.
@@ -43,7 +43,7 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
         final Optional<File> optionalFile;
 
         if (this.fileName.isEmpty()) {
-            optionalFile = getVrpFileDataProvider().resolveFileFromResources(DefaultVrpDataProvider.DEFAULT_VRP_DATA_FILE_NAME);
+            optionalFile = getVrpFileDataProvider().resolveFileFromResources(getDefaultVrpDataFileName());
         } else {
             optionalFile = getVrpFileDataProvider().resolveFileFromPath(this.fileName);
         }
@@ -76,6 +76,7 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
     public DefaultVrpDataProvider() {
         this.vrpFileDataProvider = new DefaultVrpFileDataProvider();
         this.fileName = StringUtils.EMPTY;
+        this.defaultVrpDataFileName = "defaultVrpDataFile.txt";
     }
 
     /**
@@ -86,6 +87,19 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
     public DefaultVrpDataProvider(final String fileName) {
         this.vrpFileDataProvider = new DefaultVrpFileDataProvider();
         this.fileName = fileName;
+        this.defaultVrpDataFileName = "defaultVrpDataFile.txt";
+    }
+
+    /**
+     * Constructor of DefaultVrpDataProvider.
+     *
+     * @param fileName            to be read
+     * @param vrpFileDataProvider for reading data
+     */
+    public DefaultVrpDataProvider(final String fileName, final VrpFileDataProvider vrpFileDataProvider) {
+        this.fileName = fileName;
+        this.vrpFileDataProvider = vrpFileDataProvider;
+        this.defaultVrpDataFileName = "defaultVrpDataFile.txt";
     }
 
     /**
@@ -104,5 +118,23 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
      */
     public void setVrpFileDataProvider(final VrpFileDataProvider vrpFileDataProvider) {
         this.vrpFileDataProvider = vrpFileDataProvider;
+    }
+
+    /**
+     * Getter of DefaultVrpDataFileName.
+     *
+     * @return file name
+     */
+    protected String getDefaultVrpDataFileName() {
+        return defaultVrpDataFileName;
+    }
+
+    /**
+     * Setter of DefaultVrpDataFileName.
+     *
+     * @param defaultVrpDataFileName to set
+     */
+    public void setDefaultVrpDataFileName(String defaultVrpDataFileName) {
+        this.defaultVrpDataFileName = defaultVrpDataFileName;
     }
 }

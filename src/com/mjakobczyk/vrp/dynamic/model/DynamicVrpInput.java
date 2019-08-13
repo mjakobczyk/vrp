@@ -31,7 +31,7 @@ public class DynamicVrpInput extends VrpInput {
      *
      * @return additionalLocations list
      */
-    private List<Location> getAdditionalLocations() {
+    public List<Location> getAdditionalLocations() {
         return additionalLocations;
     }
 }
