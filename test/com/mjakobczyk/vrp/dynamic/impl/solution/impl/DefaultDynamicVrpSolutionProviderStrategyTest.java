@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DynamicDefaultVrpSolutionProviderStrategyTest {
+class DefaultDynamicVrpSolutionProviderStrategyTest {
 
     private static final int FIRST_LOCATION_FIRST_COORDINATE = 2;
     private static final int FIRST_LOCATION_SECOND_COORDINATE = 3;
@@ -26,11 +26,11 @@ class DynamicDefaultVrpSolutionProviderStrategyTest {
     private static final int ADDITIONAL_LOCATION_SECOND_COORDINATE = 9;
     private static final int LOCATIONS_COUNT = 3;
 
-    private DynamicDefaultVrpSolutionProviderStrategy testSubject;
+    private DefaultDynamicVrpSolutionProviderStrategy testSubject;
 
     @BeforeEach
     public void prepareTestSubject() {
-        testSubject = new DynamicDefaultVrpSolutionProviderStrategy();
+        testSubject = new DefaultDynamicVrpSolutionProviderStrategy();
     }
 
     @Test

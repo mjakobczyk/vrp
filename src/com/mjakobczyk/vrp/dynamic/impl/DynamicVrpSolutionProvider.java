@@ -2,7 +2,7 @@ package com.mjakobczyk.vrp.dynamic.impl;
 
 import com.mjakobczyk.vrp.def.impl.DefaultVrpSolutionProvider;
 import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
-import com.mjakobczyk.vrp.dynamic.impl.solution.impl.DynamicDefaultVrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.dynamic.impl.solution.impl.DefaultDynamicVrpSolutionProviderStrategy;
 
 import java.util.logging.Logger;
 
@@ -21,7 +21,7 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
      * Constructor of DynamicVrpSolutionProvider.
      */
     public DynamicVrpSolutionProvider() {
-        this.setVrpSolutionProviderStrategy(new DynamicDefaultVrpSolutionProviderStrategy());
+        this.setVrpSolutionProviderStrategy(new DefaultDynamicVrpSolutionProviderStrategy());
     }
 
     /*

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * DynamicVrpSolutionProviderStrategy provides implementation of strategy
  * allowing to find optimal route for Dynamic VRP.
  */
-public class DynamicDefaultVrpSolutionProviderStrategy implements VrpSolutionProviderStrategy {
+public class DefaultDynamicVrpSolutionProviderStrategy implements VrpSolutionProviderStrategy {
 
     /**
      * DefaultVrpSolutionProvider logger, providing data about runtime behaviour.
