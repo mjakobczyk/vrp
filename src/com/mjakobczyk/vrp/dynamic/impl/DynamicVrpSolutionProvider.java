@@ -1,28 +1,36 @@
 package com.mjakobczyk.vrp.dynamic.impl;
 
-import com.mjakobczyk.vrp.VrpSolutionProvider;
-import com.mjakobczyk.vrp.model.VrpInput;
-import com.mjakobczyk.vrp.model.VrpOutput;
+import com.mjakobczyk.vrp.def.impl.DefaultVrpSolutionProvider;
+import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.dynamic.impl.solution.impl.DynamicDefaultVrpSolutionProviderStrategy;
 
-import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * DynamicVrpSolutionProvider is an implementation of VrpSolutionProvider considering
  * incoming income of data.
  */
-public class DynamicVrpSolutionProvider implements VrpSolutionProvider {
+public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
 
     /**
      * DefaultVrpSolutionProvider logger, providing data about runtime behaviour.
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(DynamicVrpSolutionProvider.class));
 
-    @Override
-    public Optional<VrpOutput> solve(VrpInput vrpInput) {
-        LOG.log(Level.INFO, "DynamicVrpSolutionProvider#solve does not contain valuable implementation yet.");
-
-        return Optional.empty();
+    /**
+     * Constructor of DynamicVrpSolutionProvider.
+     */
+    public DynamicVrpSolutionProvider() {
+        this.setVrpSolutionProviderStrategy(new DynamicDefaultVrpSolutionProviderStrategy());
     }
+
+    /*
+     * Constructor of DynamicVrpSolutionProvider.
+     *
+     * @param vrpSolutionProviderStrategy to inject
+     */
+    public DynamicVrpSolutionProvider(final VrpSolutionProviderStrategy vrpSolutionProviderStrategy) {
+        super(vrpSolutionProviderStrategy);
+    }
+
 }

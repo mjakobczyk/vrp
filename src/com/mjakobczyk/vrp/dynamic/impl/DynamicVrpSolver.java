@@ -21,9 +21,7 @@ public class DynamicVrpSolver extends VrpSolver {
 
     @Override
     public Optional<VrpOutput> solve() {
-        LOG.log(Level.INFO, "DynamicVrpSolver#solve does not contain valuable implementation yet.");
-
-        return Optional.empty();
+       return super.solve();
     }
 
     @Override

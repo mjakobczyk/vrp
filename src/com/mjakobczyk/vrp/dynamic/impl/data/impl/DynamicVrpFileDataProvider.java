@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class DynamicVrpFileDataProvider extends DefaultVrpFileDataProvider {
 
     @Override
-    protected Optional<VrpInput> resolveVrpInputFromFileContent(Stream<String> lines) {
+    protected Optional<VrpInput> resolveVrpInputFromFileContent(final Stream<String> lines) {
         final List<Location> locations = new ArrayList<>();
         final List<Location> additionalLocations = new ArrayList<>();
         final List<String> stringLines = lines.collect(Collectors.toList());
