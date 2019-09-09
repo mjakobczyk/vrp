@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class DefaultVrpSolutionProviderStrategy implements VrpSolutionProviderStrategy {
 
     /**
-     * DefaultVrpSolutionProvider logger, providing data about runtime behaviour.
+     * DefaultVrpSolutionProviderStrategy logger, providing data about runtime behaviour.
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpSolutionProviderStrategy.class));
 
