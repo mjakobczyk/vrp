@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * VrpOutput describes output data from a VRP algorithm.
  */
-public class VrpOutput {
+public abstract class VrpOutput {
 
     /**
      * List of locations.
@@ -33,7 +33,7 @@ public class VrpOutput {
     }
 
     /**
-     * Getter of VrpLocations
+     * Getter of VrpLocations.
      *
      * @return VrpLocations
      */

@@ -1,27 +1,24 @@
 package com.mjakobczyk.vrp.dynamic.impl;
 
-import com.mjakobczyk.vrp.VrpDataProvider;
-import com.mjakobczyk.vrp.model.VrpInput;
+import com.mjakobczyk.vrp.def.impl.DefaultVrpDataProvider;
+import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
 
-import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**\
+/**
  * DynamicVrpDataProvider is an implementation of data provider
  * for solving Dynamic VRP.
  */
-public class DynamicVrpDataProvider implements VrpDataProvider {
+public class DynamicVrpDataProvider extends DefaultVrpDataProvider {
 
     /**
-     * DynamicVrpDataProvider logger, providing data about runtime behaviour.
+     * Constructor of DynamicVrpDataProvider.
+     *
+     * @param fileName            to be read
+     * @param vrpFileDataProvider for reading data
      */
-    private static final Logger LOG = Logger.getLogger(String.valueOf(DynamicVrpDataProvider.class));
-
-    @Override
-    public Optional<VrpInput> getVrpInput() {
-        LOG.log(Level.INFO, "DynamicVrpDataProvider#getVrpInput does not contain valuable implementation yet.");
-
-        return Optional.empty();
+    public DynamicVrpDataProvider(final String fileName, final VrpFileDataProvider vrpFileDataProvider) {
+        super(fileName, vrpFileDataProvider);
+        this.setDefaultVrpDataFileName("dynamicVrpDataFile.txt");
     }
 }
