@@ -31,4 +31,16 @@ public abstract class Location {
         return coordinates;
     }
 
+    /**
+     * Counts distance to the location passed as an arugment.
+     *
+     * @param location that should be analyzed
+     * @return distance to the passed location
+     */
+    public double distanceTo(final Location location) {
+        return Math.sqrt(
+                Math.pow(location.getCoordinates().getCoordinateX() - this.getCoordinates().getCoordinateX(), 2) +
+                        Math.pow(location.getCoordinates().getCoordinateY() - this.getCoordinates().getCoordinateY(), 2));
+    }
+
 }

@@ -2,13 +2,13 @@ package com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.model;
 
 /**
  * SimulatedAnnealingTemperature describes behaviour of temperature in Simulated Annealing
- * Algorithm. Default values can be overriden creating
+ * Algorithm. Default values can be overridden by using Fluent Builder constructor.
  */
 public class SimulatedAnnealingTemperature {
 
     private static final int DEFAULT_INITIAL_VALUE = 100;
     private static final int DEFAULT_MINIMUM_VALUE = 70;
-    private static final int DEFAULT_STEP_VALUE = 5;
+    private static final int DEFAULT_STEP_VALUE = 1;
 
     /**
      * Current value of temperature.
@@ -16,7 +16,7 @@ public class SimulatedAnnealingTemperature {
     private int current;
 
     /**
-     * minimum value of temperature until when algorithm should proceed.
+     * Minimum value of temperature until when algorithm should proceed.
      */
     private int minimum;
 
