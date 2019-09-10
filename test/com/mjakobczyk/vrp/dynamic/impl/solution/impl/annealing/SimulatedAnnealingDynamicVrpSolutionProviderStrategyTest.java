@@ -21,10 +21,14 @@ class SimulatedAnnealingDynamicVrpSolutionProviderStrategyTest {
     private static final int FIRST_LOCATION_FIRST_COORDINATE = 1;
     private static final int FIRST_LOCATION_SECOND_COORDINATE = 1;
     private static final int SECOND_LOCATION_FIRST_COORDINATE = 1;
-    private static final int SECOND_LOCATION_SECOND_COORDINATE = 5;
-    private static final int THIRD_LOCATION_FIRST_COORDINATE = 5;
-    private static final int THIRD_LOCATION_SECOND_COORDINATE = 5;
-    private static final int EXPECTED_TOTAL_DISTANCE = 8;
+    private static final int SECOND_LOCATION_SECOND_COORDINATE = 3;
+    private static final int THIRD_LOCATION_FIRST_COORDINATE = 3;
+    private static final int THIRD_LOCATION_SECOND_COORDINATE = 3;
+    private static final int FOURTH_LOCATION_FIRST_COORDINATE = 5;
+    private static final int FOURTH_LOCATION_SECOND_COORDINATE = 3;
+    private static final int FIFTH_LOCATION_FIRST_COORDINATE = 5;
+    private static final int FIFTH_LOCATION_SECOND_COORDINATE = 5;
+    private static final int EXPECTED_TOTAL_DISTANCE = 4;
 
     private SimulatedAnnealingDynamicVrpSolutionProviderStrategy testSubject;
 
@@ -51,13 +55,22 @@ class SimulatedAnnealingDynamicVrpSolutionProviderStrategyTest {
     @Test
     public void shouldFindOptimalRoutWhenListOfLocationsIsPassed() {
         // given
-        final VrpInput vrpInput = new DynamicVrpInput(null, null);
+        final List<Location> locations = new ArrayList<>();
+        locations.add(prepareDeliveryLocation(FIRST_LOCATION_FIRST_COORDINATE, FIRST_LOCATION_SECOND_COORDINATE));
+        locations.add(prepareDeliveryLocation(FIFTH_LOCATION_FIRST_COORDINATE, FIFTH_LOCATION_SECOND_COORDINATE));
+        locations.add(prepareDeliveryLocation(SECOND_LOCATION_FIRST_COORDINATE, SECOND_LOCATION_SECOND_COORDINATE));
+
+        final List<Location> additionalLocations = new ArrayList<>();
+        additionalLocations.add(prepareDeliveryLocation(FOURTH_LOCATION_FIRST_COORDINATE, FOURTH_LOCATION_SECOND_COORDINATE));
+        additionalLocations.add(prepareDeliveryLocation(THIRD_LOCATION_FIRST_COORDINATE, THIRD_LOCATION_SECOND_COORDINATE));
+
+        final VrpInput vrpInput = new DynamicVrpInput(locations, additionalLocations);
 
         // when
         final Optional<VrpOutput> optionalVrpOutput = testSubject.findOptimalRouteFor(vrpInput);
 
         // then
-        // ...
+        assertThat(optionalVrpOutput.isPresent()).isTrue();
     }
 
     private DeliveryLocation prepareDeliveryLocation(final int firstCoordinate, final int secondCoordinate) {

@@ -27,7 +27,15 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy implements Vrp
      * SimulatedAnnealingDynamicVrpSolutionProviderStrategy logger, providing data about runtime behaviour.
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(SimulatedAnnealingDynamicVrpSolutionProviderStrategy.class));
+
+    /**
+     * Maximum random number that can be generated for getting additional city.
+     */
     private static final int MAX_RANDOM_NUMBER = 100;
+
+    /**
+     * Threshold value above which additional pick can be performed.
+     */
     private static final int ADDITIONAL_PICK_THRESHOLD = 70;
 
 
@@ -44,42 +52,37 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy implements Vrp
         final DynamicVrpInput dynamicVrpInput = (DynamicVrpInput) vrpInput;
         final List<Location> locations = dynamicVrpInput.getLocations();
         final List<Location> additionalLocations = dynamicVrpInput.getAdditionalLocations();
-        int additionalLocationsCounter = 0;
 
         final SimulatedAnnealingTemperature temperature = new SimulatedAnnealingTemperature();
         final SimulatedAnnealingTravelOrder travelsOrder = new SimulatedAnnealingTravelOrder(locations);
 
-        List<Location> bestSolution = new ArrayList<>();
+        List<Location> bestSolution = new ArrayList<>(locations);
+        int additionalLocationsCounter = 0;
         double bestDistance = countDistanceFor(locations);
 
         while (temperature.isValid()) {
-            if (shouldAdditionalLocationAppear()) {
+            if (additionalLocationsCounter < additionalLocations.size() && shouldAdditionalLocationAppear()) {
                 locations.add(additionalLocations.get(additionalLocationsCounter++));
+                bestSolution.clear();
+                bestSolution = new ArrayList<>(locations);
                 travelsOrder.updateTravelsOrder(locations);
             }
 
             for (int i = 0; i < travelsOrder.getTravels().size(); ++i) {
-                double initialDistance = countDistanceFor(locations);
-                Collections.swap(locations, travelsOrder.getTravels().get(0).getFirstLocation(), travelsOrder.getTravels().get(0).getSecondLocation());
+                Collections.swap(locations, travelsOrder.getTravels().get(i).getFirstLocation(), travelsOrder.getTravels().get(i).getSecondLocation());
                 double distanceAfterSwap = countDistanceFor(locations);
 
-                if (distanceAfterSwap < initialDistance) {
+                if (distanceAfterSwap < bestDistance) {
                     bestSolution.clear();
                     bestSolution = new ArrayList<>(locations);
-                }
-                else
-                {
-                    Collections.swap(locations, travelsOrder.getTravels().get(0).getFirstLocation(), travelsOrder.getTravels().get(0).getSecondLocation());
+                    bestDistance = distanceAfterSwap;
+                } else {
+                    Collections.swap(locations, travelsOrder.getTravels().get(i).getFirstLocation(), travelsOrder.getTravels().get(i).getSecondLocation());
                 }
             }
 
             temperature.decrease();
         }
-
-        // Include additional locations that did not occur as popup during calculations.
-//        if (additionalLocationsCounter < additionalLocations.size()) {
-//
-//        }
 
         return Optional.of(new DynamicVrpOutput(bestSolution));
     }

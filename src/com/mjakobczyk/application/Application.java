@@ -7,10 +7,12 @@ import com.mjakobczyk.vrp.def.impl.DefaultVrpDataProvider;
 import com.mjakobczyk.vrp.def.impl.DefaultVrpSolutionProvider;
 import com.mjakobczyk.vrp.def.impl.DefaultVrpSolver;
 import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
+import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpDataProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolutionProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
 import com.mjakobczyk.vrp.dynamic.impl.data.impl.DynamicVrpFileDataProvider;
+import com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import org.apache.commons.lang3.StringUtils;
 
@@ -67,14 +69,20 @@ public class Application {
      * instance of the class.
      */
     private Application() {
-        // TODO: implement mechanism for choosing type of provider and solver
-//        final VrpDataProvider vrpDataProvider = new DefaultVrpDataProvider();
-//        final VrpSolutionProvider vrpSolutionProvider = new DefaultVrpSolutionProvider();
-//        this.vrpSolver = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
+        instantiateDynamicVrpSolution();
+    }
 
+    private void instantiateDefaultVrpSolution() {
+        final VrpDataProvider vrpDataProvider = new DefaultVrpDataProvider();
+        final VrpSolutionProvider vrpSolutionProvider = new DefaultVrpSolutionProvider();
+        this.vrpSolver = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
+    }
+
+    private void instantiateDynamicVrpSolution() {
         final VrpFileDataProvider fileDataProvider = new DynamicVrpFileDataProvider();
         final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(StringUtils.EMPTY, fileDataProvider);
-        final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider();
+        final VrpSolutionProviderStrategy strategy = new SimulatedAnnealingDynamicVrpSolutionProviderStrategy();
+        final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider(strategy);
         this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }
 }

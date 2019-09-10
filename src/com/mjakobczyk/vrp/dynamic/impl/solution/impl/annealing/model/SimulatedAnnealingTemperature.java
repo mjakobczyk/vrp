@@ -8,7 +8,7 @@ public class SimulatedAnnealingTemperature {
 
     private static final int DEFAULT_INITIAL_VALUE = 100;
     private static final int DEFAULT_MINIMUM_VALUE = 70;
-    private static final int DEFAULT_STEP_VALUE = 1;
+    private static final int DEFAULT_STEP_VALUE = 5;
 
     /**
      * Current value of temperature.

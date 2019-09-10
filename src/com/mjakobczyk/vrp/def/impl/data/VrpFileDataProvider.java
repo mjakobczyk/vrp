@@ -1,11 +1,9 @@
 package com.mjakobczyk.vrp.def.impl.data;
 
-import com.mjakobczyk.vrp.VrpDataProvider;
 import com.mjakobczyk.vrp.model.VrpInput;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Optional;
 
 /**
