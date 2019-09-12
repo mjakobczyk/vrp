@@ -34,9 +34,11 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
 
     @Override
     public Optional<File> resolveFileFromPath(final String path) {
-        LOG.log(Level.INFO, this.getClass().getName() + "#resolveFileFromPath does not contain any valuable implementation yet.");
+//        LOG.log(Level.INFO, this.getClass().getName() + "#resolveFileFromPath does not contain any valuable implementation yet.");
+//
+//        return Optional.empty();
 
-        return Optional.empty();
+        return Optional.of(new File(path));
     }
 
     @Override

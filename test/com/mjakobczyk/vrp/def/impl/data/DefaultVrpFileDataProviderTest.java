@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,6 +23,21 @@ class DefaultVrpFileDataProviderTest {
     @BeforeEach
     public void prepareTestSubject() {
         testSubject = new DefaultVrpFileDataProvider();
+    }
+
+    @Test
+    public void shouldResolveFileFromPathForCorrectFileName() {
+        //given
+        final ClassLoader classLoader = getClass().getClassLoader();
+        final URL resource = classLoader.getResource(CORRECT_FILE_NAME);
+        final File file = new File(resource.getFile());
+        final String path = file.getAbsolutePath();
+
+        // when
+        final Optional<File> optionalFile = testSubject.resolveFileFromPath(path);
+
+        // then
+        assertThat(optionalFile).isNotEmpty();
     }
 
     @Test

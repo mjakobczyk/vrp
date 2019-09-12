@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -60,6 +61,8 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy implements Vrp
         int additionalLocationsCounter = 0;
         double bestDistance = countDistanceFor(locations);
 
+        LOG.log(Level.INFO, "Initial distance for " + locations.size() + " locations = " + bestDistance);
+
         while (temperature.isValid()) {
             if (additionalLocationsCounter < additionalLocations.size() && shouldAdditionalLocationAppear()) {
                 locations.add(additionalLocations.get(additionalLocationsCounter++));
@@ -76,13 +79,15 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy implements Vrp
                     bestSolution.clear();
                     bestSolution = new ArrayList<>(locations);
                     bestDistance = distanceAfterSwap;
-                } else {
+                } else if (Math.exp((bestDistance - distanceAfterSwap) / temperature.getCurrent()) < Math.random()) {
                     Collections.swap(locations, travelsOrder.getTravels().get(i).getFirstLocation(), travelsOrder.getTravels().get(i).getSecondLocation());
                 }
             }
 
             temperature.decrease();
         }
+
+        LOG.log(Level.INFO, "Found best distance for " + bestSolution.size() + " locations = " + bestDistance);
 
         return Optional.of(new DynamicVrpOutput(bestSolution));
     }

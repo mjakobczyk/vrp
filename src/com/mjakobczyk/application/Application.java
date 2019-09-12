@@ -43,8 +43,20 @@ public class Application {
     /**
      * Run methods starts the application.
      */
-    public void run() {
+    public void run(final String[] args) {
         log.log(Level.INFO, "Running Application...");
+
+        final String inputFilePath;
+        if (args.length != 1) {
+            log.log(Level.INFO, "Application can take only one argument. Using default input file from resources.");
+            inputFilePath = StringUtils.EMPTY;
+        }
+        else {
+            log.log(Level.INFO, "Input file path passed - " + args[0]);
+            inputFilePath = args[0];
+        }
+
+        instantiateDynamicVrpSolution(inputFilePath);
 
         final Optional<VrpOutput> optionalVrpOutput = this.vrpSolver.solve();
 
@@ -69,7 +81,7 @@ public class Application {
      * instance of the class.
      */
     private Application() {
-        instantiateDynamicVrpSolution();
+
     }
 
     private void instantiateDefaultVrpSolution() {
@@ -78,9 +90,9 @@ public class Application {
         this.vrpSolver = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }
 
-    private void instantiateDynamicVrpSolution() {
+    private void instantiateDynamicVrpSolution(final String inputFilePath) {
         final VrpFileDataProvider fileDataProvider = new DynamicVrpFileDataProvider();
-        final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(StringUtils.EMPTY, fileDataProvider);
+        final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(inputFilePath, fileDataProvider);
         final VrpSolutionProviderStrategy strategy = new SimulatedAnnealingDynamicVrpSolutionProviderStrategy();
         final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider(strategy);
         this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
