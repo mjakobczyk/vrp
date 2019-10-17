@@ -67,7 +67,7 @@ public class SimulatedAnnealingTemperature {
      *
      * @return current temperature
      */
-    protected int getCurrent() {
+    public int getCurrent() {
         return current;
     }
 
@@ -76,7 +76,7 @@ public class SimulatedAnnealingTemperature {
      *
      * @return minimum temperature
      */
-    protected int getMinimum() {
+    public int getMinimum() {
         return minimum;
     }
 
@@ -85,7 +85,7 @@ public class SimulatedAnnealingTemperature {
      *
      * @return step value
      */
-    protected int getStep() {
+    public int getStep() {
         return step;
     }
 
