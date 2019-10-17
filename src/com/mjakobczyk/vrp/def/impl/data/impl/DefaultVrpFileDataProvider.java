@@ -34,10 +34,6 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
 
     @Override
     public Optional<File> resolveFileFromPath(final String path) {
-//        LOG.log(Level.INFO, this.getClass().getName() + "#resolveFileFromPath does not contain any valuable implementation yet.");
-//
-//        return Optional.empty();
-
         return Optional.of(new File(path));
     }
 
@@ -47,8 +43,7 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
         final URL resource = classLoader.getResource(fileName);
 
         if (resource == null) {
-            LOG.log(Level.SEVERE,
-                    "File " + fileName + " could not have been found!");
+            LOG.log(Level.SEVERE, "File {0} could not have been found!", fileName);
             return Optional.empty();
         } else {
             return Optional.of(new File(resource.getFile()));
@@ -82,12 +77,6 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
     protected Location getLocationFromInputFileLine(final String line) {
         final List<String> coordinates = Arrays.asList(line.split(" "));
         return new DeliveryLocation(new Coordinates(Integer.parseInt(coordinates.get(0)), Integer.parseInt(coordinates.get(1))));
-    }
-
-    /**
-     * Constructor of DefaultVrpFileDataProvider.
-     */
-    public DefaultVrpFileDataProvider() {
     }
 
 }

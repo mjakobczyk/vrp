@@ -16,4 +16,5 @@ public class EntryPoint {
         final Application application = Application.getInstance();
         application.run(args);
     }
+
 }

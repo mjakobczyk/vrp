@@ -23,6 +23,8 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpDataProvider.class));
 
+    private static final String DEFAULT_VRP_DATA_FILE_NAME = "defaultVrpDataFile.txt";
+
     /**
      * Name of the file that contains VRP data.
      */
@@ -59,12 +61,12 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
             final Optional<VrpInput> optionalVrpInput = getVrpFileDataProvider().resolveVrpInputDataFromFile(optionalFile.get());
 
             if (optionalVrpInput.isEmpty()) {
-                LOG.log(Level.SEVERE, this.getClass().getName() + " - no VrpInput was provided from file " + filePath + "!");
+                LOG.log(Level.SEVERE, "No VrpInput was provided from file {0}!", filePath);
             }
 
             return optionalVrpInput;
         } catch (final IOException e) {
-            LOG.log(Level.SEVERE, this.getClass().getName() + " - fatal error reading file " + filePath + "!");
+            LOG.log(Level.SEVERE, e.getMessage());
         }
 
         return Optional.empty();
@@ -76,7 +78,7 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
     public DefaultVrpDataProvider() {
         this.vrpFileDataProvider = new DefaultVrpFileDataProvider();
         this.fileName = StringUtils.EMPTY;
-        this.defaultVrpDataFileName = "defaultVrpDataFile.txt";
+        this.defaultVrpDataFileName = DEFAULT_VRP_DATA_FILE_NAME;
     }
 
     /**
@@ -87,7 +89,7 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
     public DefaultVrpDataProvider(final String fileName) {
         this.vrpFileDataProvider = new DefaultVrpFileDataProvider();
         this.fileName = fileName;
-        this.defaultVrpDataFileName = "defaultVrpDataFile.txt";
+        this.defaultVrpDataFileName = DEFAULT_VRP_DATA_FILE_NAME;
     }
 
     /**
@@ -99,7 +101,7 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
     public DefaultVrpDataProvider(final String fileName, final VrpFileDataProvider vrpFileDataProvider) {
         this.fileName = fileName;
         this.vrpFileDataProvider = vrpFileDataProvider;
-        this.defaultVrpDataFileName = "defaultVrpDataFile.txt";
+        this.defaultVrpDataFileName = DEFAULT_VRP_DATA_FILE_NAME;
     }
 
     /**

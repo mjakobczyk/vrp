@@ -50,9 +50,8 @@ public class Application {
         if (args.length != 1) {
             log.log(Level.INFO, "Application can take only one argument. Using default input file from resources.");
             inputFilePath = StringUtils.EMPTY;
-        }
-        else {
-            log.log(Level.INFO, "Input file path passed - " + args[0]);
+        } else {
+            log.log(Level.INFO, "Input file path passed: {0}", args[0]);
             inputFilePath = args[0];
         }
 
