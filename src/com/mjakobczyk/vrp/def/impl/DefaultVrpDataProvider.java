@@ -1,6 +1,6 @@
 package com.mjakobczyk.vrp.def.impl;
 
-import com.mjakobczyk.vrp.VrpDataProvider;
+import com.mjakobczyk.vrp.service.VrpDataProvider;
 import com.mjakobczyk.vrp.def.impl.data.impl.DefaultVrpFileDataProvider;
 import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.model.VrpInput;
@@ -23,17 +23,10 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpDataProvider.class));
 
-    private static final String DEFAULT_VRP_DATA_FILE_NAME = "defaultVrpDataFile.txt";
-
-    /**
-     * Name of the file that contains VRP data.
-     */
-    private String defaultVrpDataFileName;
-
     /**
      * Name of the file containing VRP data.
      */
-    private final String fileName;
+    private final String vrpDataFileName;
 
     /**
      * VrpFileDataProvider is used as a default data provider.
@@ -42,17 +35,15 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
 
     @Override
     public Optional<VrpInput> getVrpInput() {
-        final Optional<File> optionalFile;
-
-        if (this.fileName.isEmpty()) {
-            optionalFile = getVrpFileDataProvider().resolveFileFromResources(getDefaultVrpDataFileName());
-        } else {
-            optionalFile = getVrpFileDataProvider().resolveFileFromPath(this.fileName);
-        }
+        Optional<File> optionalFile = getVrpFileDataProvider().resolveFileFromResources(this.vrpDataFileName);
 
         if (optionalFile.isEmpty()) {
-            LOG.log(Level.INFO, "Provided default VRP data file does not contain data or does not exist.");
-            return Optional.empty();
+            optionalFile = getVrpFileDataProvider().resolveFileFromPath(this.vrpDataFileName);
+
+            if (optionalFile.isEmpty()) {
+                LOG.log(Level.INFO, "Provided file: " + " does not contain any data or does not exist.");
+                return Optional.empty();
+            }
         }
 
         final String filePath = optionalFile.get().getAbsolutePath();
@@ -77,31 +68,28 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
      */
     public DefaultVrpDataProvider() {
         this.vrpFileDataProvider = new DefaultVrpFileDataProvider();
-        this.fileName = StringUtils.EMPTY;
-        this.defaultVrpDataFileName = DEFAULT_VRP_DATA_FILE_NAME;
+        this.vrpDataFileName = StringUtils.EMPTY;
     }
 
     /**
      * Constructor of DefaultVrpDataProvider.
      *
-     * @param fileName to be read
+     * @param vrpDataFileName to be read
      */
-    public DefaultVrpDataProvider(final String fileName) {
+    public DefaultVrpDataProvider(final String vrpDataFileName) {
         this.vrpFileDataProvider = new DefaultVrpFileDataProvider();
-        this.fileName = fileName;
-        this.defaultVrpDataFileName = DEFAULT_VRP_DATA_FILE_NAME;
+        this.vrpDataFileName = vrpDataFileName;
     }
 
     /**
      * Constructor of DefaultVrpDataProvider.
      *
-     * @param fileName            to be read
+     * @param vrpDataFileName     to be read
      * @param vrpFileDataProvider for reading data
      */
-    public DefaultVrpDataProvider(final String fileName, final VrpFileDataProvider vrpFileDataProvider) {
-        this.fileName = fileName;
+    public DefaultVrpDataProvider(final String vrpDataFileName, final VrpFileDataProvider vrpFileDataProvider) {
+        this.vrpDataFileName = vrpDataFileName;
         this.vrpFileDataProvider = vrpFileDataProvider;
-        this.defaultVrpDataFileName = DEFAULT_VRP_DATA_FILE_NAME;
     }
 
     /**
@@ -122,21 +110,4 @@ public class DefaultVrpDataProvider implements VrpDataProvider {
         this.vrpFileDataProvider = vrpFileDataProvider;
     }
 
-    /**
-     * Getter of DefaultVrpDataFileName.
-     *
-     * @return file name
-     */
-    protected String getDefaultVrpDataFileName() {
-        return defaultVrpDataFileName;
-    }
-
-    /**
-     * Setter of DefaultVrpDataFileName.
-     *
-     * @param defaultVrpDataFileName to set
-     */
-    public void setDefaultVrpDataFileName(String defaultVrpDataFileName) {
-        this.defaultVrpDataFileName = defaultVrpDataFileName;
-    }
 }

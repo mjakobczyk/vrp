@@ -1,9 +1,9 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing;
 
 
-import com.mjakobczyk.coordinates.Coordinates;
-import com.mjakobczyk.location.Location;
-import com.mjakobczyk.location.impl.DeliveryLocation;
+import com.mjakobczyk.vrp.model.Coordinates;
+import com.mjakobczyk.vrp.model.Location;
+import com.mjakobczyk.vrp.model.DeliveryLocation;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SimulatedAnnealingDynamicVrpSolutionProviderStrategyTest {
+public class SimulatedAnnealingDynamicVrpSolutionProviderStrategyTest {
 
     private static final int FIRST_LOCATION_FIRST_COORDINATE = 1;
     private static final int FIRST_LOCATION_SECOND_COORDINATE = 1;

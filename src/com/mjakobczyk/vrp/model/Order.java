@@ -1,6 +1,6 @@
-package com.mjakobczyk.order;
+package com.mjakobczyk.vrp.model;
 
-import com.mjakobczyk.location.Location;
+import com.mjakobczyk.vrp.model.Location;
 
 /**
  * Order reflects a single call from a customer that expects

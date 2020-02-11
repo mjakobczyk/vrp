@@ -1,4 +1,4 @@
-package com.mjakobczyk.coordinates;
+package com.mjakobczyk.vrp.model;
 
 /**
  * Coordinates reflect position in space.

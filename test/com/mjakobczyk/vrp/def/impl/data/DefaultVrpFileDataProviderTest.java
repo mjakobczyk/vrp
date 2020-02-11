@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DefaultVrpFileDataProviderTest {
+public class DefaultVrpFileDataProviderTest {
 
     private static final String CORRECT_FILE_NAME = "testDefaultVrpDataFile.txt";
     private static final String INCORRECT_FILE_NAME = "incorrectFileName";

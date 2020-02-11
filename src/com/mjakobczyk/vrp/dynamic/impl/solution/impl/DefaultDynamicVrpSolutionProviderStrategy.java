@@ -1,6 +1,6 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl;
 
-import com.mjakobczyk.location.Location;
+import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.impl.solution.impl.DefaultVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;

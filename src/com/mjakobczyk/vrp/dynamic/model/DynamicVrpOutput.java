@@ -1,6 +1,6 @@
 package com.mjakobczyk.vrp.dynamic.model;
 
-import com.mjakobczyk.location.Location;
+import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.model.VrpOutput;
 
 import java.util.List;

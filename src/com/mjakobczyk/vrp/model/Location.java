@@ -1,6 +1,4 @@
-package com.mjakobczyk.location;
-
-import com.mjakobczyk.coordinates.Coordinates;
+package com.mjakobczyk.vrp.model;
 
 /**
  * Location is an abstract class to define a general description

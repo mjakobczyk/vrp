@@ -1,9 +1,9 @@
 package com.mjakobczyk.vrp.def.impl;
 
-import com.mjakobczyk.vrp.*;
-import com.mjakobczyk.vrp.VrpDataProvider;
-import com.mjakobczyk.vrp.VrpSolutionProvider;
+import com.mjakobczyk.vrp.service.VrpDataProvider;
+import com.mjakobczyk.vrp.service.VrpSolutionProvider;
 import com.mjakobczyk.vrp.model.VrpOutput;
+import com.mjakobczyk.vrp.service.VrpSolver;
 
 import java.util.Optional;
 import java.util.logging.Logger;

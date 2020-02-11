@@ -1,7 +1,4 @@
-package com.mjakobczyk.location.impl;
-
-import com.mjakobczyk.coordinates.Coordinates;
-import com.mjakobczyk.location.Location;
+package com.mjakobczyk.vrp.model;
 
 /**
  * Delivery location describes a place to which a specific

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SimulatedAnnealingTemperatureTest {
+public class SimulatedAnnealingTemperatureTest {
 
     private static final int LOW_TEMPERATURE = 1;
     private static final int MEDIUM_TEMPERATURE = 2;

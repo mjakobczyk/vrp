@@ -1,6 +1,6 @@
 package com.mjakobczyk;
 
-import com.mjakobczyk.application.Application;
+import com.mjakobczyk.vrp.Application;
 
 /**
  * Entry point of the application.

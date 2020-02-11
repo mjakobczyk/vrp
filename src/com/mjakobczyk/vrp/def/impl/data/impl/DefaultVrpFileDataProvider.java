@@ -1,8 +1,8 @@
 package com.mjakobczyk.vrp.def.impl.data.impl;
 
-import com.mjakobczyk.coordinates.Coordinates;
-import com.mjakobczyk.location.Location;
-import com.mjakobczyk.location.impl.DeliveryLocation;
+import com.mjakobczyk.vrp.model.Coordinates;
+import com.mjakobczyk.vrp.model.Location;
+import com.mjakobczyk.vrp.model.DeliveryLocation;
 import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.def.model.DefaultVrpInput;
@@ -43,7 +43,7 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
         final URL resource = classLoader.getResource(fileName);
 
         if (resource == null) {
-            LOG.log(Level.SEVERE, "File {0} could not have been found!", fileName);
+            LOG.log(Level.SEVERE, "File {0} could not have been found in resources!", fileName);
             return Optional.empty();
         } else {
             return Optional.of(new File(resource.getFile()));

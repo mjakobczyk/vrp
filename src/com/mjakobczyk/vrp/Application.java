@@ -1,8 +1,5 @@
-package com.mjakobczyk.application;
+package com.mjakobczyk.vrp;
 
-import com.mjakobczyk.vrp.VrpDataProvider;
-import com.mjakobczyk.vrp.VrpSolutionProvider;
-import com.mjakobczyk.vrp.VrpSolver;
 import com.mjakobczyk.vrp.def.impl.DefaultVrpDataProvider;
 import com.mjakobczyk.vrp.def.impl.DefaultVrpSolutionProvider;
 import com.mjakobczyk.vrp.def.impl.DefaultVrpSolver;
@@ -14,6 +11,9 @@ import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
 import com.mjakobczyk.vrp.dynamic.impl.data.impl.DynamicVrpFileDataProvider;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.model.VrpOutput;
+import com.mjakobczyk.vrp.service.VrpDataProvider;
+import com.mjakobczyk.vrp.service.VrpSolutionProvider;
+import com.mjakobczyk.vrp.service.VrpSolver;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class Application {
     /**
      * Application logger, providing data about runtime behaviour.
      */
-    private static final Logger log = Logger.getLogger(String.valueOf(Application.class));
+    private static final Logger LOG = Logger.getLogger(String.valueOf(Application.class));
 
     /**
      * Single instance of the class in a static context.
@@ -44,14 +44,14 @@ public class Application {
      * Run methods starts the application.
      */
     public void run(final String[] args) {
-        log.log(Level.INFO, "Running Application...");
+        LOG.log(Level.INFO, "Running Application...");
 
         final String inputFilePath;
         if (args.length != 1) {
-            log.log(Level.INFO, "Application can take only one argument. Using default input file from resources.");
+            LOG.log(Level.INFO, "Application can take only one argument. Using default input file from resources.");
             inputFilePath = StringUtils.EMPTY;
         } else {
-            log.log(Level.INFO, "Input file path passed: {0}", args[0]);
+            LOG.log(Level.INFO, "Input file path passed: {0}", args[0]);
             inputFilePath = args[0];
         }
 
@@ -60,9 +60,9 @@ public class Application {
         final Optional<VrpOutput> optionalVrpOutput = this.vrpSolver.solve();
 
         if (optionalVrpOutput.isEmpty()) {
-            log.log(Level.SEVERE, "VrpOutput has not been collected.");
+            LOG.log(Level.SEVERE, "VrpOutput has not been collected.");
         } else {
-            log.log(Level.INFO, "VrpOutput has been obtained successfully.");
+            LOG.log(Level.INFO, "VrpOutput has been obtained successfully.");
         }
     }
 

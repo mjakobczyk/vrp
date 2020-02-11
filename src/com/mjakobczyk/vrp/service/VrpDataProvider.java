@@ -1,4 +1,4 @@
-package com.mjakobczyk.vrp;
+package com.mjakobczyk.vrp.service;
 
 import com.mjakobczyk.vrp.model.VrpInput;
 

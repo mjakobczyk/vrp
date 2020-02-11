@@ -3,13 +3,13 @@ package com.mjakobczyk.vrp.dynamic.impl;
 import com.mjakobczyk.vrp.def.impl.DefaultVrpDataProvider;
 import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
 
-import java.util.logging.Logger;
-
 /**
  * DynamicVrpDataProvider is an implementation of data provider
  * for solving Dynamic VRP.
  */
 public class DynamicVrpDataProvider extends DefaultVrpDataProvider {
+
+    private static final String DYNAMIC_VRP_DATA_FILE_NAME = "defaultVrpDataFile.txt";
 
     /**
      * Constructor of DynamicVrpDataProvider.
@@ -19,6 +19,7 @@ public class DynamicVrpDataProvider extends DefaultVrpDataProvider {
      */
     public DynamicVrpDataProvider(final String fileName, final VrpFileDataProvider vrpFileDataProvider) {
         super(fileName, vrpFileDataProvider);
-        this.setDefaultVrpDataFileName("dynamicVrpDataFile.txt");
+        // TODO: remove?
     }
+
 }

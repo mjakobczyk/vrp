@@ -1,7 +1,5 @@
 package com.mjakobczyk.vrp.model;
 
-import com.mjakobczyk.location.Location;
-
 import java.util.List;
 
 /**

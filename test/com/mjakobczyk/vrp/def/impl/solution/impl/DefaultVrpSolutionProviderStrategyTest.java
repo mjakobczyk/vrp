@@ -1,8 +1,8 @@
 package com.mjakobczyk.vrp.def.impl.solution.impl;
 
-import com.mjakobczyk.coordinates.Coordinates;
-import com.mjakobczyk.location.Location;
-import com.mjakobczyk.location.impl.DeliveryLocation;
+import com.mjakobczyk.vrp.model.Coordinates;
+import com.mjakobczyk.vrp.model.Location;
+import com.mjakobczyk.vrp.model.DeliveryLocation;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.def.model.DefaultVrpInput;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DefaultVrpSolutionProviderStrategyTest {
+public class DefaultVrpSolutionProviderStrategyTest {
 
     private static final int FIRST_LOCATION_FIRST_COORDINATE = 2;
     private static final int FIRST_LOCATION_SECOND_COORDINATE = 3;

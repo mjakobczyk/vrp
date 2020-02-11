@@ -1,7 +1,7 @@
 package com.mjakobczyk.vrp.def.impl;
 
-import com.mjakobczyk.vrp.VrpDataProvider;
-import com.mjakobczyk.vrp.VrpSolutionProvider;
+import com.mjakobczyk.vrp.service.VrpDataProvider;
+import com.mjakobczyk.vrp.service.VrpSolutionProvider;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DefaultVrpSolverTest {
+public class DefaultVrpSolverTest {
 
     private DefaultVrpSolver testSubject;
 
@@ -55,7 +55,7 @@ class DefaultVrpSolverTest {
     }
 
     @Test
-    public void shouldPerformCalculationsWhenDefaultProvidersArePresent() {
+    public void shouldNotPerformCalculationsWhenDefaultProvidersArePresent() {
         // given
         vrpDataProvider = new DefaultVrpDataProvider();
         vrpSolutionProvider = new DefaultVrpSolutionProvider();
@@ -65,6 +65,22 @@ class DefaultVrpSolverTest {
         final Optional<VrpOutput> result = testSubject.solve();
 
         // then
+        assertThat(result.isPresent()).isFalse();
+    }
+
+    @Test
+    public void shouldPerformCalculationsWhenDefaultProvidersAndCorrectInputFileArePresent() {
+        // given
+        vrpDataProvider = new DefaultVrpDataProvider("defaultVrpDataFile.txt");
+//        vrpDataProvider = new DefaultVrpDataProvider("testDefaultVrpDataFile.txt");
+        vrpSolutionProvider = new DefaultVrpSolutionProvider();
+        testSubject = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
+
+        // when
+        final Optional<VrpOutput> result = testSubject.solve();
+
+        // then
         assertThat(result.isPresent()).isTrue();
     }
+
 }

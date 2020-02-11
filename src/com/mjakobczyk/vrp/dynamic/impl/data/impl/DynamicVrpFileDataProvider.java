@@ -1,6 +1,6 @@
 package com.mjakobczyk.vrp.dynamic.impl.data.impl;
 
-import com.mjakobczyk.location.Location;
+import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.def.impl.data.impl.DefaultVrpFileDataProvider;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.model.VrpInput;

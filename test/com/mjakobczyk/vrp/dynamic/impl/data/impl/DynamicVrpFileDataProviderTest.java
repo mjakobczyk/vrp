@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DynamicVrpFileDataProviderTest {
+public class DynamicVrpFileDataProviderTest {
 
     private static final String FILE_NAME = "testDynamicVrpDataFile.txt";
     private static final int LOCATIONS_COUNT = 5;
