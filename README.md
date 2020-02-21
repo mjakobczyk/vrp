@@ -1,17 +1,25 @@
 # VRP
 
+## Overview
+
 This application is dedicated for solving *Vehicle Routing Problem*.
 
-## Technologies
+## Prerequisites
 
 * [Java 11](https://www.java.com/pl/)
 * [Maven](https://maven.apache.org/)
 
-## Run
+## Installation
 * clone the repository
-* import project to code editor or IDE
 * in downloaded directory run:
 ```bash
+$ git clone https://github.com/mjakobczyk/vrp.git
+$ cd vrp
 $ mvn clean install
+$ java -jar target/vrp-1.0-SNAPSHOT.jar resources/defaultVrpDataFile.txt
 ```
-* build and run project
+* import project to code editor or IDE
+* build project
+
+## Usage
+Run generated .jar.
