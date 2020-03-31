@@ -13,10 +13,17 @@ This application is dedicated for solving *Vehicle Routing Problem*.
 ```bash
 $ git clone https://github.com/mjakobczyk/vrp.git
 $ cd vrp
-$ mvn clean install
+$ make build
 ```
-* import project to code editor or IDE
-* build project
 
 ## Usage
-Run generated .jar.
+First, specify path to the file as an input argument to the application in Makefile.
+There are some default files provided in `resources` directory.
+```bash
+// Makefile:7
+resource=<path_to_the_input_file>
+```
+Second, run the application and collect results.
+```bash
+$ make run
+```
