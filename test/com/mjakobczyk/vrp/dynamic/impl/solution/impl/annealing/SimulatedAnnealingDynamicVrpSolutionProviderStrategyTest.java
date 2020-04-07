@@ -38,6 +38,39 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategyTest {
     }
 
     @Test
+    public void shouldNotFindOptimalRouteForNoExistingInput() {
+        // when
+        final Optional<VrpOutput> optionalVrpOutput = testSubject.findOptimalRouteFor(null);
+
+        // then
+        assertThat(optionalVrpOutput.isPresent()).isFalse();
+    }
+
+    @Test
+    public void shouldNotFindOptimalRouteForNoExistingInputLocations() {
+        // given
+        final VrpInput vrpInput = new DynamicVrpInput(null, null);
+
+        // when
+        final Optional<VrpOutput> optionalVrpOutput = testSubject.findOptimalRouteFor(null);
+
+        // then
+        assertThat(optionalVrpOutput.isPresent()).isFalse();
+    }
+
+    @Test
+    public void shouldNotFindOptimalRouteForNoLocations() {
+        // given
+        final VrpInput vrpInput = new DynamicVrpInput(null, null);
+
+        // when
+        final Optional<VrpOutput> optionalVrpOutput = testSubject.findOptimalRouteFor(vrpInput);
+
+        // then
+        assertThat(optionalVrpOutput.isPresent()).isFalse();
+    }
+
+    @Test
     public void shouldCorrectlyCountTotalDistanceForThreeCities() {
         // given
         final List<Location> locations = new ArrayList<>();
@@ -53,7 +86,7 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategyTest {
     }
 
     @Test
-    public void shouldFindOptimalRoutWhenListOfLocationsIsPassed() {
+    public void shouldFindOptimalRouteWhenAdditionalLocationsAreIncluded() {
         // given
         final List<Location> locations = new ArrayList<>();
         locations.add(prepareDeliveryLocation(FIRST_LOCATION_FIRST_COORDINATE, FIRST_LOCATION_SECOND_COORDINATE));

@@ -47,8 +47,19 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy implements Vrp
 
     @Override
     public Optional<VrpOutput> findOptimalRouteFor(final VrpInput vrpInput) {
-        if (vrpInput != null) {
-            return vrpInput.getLocations().isEmpty() ? Optional.empty() : runSimulatedAnnealingAnalysisFor(vrpInput);
+        if (vrpInput == null) {
+            return Optional.empty();
+        }
+
+        if (!(vrpInput instanceof DynamicVrpInput)) {
+            LOG.log(Level.SEVERE, "SimulatedAnnealingDynamicVrpSolutionProviderStrategy expects DynamicVrpInput as an input!");
+            return Optional.empty();
+        }
+
+        final DynamicVrpInput dynamicVrpInput = (DynamicVrpInput) vrpInput;
+
+        if (vrpInput.getLocations() != null && !vrpInput.getLocations().isEmpty()) {
+            return runSimulatedAnnealingAnalysisFor(dynamicVrpInput);
         }
 
         return Optional.empty();
@@ -56,36 +67,39 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy implements Vrp
 
     protected Optional<VrpOutput> runSimulatedAnnealingAnalysisFor(final VrpInput vrpInput) {
         final DynamicVrpInput dynamicVrpInput = (DynamicVrpInput) vrpInput;
-        final List<Location> locations = dynamicVrpInput.getLocations();
+        final List<Location> allLocations = dynamicVrpInput.getLocations();
         final List<Location> additionalLocations = dynamicVrpInput.getAdditionalLocations();
 
+//        final Location depot = allLocations.get(0);
+//        final List<Location> locationsToVisit = allLocations.subList(1, allLocations.size());
+
         final SimulatedAnnealingTemperature temperature = new SimulatedAnnealingTemperature();
-        final SimulatedAnnealingTravelOrder travelsOrder = new SimulatedAnnealingTravelOrder(locations);
+        final SimulatedAnnealingTravelOrder travelsOrder = new SimulatedAnnealingTravelOrder(allLocations);
 
-        List<Location> bestSolution = new ArrayList<>(locations);
+        List<Location> bestSolution = new ArrayList<>(allLocations);
         int additionalLocationsCounter = 0;
-        double bestDistance = countDistanceFor(locations);
+        double bestDistance = countDistanceFor(allLocations);
 
-        LOG.log(Level.INFO, "Initial distance for " + locations.size() + " locations = " + bestDistance);
+        LOG.log(Level.INFO, "Initial distance for " + allLocations.size() + " locations = " + bestDistance);
 
         while (temperature.isValid()) {
             if (additionalLocationsCounter < additionalLocations.size() && shouldAdditionalLocationAppear()) {
-                locations.add(additionalLocations.get(additionalLocationsCounter++));
+                allLocations.add(additionalLocations.get(additionalLocationsCounter++));
                 bestSolution.clear();
-                bestSolution = new ArrayList<>(locations);
-                travelsOrder.updateTravelsOrder(locations);
+                bestSolution = new ArrayList<>(allLocations);
+                travelsOrder.updateTravelsOrder(allLocations);
             }
 
             for (int i = 0; i < travelsOrder.getTravels().size(); ++i) {
-                Collections.swap(locations, travelsOrder.getTravels().get(i).getFirstLocation(), travelsOrder.getTravels().get(i).getSecondLocation());
-                double distanceAfterSwap = countDistanceFor(locations);
+                Collections.swap(allLocations, travelsOrder.getTravels().get(i).getFirstLocation(), travelsOrder.getTravels().get(i).getSecondLocation());
+                double distanceAfterSwap = countDistanceFor(allLocations);
 
                 if (distanceAfterSwap < bestDistance) {
                     bestSolution.clear();
-                    bestSolution = new ArrayList<>(locations);
+                    bestSolution = new ArrayList<>(allLocations);
                     bestDistance = distanceAfterSwap;
                 } else if (Math.exp((bestDistance - distanceAfterSwap) / temperature.getCurrent()) < Math.random()) {
-                    Collections.swap(locations, travelsOrder.getTravels().get(i).getFirstLocation(), travelsOrder.getTravels().get(i).getSecondLocation());
+                    Collections.swap(allLocations, travelsOrder.getTravels().get(i).getFirstLocation(), travelsOrder.getTravels().get(i).getSecondLocation());
                 }
             }
 
