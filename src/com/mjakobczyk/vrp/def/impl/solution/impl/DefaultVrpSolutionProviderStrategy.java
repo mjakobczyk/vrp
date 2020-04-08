@@ -12,12 +12,19 @@ import java.util.logging.Logger;
  * DefaultVrpSolutionProviderStrategy provides default implementation of strategy
  * allowing to find optimal route for VRP.
  */
-public class DefaultVrpSolutionProviderStrategy implements VrpSolutionProviderStrategy {
+public class DefaultVrpSolutionProviderStrategy extends VrpSolutionProviderStrategy {
 
     /**
      * DefaultVrpSolutionProviderStrategy logger, providing data about runtime behaviour.
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpSolutionProviderStrategy.class));
+
+    /**
+     * Default constructor of {@link com.mjakobczyk.vrp.def.impl.solution.impl.DefaultVrpSolutionProviderStrategy}.
+     */
+    public DefaultVrpSolutionProviderStrategy() {
+        super.setVrpInputValidator(null);
+    }
 
     @Override
     public Optional<VrpOutput> findOptimalRouteFor(final VrpInput vrpInput) {

@@ -39,15 +39,16 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
 
     @Override
     public Optional<File> resolveFileFromResources(final String fileName) {
-        final ClassLoader classLoader = getClass().getClassLoader();
-        final URL resource = classLoader.getResource(fileName);
-
-        if (resource == null) {
-            LOG.log(Level.SEVERE, "File {0} could not have been found in resources!", fileName);
-            return Optional.empty();
-        } else {
-            return Optional.of(new File(resource.getFile()));
-        }
+//        final ClassLoader classLoader = getClass().getClassLoader();
+//        final URL resource = classLoader.getResource(fileName);
+//
+//        if (resource == null) {
+//            LOG.log(Level.SEVERE, "File {0} could not have been found in resources!", fileName);
+//            return Optional.empty();
+//        } else {
+//            return Optional.of(new File(resource.getFile()));
+//        }
+        return Optional.of(new File("resources/" + fileName));
     }
 
     @Override

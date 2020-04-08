@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * simulated annealing algorithm, choosing optimal route for VRP. This implementation
  * includes dynamic location requests.
  */
-public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy implements VrpSolutionProviderStrategy {
+public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSolutionProviderStrategy {
 
     /**
      * SimulatedAnnealingDynamicVrpSolutionProviderStrategy logger, providing data about runtime behaviour.

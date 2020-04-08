@@ -71,8 +71,7 @@ public class DefaultVrpSolverTest {
     @Test
     public void shouldPerformCalculationsWhenDefaultProvidersAndCorrectInputFileArePresent() {
         // given
-        vrpDataProvider = new DefaultVrpDataProvider("defaultVrpDataFile.txt");
-//        vrpDataProvider = new DefaultVrpDataProvider("testDefaultVrpDataFile.txt");
+        vrpDataProvider = new DefaultVrpDataProvider("testDefaultVrpDataFile.txt");
         vrpSolutionProvider = new DefaultVrpSolutionProvider();
         testSubject = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
 

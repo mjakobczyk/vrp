@@ -1,5 +1,6 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl;
 
+import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpInputValidator;
 import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.impl.solution.impl.DefaultVrpSolutionProviderStrategy;
@@ -16,16 +17,24 @@ import java.util.logging.Logger;
  * DynamicVrpSolutionProviderStrategy provides implementation of strategy
  * allowing to find optimal route for Dynamic VRP.
  */
-public class DefaultDynamicVrpSolutionProviderStrategy implements VrpSolutionProviderStrategy {
+public class DefaultDynamicVrpSolutionProviderStrategy extends VrpSolutionProviderStrategy {
 
     /**
      * DefaultVrpSolutionProvider logger, providing data about runtime behaviour.
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpSolutionProviderStrategy.class));
 
+    /**
+     * Default constructor of {@link com.mjakobczyk.vrp.dynamic.impl.solution.impl.DefaultDynamicVrpSolutionProviderStrategy}.
+     * Initially it makes use of {@link com.mjakobczyk.vrp.dynamic.impl.DynamicVrpInputValidator}.
+     */
+    public DefaultDynamicVrpSolutionProviderStrategy() {
+        super.setVrpInputValidator(new DynamicVrpInputValidator());
+    }
+
     @Override
     public Optional<VrpOutput> findOptimalRouteFor(final VrpInput vrpInput) {
-        if (vrpInput != null) {
+        if (getVrpInputValidator().isValid(vrpInput)) {
             return Optional.of(mapVrpInputToVrpOutput(vrpInput));
         }
 

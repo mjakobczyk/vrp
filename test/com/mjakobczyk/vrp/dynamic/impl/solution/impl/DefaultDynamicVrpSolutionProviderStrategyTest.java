@@ -1,13 +1,16 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl;
 
+import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpInputValidator;
 import com.mjakobczyk.vrp.model.Coordinates;
 import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.model.DeliveryLocation;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
+import com.mjakobczyk.vrp.service.VrpInputValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +29,10 @@ public class DefaultDynamicVrpSolutionProviderStrategyTest {
     private static final int ADDITIONAL_LOCATION_SECOND_COORDINATE = 9;
     private static final int LOCATIONS_COUNT = 3;
 
+
     private DefaultDynamicVrpSolutionProviderStrategy testSubject;
+
+    private VrpInputValidator vrpInputValidator;
 
     @BeforeEach
     public void prepareTestSubject() {
@@ -34,7 +40,7 @@ public class DefaultDynamicVrpSolutionProviderStrategyTest {
     }
 
     @Test
-    public void shouldNotFindOptimalRouterForVrpInputWhenVrpInputDoesNotExist() {
+    public void shouldNotFindOptimalRouterForInvalidInput() {
         // when
         final Optional<VrpOutput> optionalVrpOutput = testSubject.findOptimalRouteFor(null);
 

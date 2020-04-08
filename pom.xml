@@ -9,7 +9,7 @@
     <version>0.1</version>
 
     <build>
-        <sourceDirectory>src/com/mjakobczyk</sourceDirectory>
+        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -2,13 +2,19 @@ package com.mjakobczyk.vrp.def.impl.solution;
 
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
+import com.mjakobczyk.vrp.service.VrpInputValidator;
 
 import java.util.Optional;
 
 /**
  * VrpSolutionProviderStrategy describes actual implementation of dealing with VRP.
  */
-public interface VrpSolutionProviderStrategy {
+public abstract class VrpSolutionProviderStrategy {
+
+    /**
+     * Validator for input data.
+     */
+    private VrpInputValidator vrpInputValidator;
 
     /**
      * Returns found optimal router for given VrpInput.
@@ -16,5 +22,23 @@ public interface VrpSolutionProviderStrategy {
      * @param vrpInput to analyze
      * @return found optimal route
      */
-    Optional<VrpOutput> findOptimalRouteFor(final VrpInput vrpInput);
+    public abstract Optional<VrpOutput> findOptimalRouteFor(final VrpInput vrpInput);
+
+    /**
+     * Getter for {@link com.mjakobczyk.vrp.service.VrpInputValidator}.
+     *
+     * @return validator instance
+     */
+    public VrpInputValidator getVrpInputValidator() {
+        return vrpInputValidator;
+    }
+
+    /**
+     * Setter for {@link com.mjakobczyk.vrp.service.VrpInputValidator}.
+     *
+     * @param vrpInputValidator to set
+     */
+    public void setVrpInputValidator(final VrpInputValidator vrpInputValidator) {
+        this.vrpInputValidator = vrpInputValidator;
+    }
 }

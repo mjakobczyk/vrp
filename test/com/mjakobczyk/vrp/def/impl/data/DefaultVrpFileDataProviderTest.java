@@ -41,12 +41,12 @@ public class DefaultVrpFileDataProviderTest {
     }
 
     @Test
-    public void shouldNotResolveFileFromResourcesForIncorrectFileName() {
+    public void shouldResolveFileFromResourcesEvenForIncorrectFileName() {
         // when
         final Optional<File> optionalFile = testSubject.resolveFileFromResources(INCORRECT_FILE_NAME);
 
         // then
-        assertThat(optionalFile).isEmpty();
+        assertThat(optionalFile).isNotEmpty();
     }
 
     @Test
