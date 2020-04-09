@@ -31,6 +31,7 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
      * DefaultVrpDataProvider logger, providing data about runtime behaviour.
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpFileDataProvider.class));
+    private static final String RESOURCES_PREFIX = "resources/";
 
     @Override
     public Optional<File> resolveFileFromPath(final String path) {
@@ -39,16 +40,7 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
 
     @Override
     public Optional<File> resolveFileFromResources(final String fileName) {
-//        final ClassLoader classLoader = getClass().getClassLoader();
-//        final URL resource = classLoader.getResource(fileName);
-//
-//        if (resource == null) {
-//            LOG.log(Level.SEVERE, "File {0} could not have been found in resources!", fileName);
-//            return Optional.empty();
-//        } else {
-//            return Optional.of(new File(resource.getFile()));
-//        }
-        return Optional.of(new File("resources/" + fileName));
+        return Optional.of(new File(RESOURCES_PREFIX + fileName));
     }
 
     @Override

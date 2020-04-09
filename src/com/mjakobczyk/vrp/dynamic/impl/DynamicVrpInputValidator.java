@@ -15,12 +15,9 @@ public class DynamicVrpInputValidator implements VrpInputValidator {
         if (vrpInput instanceof DynamicVrpInput) {
             final DynamicVrpInput dynamicVrpInput = (DynamicVrpInput) vrpInput;
 
-            if (dynamicVrpInput.getLocations() != null &&
+            return dynamicVrpInput.getLocations() != null &&
                     !dynamicVrpInput.getLocations().isEmpty() &&
-                    dynamicVrpInput.getAdditionalLocations() != null &&
-                    !dynamicVrpInput.getAdditionalLocations().isEmpty()) {
-                return true;
-            }
+                    dynamicVrpInput.getAdditionalLocations() != null;
         }
 
         return false;

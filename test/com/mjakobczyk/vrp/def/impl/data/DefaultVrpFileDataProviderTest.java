@@ -27,14 +27,8 @@ public class DefaultVrpFileDataProviderTest {
 
     @Test
     public void shouldResolveFileFromPathForCorrectFileName() {
-        //given
-        final ClassLoader classLoader = getClass().getClassLoader();
-        final URL resource = classLoader.getResource(CORRECT_FILE_NAME);
-        final File file = new File(resource.getFile());
-        final String path = file.getAbsolutePath();
-
         // when
-        final Optional<File> optionalFile = testSubject.resolveFileFromPath(path);
+        final Optional<File> optionalFile = testSubject.resolveFileFromPath(CORRECT_FILE_NAME);
 
         // then
         assertThat(optionalFile).isNotEmpty();

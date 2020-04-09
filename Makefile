@@ -4,7 +4,7 @@ app=vrp
 version=0.1
 descriptor=jar-with-dependencies
 app-with-all-deps=$(app)-$(version)-$(descriptor).jar
-resource=defaultVrpDataFile.txt
+resource=dynamicVrpDataFile.txt
 
 build:
 	mvn clean install && mkdir -p build && cp target/$(app-with-all-deps) build

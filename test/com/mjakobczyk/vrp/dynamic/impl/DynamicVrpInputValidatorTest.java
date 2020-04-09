@@ -96,7 +96,7 @@ public class DynamicVrpInputValidatorTest {
     }
 
     @Test
-    public void shouldNotBeValidWhenInputDoesNotContainAdditionalLocations() {
+    public void shouldBeValidWhenInputDoesNotContainAdditionalLocations() {
         // given
         final List<Location> locations = Collections.singletonList(
                 prepareDeliveryLocation(LOCATION_FIRST_COORDINATE, LOCATION_FIRST_COORDINATE));
@@ -107,11 +107,11 @@ public class DynamicVrpInputValidatorTest {
         final boolean isValid = testSubject.isValid(dynamicVrpInput);
 
         // then
-        assertThat(isValid).isFalse();
+        assertThat(isValid).isTrue();
     }
 
     @Test
-    public void shouldBeValidForAllInputCriteriaMet() {
+    public void shouldBeValidForExistingBaseAndAdditionalLocations() {
         // given
         final List<Location> locations = Collections.singletonList(
                 prepareDeliveryLocation(LOCATION_FIRST_COORDINATE, LOCATION_FIRST_COORDINATE));

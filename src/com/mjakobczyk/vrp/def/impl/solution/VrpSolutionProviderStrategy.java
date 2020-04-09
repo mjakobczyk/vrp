@@ -25,6 +25,21 @@ public abstract class VrpSolutionProviderStrategy {
     public abstract Optional<VrpOutput> findOptimalRouteFor(final VrpInput vrpInput);
 
     /**
+     * Default constructor of VrpSolutionProviderStrategy.
+     */
+    public VrpSolutionProviderStrategy() {
+    }
+
+    /**
+     * Constructor of VrpSolutionProviderStrategy.
+     *
+     * @param vrpInputValidator implementation that should be used for input validation
+     */
+    public VrpSolutionProviderStrategy(final VrpInputValidator vrpInputValidator) {
+        this.vrpInputValidator = vrpInputValidator;
+    }
+
+    /**
      * Getter for {@link com.mjakobczyk.vrp.service.VrpInputValidator}.
      *
      * @return validator instance

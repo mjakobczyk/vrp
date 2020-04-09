@@ -29,7 +29,7 @@ public class DefaultDynamicVrpSolutionProviderStrategy extends VrpSolutionProvid
      * Initially it makes use of {@link com.mjakobczyk.vrp.dynamic.impl.DynamicVrpInputValidator}.
      */
     public DefaultDynamicVrpSolutionProviderStrategy() {
-        super.setVrpInputValidator(new DynamicVrpInputValidator());
+        setVrpInputValidator(new DynamicVrpInputValidator());
     }
 
     @Override
