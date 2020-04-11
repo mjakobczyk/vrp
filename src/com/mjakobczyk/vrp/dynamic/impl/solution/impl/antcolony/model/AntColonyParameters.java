@@ -46,6 +46,11 @@ public class AntColonyParameters {
     private double randomFactor;
 
     /**
+     * iterations of algorithm.
+     */
+    private int iterations;
+
+    /**
      * Default constructor of AntColonyParameters.
      */
     public AntColonyParameters() {
@@ -56,6 +61,7 @@ public class AntColonyParameters {
         this.Q = 500d;
         this.antFactor = 0.8d;
         this.randomFactor = 0.01d;
+        this.iterations = 100;
     }
 
     /**
@@ -70,7 +76,7 @@ public class AntColonyParameters {
      * @param randomFactor value
      */
     public AntColonyParameters(final double c, final double alpha, final double beta, final double evaporation,
-                               final double q, final double antFactor, final double randomFactor) {
+                               final double q, final double antFactor, final double randomFactor, final int iterations) {
         this.c = c;
         this.alpha = alpha;
         this.beta = beta;
@@ -78,6 +84,7 @@ public class AntColonyParameters {
         this.Q = q;
         this.antFactor = antFactor;
         this.randomFactor = randomFactor;
+        this.iterations = iterations;
     }
 
     /**
@@ -143,4 +150,12 @@ public class AntColonyParameters {
         return randomFactor;
     }
 
+    /**
+     * Getter for iterations.
+     *
+     * @return iterations value
+     */
+    public int getIterations() {
+        return iterations;
+    }
 }
