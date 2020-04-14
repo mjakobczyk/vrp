@@ -29,7 +29,7 @@ public class AntUtils {
     }
 
     public void move(final List<Ant> ants) {
-        // TODO
+        ants.forEach(Ant::move);
     }
 
     public void updatePathsUsedBy(final List<Ant> ants) {
