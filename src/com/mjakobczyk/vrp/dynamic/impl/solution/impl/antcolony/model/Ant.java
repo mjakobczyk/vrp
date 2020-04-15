@@ -31,6 +31,17 @@ public class Ant {
     }
 
     /**
+     * Moves ant, forces it to visit given location.
+     */
+    public void moveTo(final Location location) {
+        this.trail.add(location);
+    }
+
+    public boolean visited(final Location location) {
+        return trail.contains(location);
+    }
+
+    /**
      * Getter for trail.
      *
      * @return trail
@@ -40,20 +51,12 @@ public class Ant {
     }
 
     /**
-     * Moves ant, forces it to visit another location.
+     * Getter for inputLocations.
+     *
+     * @return list of input locations
      */
-    public void move() {
-        int i = 0;
-        while (true) {
-            final Location location = inputLocations.get(i);
-            if (!trail.contains(location)) {
-                trail.add(location);
-                break;
-            }
-        }
+    public List<Location> getInputLocations() {
+        return inputLocations;
     }
 
-    public boolean visited(final Location location) {
-        return trail.contains(location);
-    }
 }
