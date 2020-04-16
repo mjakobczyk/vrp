@@ -8,12 +8,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 /**
  * AntFactory generates list of {@link com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.Ant}.
  */
 public class AntUtils {
+
+    /**
+     * Random for introducing randomness in algorithm.
+     */
+    private Random random;
+
+    /**
+     * Default constructor of AntUtils.
+     */
+    public AntUtils() {
+        this.random = new Random();
+    }
 
     /**
      * Generates ants colony of given count and on basis of given input locations.
@@ -62,8 +75,22 @@ public class AntUtils {
     }
 
     protected Optional<Location> selectLocationFor(final Ant ant, final AntColonyParameters parameters) {
-        // TODO: introduce randomness and make use of randomFactor
+        if (randomFactorAppears(parameters.getRandomFactor())) {
+            return findFirstLocationUnvisitedBy(ant);
+        }
+
+        // TODO: implement second case when random factor is not used
+
+        return Optional.empty();
+    }
+
+    protected boolean randomFactorAppears(final double randomFactor) {
+        return random.nextDouble() < randomFactor;
+    }
+
+    protected Optional<Location> findFirstLocationUnvisitedBy(final Ant ant) {
         final List<Location> inputLocations = ant.getInputLocations();
+
         for (final Location location : inputLocations) {
             if (!ant.getTrail().contains(location)) {
                 return Optional.of(location);
@@ -73,11 +100,11 @@ public class AntUtils {
         return Optional.empty();
     }
 
-    public void updatePathsUsedBy(final List<Ant> ants) {
+    public void updateTrailsUsedBy(final List<Ant> ants) {
         // TODO
     }
 
-    public List<Location> findBestPathFrom(final List<Ant> ants) {
+    public List<Location> findBestTrailFrom(final List<Ant> ants) {
         return Collections.emptyList();
     }
 
