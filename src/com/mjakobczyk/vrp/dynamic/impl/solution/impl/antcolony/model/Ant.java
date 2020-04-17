@@ -12,12 +12,6 @@ import java.util.List;
 public class Ant {
 
     /**
-     * inputLocations is a list of locations that are originally
-     * contained in VrpInput.
-     */
-    private List<Location> inputLocations;
-
-    /**
      * trail is a list of locations visited by Ant.
      */
     private List<Location> trail;
@@ -25,8 +19,7 @@ public class Ant {
     /**
      * Constructor of Ant that takes list of locations to visit.
      */
-    public Ant(final List<Location> locations) {
-        this.inputLocations = locations;
+    public Ant() {
         this.trail = Collections.emptyList();
     }
 
@@ -48,15 +41,6 @@ public class Ant {
      */
     public List<Location> getTrail() {
         return trail;
-    }
-
-    /**
-     * Getter for inputLocations.
-     *
-     * @return list of input locations
-     */
-    public List<Location> getInputLocations() {
-        return inputLocations;
     }
 
 }

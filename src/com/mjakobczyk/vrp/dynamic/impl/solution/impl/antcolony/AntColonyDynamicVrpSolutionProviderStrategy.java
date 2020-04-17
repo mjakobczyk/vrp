@@ -3,6 +3,7 @@ package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony;
 import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.Ant;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntColonyParameters;
+import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntLocationsHolder;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.utils.AntUtils;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
@@ -27,22 +28,19 @@ public class AntColonyDynamicVrpSolutionProviderStrategy extends VrpSolutionProv
     }
 
     protected Optional<VrpOutput> runAntColonyOptimizationAlgorithm(final DynamicVrpInput dynamicVrpInput) {
-        final List<Location> allLocations = dynamicVrpInput.getLocations();
-        final List<Location> additionalLocations = dynamicVrpInput.getAdditionalLocations();
-        final Location depot = allLocations.get(0);
-        final List<Location> locationsToVisit = allLocations.subList(1, allLocations.size());
-        List<Location> bestSolution = Collections.emptyList();
-
-        final AntColonyParameters antColonyParameters = new AntColonyParameters();
         final AntUtils antUtils = new AntUtils();
-        final double antsCount = antColonyParameters.getAntFactor() * allLocations.size();
-        final List<Ant> ants = antUtils.generate((int) antsCount, allLocations);
+        final AntColonyParameters parameters = new AntColonyParameters();
+        final AntLocationsHolder locations = new AntLocationsHolder(dynamicVrpInput);
+
+        final double antsCount = parameters.getAntFactor() * locations.getAllLocations().size();
+        final List<Ant> ants = antUtils.generate((int) antsCount);
+        List<Location> bestSolution = Collections.emptyList();
         antUtils.setUp(ants);
 
-        for (int i = 0; i < antColonyParameters.getIterations(); ++i) {
-            antUtils.move(ants, antColonyParameters);
-            antUtils.updatePathsUsedBy(ants);
-            bestSolution = antUtils.findBestPathFrom(ants);
+        for (int i = 0; i < parameters.getIterations(); ++i) {
+            antUtils.move(ants, parameters, locations);
+            antUtils.updateTrailsUsedBy(ants);
+            bestSolution = antUtils.findBestTrailFrom(ants);
         }
 
         return Optional.of(new DynamicVrpOutput(bestSolution));

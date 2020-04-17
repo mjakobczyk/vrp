@@ -2,6 +2,7 @@ package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.utils;
 
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.Ant;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntColonyParameters;
+import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntLocationsHolder;
 import com.mjakobczyk.vrp.model.Location;
 
 import java.util.ArrayList;
@@ -32,12 +33,11 @@ public class AntUtils {
      * Generates ants colony of given count and on basis of given input locations.
      *
      * @param antsCount that should be generated
-     * @param locations that should be visited by each ant
      * @return list of ants
      */
-    public List<Ant> generate(final int antsCount, final List<Location> locations) {
+    public List<Ant> generate(final int antsCount) {
         final List<Ant> ants = new ArrayList<>();
-        IntStream.range(0, antsCount).forEach(i -> ants.add(new Ant(locations)));
+        IntStream.range(0, antsCount).forEach(i -> ants.add(new Ant()));
 
         return ants;
     }
@@ -67,16 +67,16 @@ public class AntUtils {
      * @param ants       that should be updated
      * @param parameters that should be included in calculations
      */
-    public void move(final List<Ant> ants, final AntColonyParameters parameters) {
+    public void move(final List<Ant> ants, final AntColonyParameters parameters, final AntLocationsHolder locations) {
         ants.forEach(ant -> {
-            final Optional<Location> optionalLocation = selectLocationFor(ant, parameters);
+            final Optional<Location> optionalLocation = selectLocationFor(ant, parameters, locations);
             optionalLocation.ifPresent(ant::moveTo);
         });
     }
 
-    protected Optional<Location> selectLocationFor(final Ant ant, final AntColonyParameters parameters) {
+    protected Optional<Location> selectLocationFor(final Ant ant, final AntColonyParameters parameters, final AntLocationsHolder locations) {
         if (randomFactorAppears(parameters.getRandomFactor())) {
-            return findFirstLocationUnvisitedBy(ant);
+            return findFirstLocationUnvisitedBy(ant, locations.getLocationsToVisit());
         }
 
         // TODO: implement second case when random factor is not used
@@ -88,10 +88,8 @@ public class AntUtils {
         return random.nextDouble() < randomFactor;
     }
 
-    protected Optional<Location> findFirstLocationUnvisitedBy(final Ant ant) {
-        final List<Location> inputLocations = ant.getInputLocations();
-
-        for (final Location location : inputLocations) {
+    protected Optional<Location> findFirstLocationUnvisitedBy(final Ant ant, final List<Location> locationsToVisit) {
+        for (final Location location : locationsToVisit) {
             if (!ant.getTrail().contains(location)) {
                 return Optional.of(location);
             }
