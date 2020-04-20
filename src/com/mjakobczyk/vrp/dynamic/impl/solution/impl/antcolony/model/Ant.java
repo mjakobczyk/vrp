@@ -24,6 +24,16 @@ public class Ant {
     }
 
     /**
+     * setUp prepares Ant's journey by moving to the depot location.
+     *
+     * @param depot location to visit first
+     */
+    public void setUp(final Location depot) {
+        clear();
+        moveTo(depot);
+    }
+
+    /**
      * Moves ant, forces it to visit given location.
      */
     public void moveTo(final Location location) {
@@ -32,6 +42,10 @@ public class Ant {
 
     public boolean visited(final Location location) {
         return trail.contains(location);
+    }
+
+    public void clear() {
+        this.getTrail().clear();
     }
 
     /**

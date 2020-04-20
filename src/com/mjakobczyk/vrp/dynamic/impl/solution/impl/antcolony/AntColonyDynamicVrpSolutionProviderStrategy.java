@@ -34,8 +34,9 @@ public class AntColonyDynamicVrpSolutionProviderStrategy extends VrpSolutionProv
 
         final double antsCount = parameters.getAntFactor() * locations.getAllLocations().size();
         final List<Ant> ants = antUtils.generate((int) antsCount);
+        antUtils.setUp(ants, locations);
+
         List<Location> bestSolution = Collections.emptyList();
-        antUtils.setUp(ants);
 
         for (int i = 0; i < parameters.getIterations(); ++i) {
             antUtils.move(ants, parameters, locations);
