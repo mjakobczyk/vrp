@@ -30,6 +30,11 @@ public class AntUtils {
     private L2LValueMapper trailsSignificance;
 
     /**
+     * Reflect distances between locations.
+     */
+    private L2LValueMapper distances;
+
+    /**
      * Probabilities for picking by Ant a given Location.
      */
     private Map<Location, Double> probabilities;
@@ -61,7 +66,8 @@ public class AntUtils {
      * @param location that should be included
      */
     public void includeAdditionalLocationFor(final List<Ant> ants, final Location location) {
-        // TODO
+        // TODO:
+        // TODO: trailsSignificance
     }
 
     /**
@@ -72,9 +78,18 @@ public class AntUtils {
      */
     public void setUp(final List<Ant> ants, final AntLocationsHolder locations) {
         ants.forEach(ant -> ant.setUp(locations.getDepot()));
+
         this.trailsSignificance = new L2LValueMapper(locations.getAllLocations());
         for (final Location location : locations.getAllLocations()) {
             this.probabilities.put(location, 0D);
+        }
+
+        this.distances = new L2LValueMapper(locations.getAllLocations());
+        for (final Location first : locations.getAllLocations()) {
+            for (final Location second : locations.getAllLocations()) {
+                final double distance = first.distanceTo(second);
+                this.distances.put(first, second, distance);
+            }
         }
     }
 
@@ -99,11 +114,7 @@ public class AntUtils {
         }
 
         calculateProbabilitiesToVisitNextCityBy(ant, locationsToVisit, parameters);
-        chooseNextLocationWithTheChangestProbabilityFor(ant, locationsToVisit);
-
-        // TODO: implement second case when random factor is not used
-
-        return Optional.empty();
+        return chooseNextLocationWithTheHighestProbabilityFor(ant, locationsToVisit);
     }
 
     protected boolean randomFactorAppears(final double randomFactor) {
@@ -145,7 +156,7 @@ public class AntUtils {
         return phoromones;
     }
 
-    protected Optional<Location> chooseNextLocationWithTheChangestProbabilityFor(final Ant ant, final List<Location> locationsToVisit) {
+    protected Optional<Location> chooseNextLocationWithTheHighestProbabilityFor(final Ant ant, final List<Location> locationsToVisit) {
         double randomDouble = random.nextDouble();
         double total = 0;
 

@@ -1,5 +1,6 @@
 package com.mjakobczyk.vrp.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ public class L2LValueMapper {
 
     private Map<Location, Integer> locationsIndexesMap;
 
-    private double[][] array;
+    private List<List<Double>> data;
 
     /**
      * Default constructor of L2LValueMapper.
@@ -21,6 +22,7 @@ public class L2LValueMapper {
      */
     public L2LValueMapper(final List<Location> locations) {
         initializeLocationsIndexesMapWith(locations);
+        initializesDataWith(locations);
     }
 
     protected void initializeLocationsIndexesMapWith(final List<Location> locations) {
@@ -30,6 +32,10 @@ public class L2LValueMapper {
             this.locationsIndexesMap.put(location, index);
             index++;
         }
+    }
+
+    protected void initializesDataWith(final List<Location> locations) {
+        this.data = new ArrayList<>(locations.size());
     }
 
     /**
@@ -42,7 +48,7 @@ public class L2LValueMapper {
     public void put(final Location first, final Location second, double value) {
         final int firstIndex = getIndexOf(first);
         final int secondIndex = getIndexOf(second);
-        this.array[firstIndex][secondIndex] = value;
+        data.get(firstIndex).add(secondIndex, value);
     }
 
     protected int getIndexOf(final Location location) {
@@ -59,7 +65,7 @@ public class L2LValueMapper {
     public double get(final Location first, final Location second) {
         final int firstIndex = getIndexOf(first);
         final int secondIndex = getIndexOf(second);
-        return this.array[firstIndex][secondIndex];
+        return data.get(firstIndex).get(secondIndex);
     }
 
 }

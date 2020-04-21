@@ -116,16 +116,6 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
         return Optional.of(new DynamicVrpOutput(bestSolution));
     }
 
-    protected double countDistanceFor(final List<Location> locations) {
-        double totalDistance = 0.0f;
-
-        for (int i = 0; i < locations.size() - 1; ++i) {
-            totalDistance += locations.get(i).distanceTo(locations.get(i + 1));
-        }
-
-        return totalDistance;
-    }
-
     protected boolean shouldAdditionalLocationAppear() {
         return random.nextInt(MAX_RANDOM_NUMBER) > ADDITIONAL_PICK_THRESHOLD;
     }

@@ -66,18 +66,6 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategyTest {
     }
 
     @Test
-    public void shouldCorrectlyCountTotalDistanceForThreeCities() {
-        // given
-        final List<Location> locations = prepareLocationsList();
-
-        // when
-        final double totalDistance = testSubject.countDistanceFor(locations);
-
-        // then
-        assertThat(totalDistance).isEqualTo(EXPECTED_TOTAL_DISTANCE);
-    }
-
-    @Test
     public void shouldFindOptimalRouteWhenAdditionalLocationsAreIncluded() {
         // given
         given(vrpInputValidator.isValid(any(VrpInput.class))).willReturn(true);

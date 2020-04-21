@@ -55,7 +55,7 @@ public class DefaultVrpSolutionProviderStrategyTest {
         assertThat(optionalVrpOutput.get().getLocations().get(1).getCoordinates().getCoordinateX()).isEqualTo(SECOND_LOCATION_FIRST_COORDINATE);
         assertThat(optionalVrpOutput.get().getLocations().get(1).getCoordinates().getCoordinateY()).isEqualTo(SECOND_LOCATION_SECOND_COORDINATE);
     }
-
+    
     private VrpInput createSampleVrpInput() {
         final List<Location> locations = new ArrayList<>(LOCATIONS_COUNT);
         locations.add(new DeliveryLocation(new Coordinates(FIRST_LOCATION_FIRST_COORDINATE, FIRST_LOCATION_SECOND_COORDINATE)));

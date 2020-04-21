@@ -1,9 +1,11 @@
 package com.mjakobczyk.vrp.def.impl.solution;
 
+import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.service.VrpInputValidator;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -37,6 +39,16 @@ public abstract class VrpSolutionProviderStrategy {
      */
     public VrpSolutionProviderStrategy(final VrpInputValidator vrpInputValidator) {
         this.vrpInputValidator = vrpInputValidator;
+    }
+
+    protected double countDistanceFor(final List<Location> locations) {
+        double totalDistance = 0.0f;
+
+        for (int i = 0; i < locations.size() - 1; ++i) {
+            totalDistance += locations.get(i).distanceTo(locations.get(i + 1));
+        }
+
+        return totalDistance;
     }
 
     /**
