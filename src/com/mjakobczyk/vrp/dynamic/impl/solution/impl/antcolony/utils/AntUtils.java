@@ -133,27 +133,36 @@ public class AntUtils {
 
     protected void calculateProbabilitiesToVisitNextCityBy(final Ant ant, final List<Location> locationsToVisit, final AntColonyParameters parameters) {
         final double pheromones = countTotalPheromonesLevelFor(ant, locationsToVisit, parameters);
+        final Location lastVisitedLocation = ant.getTrail().get(ant.getTrail().size() - 1);
 
-        for (final Location location : locationsToVisit) {
-            if (ant.visited(location)) {
-                probabilities.put(location, 0D);
+        for (final Location locationToVisit : locationsToVisit) {
+            if (ant.visited(locationToVisit)) {
+                probabilities.put(locationToVisit, 0D);
             } else {
-                double value = 0D; // TODO: implement counting probability value using pheromones
-                probabilities.put(location, value);
+                final double value = countPheromoneLevelBetween(lastVisitedLocation, locationToVisit, parameters);
+                final double probability = value / pheromones;
+                probabilities.put(locationToVisit, probability);
             }
         }
     }
 
     protected double countTotalPheromonesLevelFor(final Ant ant, final List<Location> locationsToVisit, final AntColonyParameters parameters) {
         double phoromones = 0D;
+        final Location lastVisitedLocation = ant.getTrail().get(ant.getTrail().size() - 1);
 
-        for (final Location location : locationsToVisit) {
-            if (!ant.visited(location)) {
-                phoromones += 0D; // TODO: count pheromone
+        for (final Location locationToVosit : locationsToVisit) {
+            if (!ant.visited(locationToVosit)) {
+                phoromones += countPheromoneLevelBetween(lastVisitedLocation, locationToVosit, parameters);
             }
         }
 
         return phoromones;
+    }
+
+    protected double countPheromoneLevelBetween(final Location first, final Location second, final AntColonyParameters parameters) {
+        final double trailSignificance = trailsSignificance.get(first, second);
+        final double trailDistance = distances.get(first, second);
+        return Math.pow(trailSignificance, parameters.getAlpha()) * Math.pow(trailDistance, parameters.getBeta());
     }
 
     protected Optional<Location> chooseNextLocationWithTheHighestProbabilityFor(final Ant ant, final List<Location> locationsToVisit) {
