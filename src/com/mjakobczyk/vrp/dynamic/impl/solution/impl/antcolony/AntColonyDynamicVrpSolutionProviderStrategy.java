@@ -40,7 +40,7 @@ public class AntColonyDynamicVrpSolutionProviderStrategy extends VrpSolutionProv
 
         for (int i = 0; i < parameters.getIterations(); ++i) {
             antUtils.move(ants, parameters, locations);
-            antUtils.updateTrailsUsedBy(ants);
+            antUtils.updateTrailsUsedBy(ants, parameters);
             bestSolution = antUtils.findBestTrailFrom(ants);
         }
 

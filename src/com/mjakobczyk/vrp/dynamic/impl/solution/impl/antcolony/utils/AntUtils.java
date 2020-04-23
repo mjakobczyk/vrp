@@ -180,8 +180,35 @@ public class AntUtils {
         return Optional.empty();
     }
 
-    public void updateTrailsUsedBy(final List<Ant> ants) {
-        // TODO
+    public void updateTrailsUsedBy(final List<Ant> ants, final AntLocationsHolder locations, final AntColonyParameters parameters) {
+        evaporateTrails(locations, parameters);
+        updateContributionOfAll(ants, parameters);
+    }
+
+    protected void evaporateTrails(final AntLocationsHolder locations, final AntColonyParameters parameters) {
+        for (final Location first : locations.getAllLocations()) {
+            for (final Location second : locations.getAllLocations()) {
+                final double oldTrailSignificance = trailsSignificance.get(first, second);
+                final double newTrailSignificance = oldTrailSignificance * parameters.getEvaporation();
+                trailsSignificance.put(first, second, newTrailSignificance);
+            }
+        }
+    }
+
+    protected void updateContributionOfAll(final List<Ant> ants, final AntColonyParameters parameters) {
+        ants.forEach(ant -> {
+            final double trailLength = 1; // TODO: count it dynamically
+            final double antContribution = parameters.getQ() / trailLength;
+            final List<Location> antTrail = ant.getTrail();
+
+            for (int i = 0; i < antTrail.size() - 2; ++i) {
+                for (int j = 1; j < antTrail.size() - 1; ++j) {
+                    trailsSignificance.put(antTrail.get(i), antTrail.get(j), antContribution);
+                }
+            }
+            // Contribution from the last location to the depot should be included too
+            trailsSignificance.put(antTrail.get(antTrail.size()-1), antTrail.get(0), antContribution);
+        });
     }
 
     public List<Location> findBestTrailFrom(final List<Ant> ants) {
