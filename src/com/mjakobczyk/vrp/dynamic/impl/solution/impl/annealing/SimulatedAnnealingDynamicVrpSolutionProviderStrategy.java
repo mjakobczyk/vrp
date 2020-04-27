@@ -78,7 +78,7 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
 
         List<Location> bestSolution = new ArrayList<>(resultLocationsList);
         int additionalLocationsCounter = 0;
-        double bestDistance = countDistanceFor(allLocations);
+        double bestDistance = getVrpUtils().countDistanceFor(allLocations);
 
         LOG.log(Level.INFO, "Initial distance for " + allLocations.size() + " locations = " + bestDistance);
 
@@ -88,7 +88,7 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
                 allLocations.add(additionalLocation);
                 resultLocationsList.add(additionalLocation);
                 final int resultLocationListSize = resultLocationsList.size();
-                Collections.swap(resultLocationsList,resultLocationListSize - 2,resultLocationListSize - 1);
+                Collections.swap(resultLocationsList, resultLocationListSize - 2, resultLocationListSize - 1);
 
                 bestSolution.clear();
                 bestSolution = new ArrayList<>(resultLocationsList);
@@ -97,7 +97,7 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
 
             for (int i = 0; i < travelsOrder.getTravels().size(); ++i) {
                 Collections.swap(allLocations, travelsOrder.getTravels().get(i).getFirstLocation(), travelsOrder.getTravels().get(i).getSecondLocation());
-                double distanceAfterSwap = countDistanceFor(allLocations);
+                double distanceAfterSwap = getVrpUtils().countDistanceFor(allLocations);
 
                 if (distanceAfterSwap < bestDistance) {
                     bestSolution.clear();

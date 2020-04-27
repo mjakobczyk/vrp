@@ -1,11 +1,10 @@
 package com.mjakobczyk.vrp.def.impl.solution;
 
-import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.service.VrpInputValidator;
+import com.mjakobczyk.vrp.service.VrpUtils;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,6 +16,11 @@ public abstract class VrpSolutionProviderStrategy {
      * Validator for input data.
      */
     private VrpInputValidator vrpInputValidator;
+
+    /**
+     * VrpUtils for counting distances.
+     */
+    private VrpUtils vrpUtils;
 
     /**
      * Returns found optimal router for given VrpInput.
@@ -41,16 +45,6 @@ public abstract class VrpSolutionProviderStrategy {
         this.vrpInputValidator = vrpInputValidator;
     }
 
-    protected double countDistanceFor(final List<Location> locations) {
-        double totalDistance = 0.0f;
-
-        for (int i = 0; i < locations.size() - 1; ++i) {
-            totalDistance += locations.get(i).distanceTo(locations.get(i + 1));
-        }
-
-        return totalDistance;
-    }
-
     /**
      * Getter for {@link com.mjakobczyk.vrp.service.VrpInputValidator}.
      *
@@ -67,5 +61,23 @@ public abstract class VrpSolutionProviderStrategy {
      */
     public void setVrpInputValidator(final VrpInputValidator vrpInputValidator) {
         this.vrpInputValidator = vrpInputValidator;
+    }
+
+    /**
+     * Getter for {@link com.mjakobczyk.vrp.service.VrpUtils}.
+     *
+     * @return vrpUtils instance
+     */
+    public VrpUtils getVrpUtils() {
+        return vrpUtils;
+    }
+
+    /**
+     * Setter for {@link com.mjakobczyk.vrp.service.VrpUtils}.
+     *
+     * @param vrpUtils instance
+     */
+    public void setVrpUtils(VrpUtils vrpUtils) {
+        this.vrpUtils = vrpUtils;
     }
 }

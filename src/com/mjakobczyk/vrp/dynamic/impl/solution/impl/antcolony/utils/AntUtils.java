@@ -5,6 +5,7 @@ import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntColonyPa
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntLocationsHolder;
 import com.mjakobczyk.vrp.model.L2LValueMapper;
 import com.mjakobczyk.vrp.model.Location;
+import com.mjakobczyk.vrp.service.VrpUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +39,11 @@ public class AntUtils {
      * Probabilities for picking by Ant a given Location.
      */
     private Map<Location, Double> probabilities;
+
+    /**
+     * VrpUtils for counting distances.
+     */
+    private VrpUtils vrpUtils;
 
     /**
      * Default constructor of AntUtils.
@@ -207,7 +213,7 @@ public class AntUtils {
                 }
             }
             // Contribution from the last location to the depot should be included too
-            trailsSignificance.put(antTrail.get(antTrail.size()-1), antTrail.get(0), antContribution);
+            trailsSignificance.put(antTrail.get(antTrail.size() - 1), antTrail.get(0), antContribution);
         });
     }
 
@@ -220,4 +226,21 @@ public class AntUtils {
         this.trailsSignificance = null;
     }
 
+    /**
+     * Getter for {@link com.mjakobczyk.vrp.service.VrpUtils}.
+     *
+     * @return vrpUtils instance
+     */
+    public VrpUtils getVrpUtils() {
+        return vrpUtils;
+    }
+
+    /**
+     * Setter for {@link com.mjakobczyk.vrp.service.VrpUtils}.
+     *
+     * @param vrpUtils instance
+     */
+    public void setVrpUtils(VrpUtils vrpUtils) {
+        this.vrpUtils = vrpUtils;
+    }
 }
