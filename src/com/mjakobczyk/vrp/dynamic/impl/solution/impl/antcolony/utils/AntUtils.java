@@ -203,7 +203,7 @@ public class AntUtils {
 
     protected void updateContributionOfAll(final List<Ant> ants, final AntColonyParameters parameters) {
         ants.forEach(ant -> {
-            final double trailLength = 1; // TODO: count it dynamically
+            final double trailLength = parameters.getQ() / getVrpUtils().countDistanceAndIncludeFirstLocationTwiceFor(ant.getTrail());
             final double antContribution = parameters.getQ() / trailLength;
             final List<Location> antTrail = ant.getTrail();
 
@@ -218,7 +218,18 @@ public class AntUtils {
     }
 
     public List<Location> findBestTrailFrom(final List<Ant> ants) {
-        return Collections.emptyList();
+        Ant bestAnt = null;
+        double bestDistance = Double.MAX_VALUE;
+
+        for (Ant ant : ants) {
+            final double distance = getVrpUtils().countDistanceFor(ant.getTrail());
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                bestAnt = ant;
+            }
+        }
+
+        return bestAnt.getTrail();
     }
 
     public void clear(final List<Ant> ants) {
