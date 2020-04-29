@@ -10,6 +10,7 @@ import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolutionProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
 import com.mjakobczyk.vrp.dynamic.impl.data.impl.DynamicVrpFileDataProvider;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.AntColonyDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.service.VrpDataProvider;
 import com.mjakobczyk.vrp.service.VrpSolutionProvider;
@@ -55,7 +56,7 @@ public class Application {
             inputFilePath = args[0];
         }
 
-        instantiateDynamicVrpSolution(inputFilePath);
+        instantiateAntColonyDvrpSolution(inputFilePath);
 
         final Optional<VrpOutput> optionalVrpOutput = this.vrpSolver.solve();
 
@@ -89,10 +90,18 @@ public class Application {
         this.vrpSolver = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }
 
-    private void instantiateDynamicVrpSolution(final String inputFilePath) {
+    private void instantiateSimulatedAnnealingDvrpSolution(final String inputFilePath) {
         final VrpFileDataProvider fileDataProvider = new DynamicVrpFileDataProvider();
         final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(inputFilePath, fileDataProvider);
         final VrpSolutionProviderStrategy strategy = new SimulatedAnnealingDynamicVrpSolutionProviderStrategy();
+        final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider(strategy);
+        this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
+    }
+
+    private void instantiateAntColonyDvrpSolution(final String inputFilePath) {
+        final VrpFileDataProvider fileDataProvider = new DynamicVrpFileDataProvider();
+        final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(inputFilePath, fileDataProvider);
+        final VrpSolutionProviderStrategy strategy = new AntColonyDynamicVrpSolutionProviderStrategy();
         final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider(strategy);
         this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }

@@ -2,6 +2,7 @@ package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model;
 
 import com.mjakobczyk.vrp.model.Location;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,7 +46,8 @@ public class Ant {
     }
 
     public void clear() {
-        this.getTrail().clear();
+        this.trail.clear();
+        this.trail = new ArrayList<>();
     }
 
     /**

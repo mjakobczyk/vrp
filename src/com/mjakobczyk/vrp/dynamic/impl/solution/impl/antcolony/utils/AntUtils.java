@@ -1,5 +1,6 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.utils;
 
+import com.mjakobczyk.vrp.def.impl.DefaultVrpUtils;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.Ant;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntColonyParameters;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntLocationsHolder;
@@ -9,6 +10,7 @@ import com.mjakobczyk.vrp.service.VrpUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -50,6 +52,7 @@ public class AntUtils {
      */
     public AntUtils() {
         this.random = new Random();
+        this.vrpUtils = new DefaultVrpUtils();
     }
 
     /**
@@ -84,6 +87,7 @@ public class AntUtils {
      */
     public void setUp(final List<Ant> ants, final AntLocationsHolder locations) {
         ants.forEach(ant -> ant.setUp(locations.getDepot()));
+        this.probabilities = new HashMap<>();
 
         this.trailsSignificance = new L2LValueMapper(locations.getAllLocations());
         for (final Location location : locations.getAllLocations()) {

@@ -35,7 +35,16 @@ public class L2LValueMapper {
     }
 
     protected void initializesDataWith(final List<Location> locations) {
-        this.data = new ArrayList<>(locations.size());
+        final int size = locations.size();
+        // Default initial value to initialize L2L is 0.
+        final Double initialValue = 0D;
+        this.data = new ArrayList<>(size);
+        for (int i = 0; i < size; ++i) {
+            this.data.add(new ArrayList<>(locations.size()));
+            for (int j = 0; j < size; j++) {
+                this.data.get(i).add(initialValue);
+            }
+        }
     }
 
     /**
