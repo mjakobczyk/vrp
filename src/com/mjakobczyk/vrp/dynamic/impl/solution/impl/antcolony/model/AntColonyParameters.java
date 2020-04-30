@@ -61,7 +61,7 @@ public class AntColonyParameters {
         this.Q = 500d;
         this.antFactor = 0.8d;
         this.randomFactor = 0.01d;
-        this.iterations = 100;
+        this.iterations = 1000; // by default was 100
     }
 
     /**

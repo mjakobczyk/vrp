@@ -7,6 +7,7 @@ import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntLocation
 import com.mjakobczyk.vrp.model.L2LValueMapper;
 import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.service.VrpUtils;
+import jdk.swing.interop.SwingInterOpUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,9 +51,23 @@ public class AntUtils {
     /**
      * Default constructor of AntUtils.
      */
-    public AntUtils() {
+    public AntUtils(final AntLocationsHolder locations) {
         this.random = new Random();
         this.vrpUtils = new DefaultVrpUtils();
+        this.probabilities = new HashMap<>();
+
+        this.trailsSignificance = new L2LValueMapper(locations.getAllLocations());
+        for (final Location location : locations.getAllLocations()) {
+            this.probabilities.put(location, 0D);
+        }
+
+        this.distances = new L2LValueMapper(locations.getAllLocations());
+        for (final Location first : locations.getAllLocations()) {
+            for (final Location second : locations.getAllLocations()) {
+                final double distance = first.distanceTo(second);
+                this.distances.put(first, second, distance);
+            }
+        }
     }
 
     /**
@@ -87,20 +102,6 @@ public class AntUtils {
      */
     public void setUp(final List<Ant> ants, final AntLocationsHolder locations) {
         ants.forEach(ant -> ant.setUp(locations.getDepot()));
-        this.probabilities = new HashMap<>();
-
-        this.trailsSignificance = new L2LValueMapper(locations.getAllLocations());
-        for (final Location location : locations.getAllLocations()) {
-            this.probabilities.put(location, 0D);
-        }
-
-        this.distances = new L2LValueMapper(locations.getAllLocations());
-        for (final Location first : locations.getAllLocations()) {
-            for (final Location second : locations.getAllLocations()) {
-                final double distance = first.distanceTo(second);
-                this.distances.put(first, second, distance);
-            }
-        }
     }
 
     /**
@@ -110,9 +111,16 @@ public class AntUtils {
      * @param parameters that should be included in calculations
      */
     public void move(final List<Ant> ants, final AntColonyParameters parameters, final AntLocationsHolder locations) {
+        for (int i = 0; i < locations.getLocationsToVisit().size(); ++i) {
+            for (final Ant ant : ants) {
+                final Optional<Location> optionalLocation = selectLocationFor(ant, parameters, locations);
+                optionalLocation.ifPresent(ant::moveTo);
+            }
+        }
+
+        // Move back all ants to depot
         ants.forEach(ant -> {
-            final Optional<Location> optionalLocation = selectLocationFor(ant, parameters, locations);
-            optionalLocation.ifPresent(ant::moveTo);
+            ant.moveTo(locations.getDepot());
         });
     }
 
@@ -187,7 +195,7 @@ public class AntUtils {
             }
         }
 
-        return Optional.empty();
+        return findFirstLocationUnvisitedBy(ant, locationsToVisit);
     }
 
     public void updateTrailsUsedBy(final List<Ant> ants, final AntLocationsHolder locations, final AntColonyParameters parameters) {
@@ -233,12 +241,12 @@ public class AntUtils {
             }
         }
 
+//        System.out.println("Current Ants best solution cost was: " + bestDistance);
         return bestAnt.getTrail();
     }
 
     public void clear(final List<Ant> ants) {
         ants.forEach(Ant::clear);
-        this.trailsSignificance = null;
     }
 
     /**

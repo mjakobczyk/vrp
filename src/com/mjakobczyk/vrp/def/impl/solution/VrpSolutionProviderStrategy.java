@@ -1,5 +1,6 @@
 package com.mjakobczyk.vrp.def.impl.solution;
 
+import com.mjakobczyk.vrp.def.impl.DefaultVrpUtils;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.service.VrpInputValidator;
@@ -34,6 +35,7 @@ public abstract class VrpSolutionProviderStrategy {
      * Default constructor of VrpSolutionProviderStrategy.
      */
     public VrpSolutionProviderStrategy() {
+        this.vrpUtils = new DefaultVrpUtils();
     }
 
     /**
