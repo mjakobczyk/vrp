@@ -23,6 +23,9 @@ import java.util.stream.IntStream;
  */
 public class AntUtils {
 
+    private static final Double TRAILS_SIGNIFICANCE_INITIAL_VALUE = 1D;
+    private static final Double DISTANCES_INITIAL_VALUE = Double.MAX_VALUE;
+
     /**
      * Random for introducing randomness in algorithm.
      */
@@ -56,12 +59,12 @@ public class AntUtils {
         this.vrpUtils = new DefaultVrpUtils();
         this.probabilities = new HashMap<>();
 
-        this.trailsSignificance = new L2LValueMapper(locations.getAllLocations());
+        this.trailsSignificance = new L2LValueMapper(locations.getAllLocations(), AntUtils.TRAILS_SIGNIFICANCE_INITIAL_VALUE);
         for (final Location location : locations.getAllLocations()) {
             this.probabilities.put(location, 0D);
         }
 
-        this.distances = new L2LValueMapper(locations.getAllLocations());
+        this.distances = new L2LValueMapper(locations.getAllLocations(), AntUtils.DISTANCES_INITIAL_VALUE);
         for (final Location first : locations.getAllLocations()) {
             for (final Location second : locations.getAllLocations()) {
                 final double distance = first.distanceTo(second);
@@ -127,11 +130,16 @@ public class AntUtils {
     protected Optional<Location> selectLocationFor(final Ant ant, final AntColonyParameters parameters, final AntLocationsHolder locations) {
         final List<Location> locationsToVisit = locations.getLocationsToVisit();
 
+        // First we should check if the Ant should visit a random city.
+        // Decision is made upon random factor.
         if (randomFactorAppears(parameters.getRandomFactor())) {
             return findFirstLocationUnvisitedBy(ant, locationsToVisit);
         }
 
+        // If random city was not visited then probabilities should be count for each city to visit.
         calculateProbabilitiesToVisitNextCityBy(ant, locationsToVisit, parameters);
+        // After calculating probability of visiting each city the one with the highest
+        // probability should be chosen.
         return chooseNextLocationWithTheHighestProbabilityFor(ant, locationsToVisit);
     }
 
@@ -158,7 +166,9 @@ public class AntUtils {
                 probabilities.put(locationToVisit, 0D);
             } else {
                 final double value = countPheromoneLevelBetween(lastVisitedLocation, locationToVisit, parameters);
-                final double probability = value / pheromones;
+                // If there was no ant that used this particular path then there are no pheromones on the path.
+                // So the resulting probability will be 0.
+                final double probability = pheromones == 0 ? 0D : value / pheromones;
                 probabilities.put(locationToVisit, probability);
             }
         }

@@ -11,18 +11,30 @@ import java.util.Map;
  */
 public class L2LValueMapper {
 
+    private static final Double DEFAULT_INITIAL_VALUE = 0D;
+
     private Map<Location, Integer> locationsIndexesMap;
 
     private List<List<Double>> data;
 
     /**
-     * Default constructor of L2LValueMapper.
+     * Constructor that takes locations list as a parameter.
+     * Initial value of each mapping is 0 by default.
      *
      * @param locations to initialize mapper with
      */
     public L2LValueMapper(final List<Location> locations) {
         initializeLocationsIndexesMapWith(locations);
-        initializesDataWith(locations);
+        initializesDataWith(locations, L2LValueMapper.DEFAULT_INITIAL_VALUE);
+    }
+
+    /**
+     *
+     * @param locations
+     */
+    public L2LValueMapper(final List<Location> locations, final Double initialValue) {
+        initializeLocationsIndexesMapWith(locations);
+        initializesDataWith(locations, initialValue);
     }
 
     protected void initializeLocationsIndexesMapWith(final List<Location> locations) {
@@ -34,10 +46,8 @@ public class L2LValueMapper {
         }
     }
 
-    protected void initializesDataWith(final List<Location> locations) {
+    protected void initializesDataWith(final List<Location> locations, final Double initialValue) {
         final int size = locations.size();
-        // Default initial value to initialize L2L is 0.
-        final Double initialValue = 0D;
         this.data = new ArrayList<>(size);
         for (int i = 0; i < size; ++i) {
             this.data.add(new ArrayList<>(locations.size()));
