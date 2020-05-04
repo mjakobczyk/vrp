@@ -6,9 +6,9 @@ package com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.model;
  */
 public class SimulatedAnnealingTemperature {
 
-    private static final int DEFAULT_INITIAL_VALUE = 100;
-    private static final int DEFAULT_MINIMUM_VALUE = 70;
-    private static final int DEFAULT_STEP_VALUE = 5;
+    private static final int DEFAULT_INITIAL_VALUE = 1000;
+    private static final int DEFAULT_MINIMUM_VALUE = 0;
+    private static final int DEFAULT_STEP_VALUE = 1;
 
     /**
      * Current value of temperature.

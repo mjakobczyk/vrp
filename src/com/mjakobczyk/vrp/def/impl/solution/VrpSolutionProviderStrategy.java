@@ -45,6 +45,7 @@ public abstract class VrpSolutionProviderStrategy {
      */
     public VrpSolutionProviderStrategy(final VrpInputValidator vrpInputValidator) {
         this.vrpInputValidator = vrpInputValidator;
+        this.vrpUtils = new DefaultVrpUtils();
     }
 
     /**
