@@ -11,6 +11,7 @@ import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
 import com.mjakobczyk.vrp.dynamic.impl.data.impl.DynamicVrpFileDataProvider;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.AntColonyDynamicVrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.AntColonyOptimizedDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.service.VrpDataProvider;
 import com.mjakobczyk.vrp.service.VrpSolutionProvider;
@@ -101,7 +102,7 @@ public class Application {
     private void instantiateAntColonyDvrpSolution(final String inputFilePath) {
         final VrpFileDataProvider fileDataProvider = new DynamicVrpFileDataProvider();
         final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(inputFilePath, fileDataProvider);
-        final VrpSolutionProviderStrategy strategy = new AntColonyDynamicVrpSolutionProviderStrategy();
+        final VrpSolutionProviderStrategy strategy = new AntColonyOptimizedDynamicVrpSolutionProviderStrategy();
         final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider(strategy);
         this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }
