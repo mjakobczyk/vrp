@@ -1,5 +1,6 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.model;
 
+import com.mjakobczyk.vrp.def.impl.solution.impl.annealing.model.SimulatedAnnealingTravelOrder;
 import com.mjakobczyk.vrp.model.Coordinates;
 import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.model.DeliveryLocation;

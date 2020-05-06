@@ -1,6 +1,7 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing;
 
 
+import com.mjakobczyk.vrp.def.impl.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
 import com.mjakobczyk.vrp.model.Coordinates;
 import com.mjakobczyk.vrp.model.Location;

@@ -1,6 +1,7 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.model;
 
 
+import com.mjakobczyk.vrp.def.impl.solution.impl.annealing.model.SimulatedAnnealingTemperature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

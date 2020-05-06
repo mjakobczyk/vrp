@@ -1,4 +1,4 @@
-package com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.model;
+package com.mjakobczyk.vrp.def.impl.solution.impl.annealing.model;
 
 import com.mjakobczyk.vrp.model.Location;
 

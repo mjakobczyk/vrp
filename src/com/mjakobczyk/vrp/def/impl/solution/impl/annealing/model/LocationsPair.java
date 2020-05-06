@@ -1,4 +1,4 @@
-package com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing.model;
+package com.mjakobczyk.vrp.def.impl.solution.impl.annealing.model;
 
 /**
  * LocationsPair stores identity of two locations that can be used
