@@ -1,4 +1,4 @@
-package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model;
+package com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model;
 
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.model.Location;

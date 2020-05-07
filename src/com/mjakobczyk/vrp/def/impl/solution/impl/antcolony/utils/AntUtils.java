@@ -1,16 +1,14 @@
-package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.utils;
+package com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.utils;
 
 import com.mjakobczyk.vrp.def.impl.DefaultVrpUtils;
-import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.Ant;
-import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntColonyParameters;
-import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntLocationsHolder;
+import com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model.Ant;
+import com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model.AntColonyParameters;
+import com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model.AntLocationsHolder;
 import com.mjakobczyk.vrp.model.L2LValueMapper;
 import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.service.VrpUtils;
-import jdk.swing.interop.SwingInterOpUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +17,7 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 /**
- * AntFactory generates list of {@link com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.Ant}.
+ * AntFactory generates list of {@link com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model.Ant}.
  */
 public class AntUtils {
 

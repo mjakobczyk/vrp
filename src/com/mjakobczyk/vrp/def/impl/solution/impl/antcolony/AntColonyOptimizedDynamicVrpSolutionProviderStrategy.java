@@ -1,7 +1,7 @@
-package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony;
+package com.mjakobczyk.vrp.def.impl.solution.impl.antcolony;
 
 import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
-import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.utils.AntOptimization;
+import com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.utils.AntOptimization;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
 import com.mjakobczyk.vrp.model.Location;

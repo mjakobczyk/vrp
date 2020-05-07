@@ -1,7 +1,7 @@
-package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model;
+package com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model;
 
 /**
- * Optimized version of {@link com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.Ant}.
+ * Optimized version of {@link com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model.Ant}.
  */
 public class AntOpt {
 

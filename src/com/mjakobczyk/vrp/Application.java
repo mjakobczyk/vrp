@@ -10,7 +10,7 @@ import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolutionProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
 import com.mjakobczyk.vrp.dynamic.impl.data.impl.DynamicVrpFileDataProvider;
 import com.mjakobczyk.vrp.def.impl.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
-import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.AntColonyOptimizedDynamicVrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.AntColonyOptimizedDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.service.VrpDataProvider;
 import com.mjakobczyk.vrp.service.VrpSolutionProvider;

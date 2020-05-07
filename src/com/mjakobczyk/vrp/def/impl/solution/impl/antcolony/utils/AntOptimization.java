@@ -1,7 +1,7 @@
-package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.utils;
+package com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.utils;
 
-import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntColonyParameters;
-import com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model.AntOpt;
+import com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model.AntColonyParameters;
+import com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model.AntOpt;
 import com.mjakobczyk.vrp.model.Location;
 
 import java.util.ArrayList;

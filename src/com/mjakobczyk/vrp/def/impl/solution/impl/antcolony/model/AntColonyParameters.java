@@ -1,8 +1,8 @@
-package com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.model;
+package com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.model;
 
 /**
  * AntColonyParameters stores all configuration values for
- * {@link com.mjakobczyk.vrp.dynamic.impl.solution.impl.antcolony.AntColonyDynamicVrpSolutionProviderStrategy}.
+ * {@link com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.AntColonyDynamicVrpSolutionProviderStrategy}.
  */
 public class AntColonyParameters {
 
