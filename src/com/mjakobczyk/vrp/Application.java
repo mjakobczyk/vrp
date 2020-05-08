@@ -1,16 +1,16 @@
 package com.mjakobczyk.vrp;
 
-import com.mjakobczyk.vrp.def.impl.DefaultVrpDataProvider;
-import com.mjakobczyk.vrp.def.impl.DefaultVrpSolutionProvider;
-import com.mjakobczyk.vrp.def.impl.DefaultVrpSolver;
-import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
-import com.mjakobczyk.vrp.def.impl.solution.VrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.def.DefaultVrpDataProvider;
+import com.mjakobczyk.vrp.def.DefaultVrpSolutionProvider;
+import com.mjakobczyk.vrp.def.DefaultVrpSolver;
+import com.mjakobczyk.vrp.def.data.VrpFileDataProvider;
+import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpDataProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolutionProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
 import com.mjakobczyk.vrp.dynamic.impl.data.impl.DynamicVrpFileDataProvider;
-import com.mjakobczyk.vrp.def.impl.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
-import com.mjakobczyk.vrp.def.impl.solution.impl.antcolony.AntColonyOptimizedDynamicVrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.def.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.def.solution.impl.antcolony.AntColonyOptimizedDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.service.VrpDataProvider;
 import com.mjakobczyk.vrp.service.VrpSolutionProvider;
@@ -80,9 +80,7 @@ public class Application {
      * Private empty constructor not to let create more than one
      * instance of the class.
      */
-    private Application() {
-
-    }
+    private Application() {}
 
     private void instantiateDefaultVrpSolution() {
         final VrpDataProvider vrpDataProvider = new DefaultVrpDataProvider();

@@ -1,6 +1,7 @@
 package com.mjakobczyk.vrp.def.impl;
 
-import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
+import com.mjakobczyk.vrp.def.DefaultVrpDataProvider;
+import com.mjakobczyk.vrp.def.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.model.VrpInput;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;

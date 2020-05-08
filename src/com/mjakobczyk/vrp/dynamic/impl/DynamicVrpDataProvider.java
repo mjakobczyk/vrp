@@ -1,7 +1,7 @@
 package com.mjakobczyk.vrp.dynamic.impl;
 
-import com.mjakobczyk.vrp.def.impl.DefaultVrpDataProvider;
-import com.mjakobczyk.vrp.def.impl.data.VrpFileDataProvider;
+import com.mjakobczyk.vrp.def.DefaultVrpDataProvider;
+import com.mjakobczyk.vrp.def.data.VrpFileDataProvider;
 
 /**
  * DynamicVrpDataProvider is an implementation of data provider
