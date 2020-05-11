@@ -28,24 +28,35 @@ public abstract class VrpSolver {
      * @return VrpOutput as a solution
      */
     public Optional<VrpOutput> solve() {
-        if (getVrpDataProvider() == null) {
-            logger().log(Level.SEVERE, "No VrpDataProvider was provided.");
+        if (!areInternalComponentsPresent()) {
             return Optional.empty();
         }
 
-        final Optional<VrpInput> optionalVrpInput = getVrpDataProvider().getVrpInput();
-
-        if (getVrpSolutionProvider() == null) {
-            logger().log(Level.SEVERE, "No VrpSolutionProvider was provided.");
-            return Optional.empty();
-        }
-
+        final Optional<VrpInput> optionalVrpInput = retrieveAlgorithmInput();
         if (optionalVrpInput.isPresent()) {
             return getVrpSolutionProvider().solve(optionalVrpInput.get());
         }
 
         logger().log(Level.SEVERE, "No data was provided from VrpDataProvider to VrpSolver. Algorithm could not proceed.");
         return Optional.empty();
+    }
+
+    protected boolean areInternalComponentsPresent() {
+        if (getVrpDataProvider() == null) {
+            logger().log(Level.SEVERE, "No VrpDataProvider was provided.");
+            return false;
+        }
+
+        if (getVrpSolutionProvider() == null) {
+            logger().log(Level.SEVERE, "No VrpSolutionProvider was provided.");
+            return false;
+        }
+
+        return true;
+    }
+
+    protected Optional<VrpInput> retrieveAlgorithmInput() {
+        return getVrpDataProvider().getVrpInput();
     }
 
     protected abstract Logger logger();

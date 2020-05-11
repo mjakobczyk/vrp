@@ -3,7 +3,10 @@ package com.mjakobczyk.vrp.dynamic.impl;
 import com.mjakobczyk.vrp.def.DefaultVrpSolutionProvider;
 import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.impl.solution.impl.DefaultDynamicVrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.model.VrpInput;
+import com.mjakobczyk.vrp.model.VrpOutput;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -33,4 +36,9 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
         super(vrpSolutionProviderStrategy);
     }
 
+    @Override
+    public Optional<VrpOutput> solve(VrpInput vrpInput) {
+
+        return getVrpSolutionProviderStrategy().findOptimalRouteFor(vrpInput);
+    }
 }
