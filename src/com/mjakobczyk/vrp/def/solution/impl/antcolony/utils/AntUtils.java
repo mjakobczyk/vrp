@@ -85,17 +85,6 @@ public class AntUtils {
     }
 
     /**
-     * Handle dynamic addition of location for every ant.
-     *
-     * @param ants     that should handle the addition
-     * @param location that should be included
-     */
-    public void includeAdditionalLocationFor(final List<Ant> ants, final Location location) {
-        // TODO:
-        // TODO: trailsSignificance
-    }
-
-    /**
      * Set up all ants to be ready for algorithm startup.
      *
      * @param ants      that should be prepared
@@ -249,7 +238,6 @@ public class AntUtils {
             }
         }
 
-//        System.out.println("Current Ants best solution cost was: " + bestDistance);
         return bestAnt.getTrail();
     }
 

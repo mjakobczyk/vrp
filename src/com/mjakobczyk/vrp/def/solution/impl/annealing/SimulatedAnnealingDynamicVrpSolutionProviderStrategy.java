@@ -62,8 +62,7 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
     }
 
     protected Optional<VrpOutput> runSimulatedAnnealingAnalysisFor(final VrpInput vrpInput) {
-        final DynamicVrpInput dynamicVrpInput = (DynamicVrpInput) vrpInput;
-        final List<Location> allLocations = dynamicVrpInput.getLocations();
+        final List<Location> allLocations = vrpInput.getLocations();
         final Location depot = allLocations.get(0);
         final List<Location> locationsToVisit = allLocations.subList(1, allLocations.size());
 
@@ -78,6 +77,7 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
         List<Location> bestSolution = new ArrayList<>(resultLocationsList);
         double bestDistance = getVrpUtils().countDistanceFor(resultLocationsList);
 
+        // Print initial solution
         LOG.log(Level.INFO, "Initial distance for " + resultLocationsList.size() + " locations = " + bestDistance);
 
         while (temperature.isValid()) {

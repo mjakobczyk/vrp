@@ -1,5 +1,6 @@
 package com.mjakobczyk.vrp.def.solution.impl.antcolony.model;
 
+import com.mjakobczyk.vrp.def.solution.impl.antcolony.AntColonyVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.model.Location;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 
 /**
  * Ant represents a single worker that look for the best path in
- * {@link com.mjakobczyk.vrp.def.solution.impl.antcolony.AntColonyDynamicVrpSolutionProviderStrategy}.
+ * {@link AntColonyVrpSolutionProviderStrategy}.
  */
 public class Ant {
 

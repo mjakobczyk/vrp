@@ -1,7 +1,7 @@
 package com.mjakobczyk.vrp.def.solution.impl.antcolony.model;
 
-import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.model.Location;
+import com.mjakobczyk.vrp.model.VrpInput;
 
 import java.util.List;
 
@@ -34,11 +34,10 @@ public class AntLocationsHolder {
     /**
      * Default constructor of AntLocationsHolder.
      *
-     * @param dynamicVrpInput that contains locations data
+     * @param vrpInput that contains locations data
      */
-    public AntLocationsHolder(final DynamicVrpInput dynamicVrpInput) {
-        this.allLocations = dynamicVrpInput.getLocations();
-        this.additionalLocations = dynamicVrpInput.getAdditionalLocations();
+    public AntLocationsHolder(final VrpInput vrpInput) {
+        this.allLocations = vrpInput.getLocations();
         this.depot = allLocations.get(0);
         this.locationsToVisit = allLocations.subList(1, allLocations.size());
     }
@@ -50,15 +49,6 @@ public class AntLocationsHolder {
      */
     public List<Location> getAllLocations() {
         return allLocations;
-    }
-
-    /**
-     * Getter for additionalLocations.
-     *
-     * @return additionalLocations
-     */
-    public List<Location> getAdditionalLocations() {
-        return additionalLocations;
     }
 
     /**

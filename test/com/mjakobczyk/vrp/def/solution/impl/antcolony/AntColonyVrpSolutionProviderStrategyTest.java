@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class AntColonyDynamicVrpSolutionProviderStrategyTest {
+public class AntColonyVrpSolutionProviderStrategyTest {
 
     private static final int FIRST_LOCATION_FIRST_COORDINATE = 1;
     private static final int FIRST_LOCATION_SECOND_COORDINATE = 1;
@@ -21,11 +21,11 @@ public class AntColonyDynamicVrpSolutionProviderStrategyTest {
     private static final int EXPECTED_TOTAL_DISTANCE = 4;
 
     @InjectMocks
-    private AntColonyDynamicVrpSolutionProviderStrategy testSubject;
+    private AntColonyVrpSolutionProviderStrategy testSubject;
 
     @BeforeEach
     public void setUp() {
-        this.testSubject = new AntColonyDynamicVrpSolutionProviderStrategy();
+        this.testSubject = new AntColonyVrpSolutionProviderStrategy();
         initMocks(this);
     }
 

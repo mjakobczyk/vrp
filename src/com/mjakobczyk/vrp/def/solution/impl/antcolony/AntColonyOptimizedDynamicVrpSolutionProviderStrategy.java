@@ -2,7 +2,6 @@ package com.mjakobczyk.vrp.def.solution.impl.antcolony;
 
 import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.solution.impl.antcolony.utils.AntOptimization;
-import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
 import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.model.VrpInput;
@@ -18,21 +17,19 @@ public class AntColonyOptimizedDynamicVrpSolutionProviderStrategy extends VrpSol
 
     @Override
     public Optional<VrpOutput> findOptimalRouteFor(final VrpInput vrpInput) {
-        final DynamicVrpInput dynamicVrpInput = (DynamicVrpInput) vrpInput;
-        return runAntColonyOptimizationAlgorithm(dynamicVrpInput);
+        return runAntColonyOptimizationAlgorithm(vrpInput);
     }
 
-    protected Optional<VrpOutput> runAntColonyOptimizationAlgorithm(final DynamicVrpInput dynamicVrpInput) {
+    protected Optional<VrpOutput> runAntColonyOptimizationAlgorithm(final VrpInput vrpInput) {
         // Print initial cost
-        System.out.println("Initial solution cost: " + getVrpUtils().countDistanceAndIncludeFirstLocationTwiceFor(dynamicVrpInput.getLocations()));
+        System.out.println("Initial solution cost: " + getVrpUtils().countDistanceAndIncludeFirstLocationTwiceFor(vrpInput.getLocations()));
 
-        final AntOptimization antOptimization = new AntOptimization(dynamicVrpInput.getLocations());
+        final AntOptimization antOptimization = new AntOptimization(vrpInput.getLocations());
         final List<Location> bestSolution = antOptimization.startAntOptimization();
 
+        // Print final cost
         System.out.println("Final solution cost: " + getVrpUtils().countDistanceFor(bestSolution));
-        System.out.println(bestSolution.size());
-        System.out.println(bestSolution.containsAll(dynamicVrpInput.getLocations()));
-//
-        return Optional.of(new DynamicVrpOutput(dynamicVrpInput.getLocations()));
+
+        return Optional.of(new DynamicVrpOutput(vrpInput.getLocations()));
     }
 }
