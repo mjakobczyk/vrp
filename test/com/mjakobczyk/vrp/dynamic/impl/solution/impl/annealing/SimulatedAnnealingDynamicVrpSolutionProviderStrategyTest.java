@@ -1,6 +1,7 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl.annealing;
 
 
+import com.mjakobczyk.vrp.def.model.DefaultVrpOutput;
 import com.mjakobczyk.vrp.def.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
 import com.mjakobczyk.vrp.model.Coordinates;
@@ -91,12 +92,12 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategyTest {
 
         // when
         final Optional<VrpOutput> optionalVrpOutput = testSubject.findOptimalRouteFor(vrpInput);
-        final DynamicVrpOutput dynamicVrpOutput = (DynamicVrpOutput) optionalVrpOutput.orElse(null);
-        final Location depot = dynamicVrpOutput.getLocations().get(0);
+        final DefaultVrpOutput defaultVrpOutput = (DefaultVrpOutput) optionalVrpOutput.orElse(null);
+        final Location depot = defaultVrpOutput.getLocations().get(0);
 
         // then
-        assertThat(dynamicVrpOutput.getLocations().get(0)).isEqualTo(depot);
-        assertThat(dynamicVrpOutput.getLocations().get(dynamicVrpOutput.getLocations().size() - 1)).isEqualTo(depot);
+        assertThat(defaultVrpOutput.getLocations().get(0)).isEqualTo(depot);
+        assertThat(defaultVrpOutput.getLocations().get(defaultVrpOutput.getLocations().size() - 1)).isEqualTo(depot);
     }
 
     private List<Location> prepareLocationsList() {

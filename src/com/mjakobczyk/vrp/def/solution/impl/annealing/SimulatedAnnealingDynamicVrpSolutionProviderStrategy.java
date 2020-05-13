@@ -1,5 +1,6 @@
 package com.mjakobczyk.vrp.def.solution.impl.annealing;
 
+import com.mjakobczyk.vrp.def.model.DefaultVrpOutput;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpInputValidator;
 import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
@@ -99,7 +100,7 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
 
         LOG.log(Level.INFO, "Found best distance for " + bestSolution.size() + " locations = " + bestDistance);
 
-        return Optional.of(new DynamicVrpOutput(bestSolution));
+        return Optional.of(new DefaultVrpOutput(bestSolution));
     }
 
     protected boolean shouldAdditionalLocationAppear() {

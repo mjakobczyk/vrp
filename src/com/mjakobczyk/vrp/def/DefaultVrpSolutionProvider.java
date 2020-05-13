@@ -1,5 +1,6 @@
 package com.mjakobczyk.vrp.def;
 
+import com.mjakobczyk.vrp.service.VrpInputValidator;
 import com.mjakobczyk.vrp.service.VrpSolutionProvider;
 import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.solution.impl.DefaultVrpSolutionProviderStrategy;
@@ -24,6 +25,11 @@ public class DefaultVrpSolutionProvider implements VrpSolutionProvider {
      */
     private VrpSolutionProviderStrategy vrpSolutionProviderStrategy;
 
+    /**
+     * Validator for input data.
+     */
+    private VrpInputValidator vrpInputValidator;
+
     @Override
     public Optional<VrpOutput> solve(final VrpInput vrpInput) {
         return getVrpSolutionProviderStrategy().findOptimalRouteFor(vrpInput);
@@ -34,6 +40,7 @@ public class DefaultVrpSolutionProvider implements VrpSolutionProvider {
      */
     public DefaultVrpSolutionProvider() {
         this.vrpSolutionProviderStrategy = new DefaultVrpSolutionProviderStrategy();
+        this.vrpInputValidator = null;
     }
 
     /*
@@ -43,6 +50,7 @@ public class DefaultVrpSolutionProvider implements VrpSolutionProvider {
      */
     public DefaultVrpSolutionProvider(final VrpSolutionProviderStrategy vrpSolutionProviderStrategy) {
         this.vrpSolutionProviderStrategy = vrpSolutionProviderStrategy;
+        this.vrpInputValidator = null;
     }
 
     /**
@@ -61,5 +69,23 @@ public class DefaultVrpSolutionProvider implements VrpSolutionProvider {
      */
     public void setVrpSolutionProviderStrategy(final VrpSolutionProviderStrategy vrpSolutionProviderStrategy) {
         this.vrpSolutionProviderStrategy = vrpSolutionProviderStrategy;
+    }
+
+    /**
+     * Getter for {@link com.mjakobczyk.vrp.service.VrpInputValidator}.
+     *
+     * @return validator instance
+     */
+    public VrpInputValidator getVrpInputValidator() {
+        return vrpInputValidator;
+    }
+
+    /**
+     * Setter for {@link com.mjakobczyk.vrp.service.VrpInputValidator}.
+     *
+     * @param vrpInputValidator to set
+     */
+    public void setVrpInputValidator(final VrpInputValidator vrpInputValidator) {
+        this.vrpInputValidator = vrpInputValidator;
     }
 }
