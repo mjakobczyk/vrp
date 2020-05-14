@@ -60,6 +60,7 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
 
         final VrpOutput vrpOutput = optionalVrpOutput.get();
         final List<Location> locations = vrpOutput.getLocations();
+        // final List<Location> additionalLocations
 
         // Step 2 - if having static solution then divide it between available vehicles
         // TODO: split locations between avaiable vehicles

@@ -6,6 +6,8 @@ package com.mjakobczyk.vrp.model;
  */
 public class DeliveryLocation extends Location {
 
+    private int demand;
+
     /**
      * Public constructor of the class.
      *
@@ -13,5 +15,14 @@ public class DeliveryLocation extends Location {
      */
     public DeliveryLocation(final Coordinates coordinates) {
         super(coordinates);
+    }
+
+    public DeliveryLocation(final Coordinates coordinates, final int demand) {
+        super(coordinates);
+        this.demand = demand;
+    }
+
+    public int getDemand() {
+        return demand;
     }
 }
