@@ -66,7 +66,7 @@ public class DefaultVrpFileDataProvider implements VrpFileDataProvider {
         return Optional.of(new DefaultVrpInput(locations));
     }
 
-    protected Location getLocationFromInputFileLine(final String line) {
+    protected Location  getLocationFromInputFileLine(final String line) {
         final List<String> coordinates = Arrays.asList(line.split(" "));
         return new DeliveryLocation(new Coordinates(Integer.parseInt(coordinates.get(0)), Integer.parseInt(coordinates.get(1))));
     }
