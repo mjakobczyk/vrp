@@ -38,11 +38,14 @@ public class MendeleyDynamicVrpFileDataProvider extends DefaultVrpFileDataProvid
         int [] demands = handleDemandsSection(lines, numberOfVisits);
         Coordinates[] coordinates = handleCoordinatesSection(lines, numberOfLocations);
         handleDepotLocation(lines);
-        handleVisitLocationsSection(lines, numberOfVisits);
-        handleDurationsSection(lines, numberOfVisits);
-        handleDepotTimeWindowSection(lines);
-        handleTimestep(lines);
-        handleTimeAvailabilitySection(lines, numberOfVisits);
+        int [] visits = handleVisitLocationsSection(lines, numberOfVisits);
+        int [] durations = handleDurationsSection(lines, numberOfVisits);
+        int [] timeWindow = handleDepotTimeWindowSection(lines);
+        int depotFrom = timeWindow[0];
+        int depotTo = timeWindow[1];
+        int timeStep = handleTimestep(lines);
+        int [] availabilities = handleTimeAvailabilitySection(lines, numberOfVisits);
+        removeFirstLinesFrom(lines, 1); // Skip EOF sign
 
         return Optional.empty();
     }
@@ -124,22 +127,47 @@ public class MendeleyDynamicVrpFileDataProvider extends DefaultVrpFileDataProvid
     }
 
     protected int[] handleDurationsSection(final List<String> lines, final int count) {
-        // TODO
-        return new int[count];
+        removeFirstLinesFrom(lines, 1);
+        int [] durations = new int[count];
+        for (int i = 0; i < count; ++i) {
+            final List<String> splitLines = splitLineBySpace(lines.get(0));
+            durations[i] = convertStringToInt(splitLines.get(3));
+            removeFirstLinesFrom(lines, 1);
+        }
+
+        return durations;
     }
 
-    protected void handleDepotTimeWindowSection(final List<String> lines) {
-        // TODO
+    protected int[] handleDepotTimeWindowSection(final List<String> lines) {
+        removeFirstLinesFrom(lines, 1);
+        int [] depotTimeWindows = new int[2];
+        final List<String> splitLines = splitLineBySpace(lines.get(0));
+        depotTimeWindows[0] = convertStringToInt(splitLines.get(3));
+        depotTimeWindows[1] = convertStringToInt(splitLines.get(4));
+        removeFirstLinesFrom(lines, 1);
+
+        return depotTimeWindows;
     }
 
     protected int handleTimestep(final List<String> lines) {
-        // TODO
-        return 0;
+        int timestep;
+        final List<String> splitLines = splitLineBySpace(lines.get(0));
+        timestep = convertStringToInt(splitLines.get(2));
+        removeFirstLinesFrom(lines, 1);
+
+        return timestep;
     }
 
     protected int[] handleTimeAvailabilitySection(final List<String> lines, final int count) {
-        // TODO
-        return new int[count];
+        removeFirstLinesFrom(lines, 1);
+        int [] timeAvailability = new int[count];
+        for (int i = 0; i < count; ++i) {
+            final List<String> splitLines = splitLineBySpace(lines.get(0));
+            timeAvailability[i] = convertStringToInt(splitLines.get(3));
+            removeFirstLinesFrom(lines, 1);
+        }
+
+        return timeAvailability;
     }
 
     @Override
