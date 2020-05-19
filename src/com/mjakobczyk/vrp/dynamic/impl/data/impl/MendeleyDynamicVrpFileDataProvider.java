@@ -1,6 +1,7 @@
 package com.mjakobczyk.vrp.dynamic.impl.data.impl;
 
 import com.mjakobczyk.vrp.def.data.impl.DefaultVrpFileDataProvider;
+import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.model.Coordinates;
 import com.mjakobczyk.vrp.model.DeliveryLocation;
 import com.mjakobczyk.vrp.model.Location;
@@ -22,7 +23,6 @@ public class MendeleyDynamicVrpFileDataProvider extends DefaultVrpFileDataProvid
 
     @Override
     protected Optional<VrpInput> resolveVrpInputFromFileContent(final Stream<String> streamLines) {
-        // TODO: construct Mendley-specific DynamicVrpInput
         final List<Location> locations = new ArrayList<>();
         final List<Location> additionalLocations = new ArrayList<>();
         List<String> lines = streamLines.collect(Collectors.toList());
@@ -43,11 +43,17 @@ public class MendeleyDynamicVrpFileDataProvider extends DefaultVrpFileDataProvid
         int [] timeWindow = handleDepotTimeWindowSection(lines);
         int depotFrom = timeWindow[0];
         int depotTo = timeWindow[1];
-        int timeStep = handleTimestep(lines);
+        int timeStep = handleTimeStep(lines);
         int [] availabilities = handleTimeAvailabilitySection(lines, numberOfVisits);
         removeFirstLinesFrom(lines, 1); // Skip EOF sign
 
-        return Optional.empty();
+        final DeliveryLocation depot = new DeliveryLocation(coordinates[0]);
+        final List<Location> deliveryLocations = new ArrayList<>();
+        for (int i = 1; i < numberOfVisits; ++i) {
+            deliveryLocations.add(new DeliveryLocation(coordinates[i], demands[i]));
+        }
+
+        return Optional.of(new DynamicVrpInput(List.of(depot), deliveryLocations, capacities, numberOfVehicles));
     }
 
     protected List<String> getFirstLinesFrom(final List<String> lines, final int count) {
@@ -149,13 +155,13 @@ public class MendeleyDynamicVrpFileDataProvider extends DefaultVrpFileDataProvid
         return depotTimeWindows;
     }
 
-    protected int handleTimestep(final List<String> lines) {
-        int timestep;
+    protected int handleTimeStep(final List<String> lines) {
+        int timeStep;
         final List<String> splitLines = splitLineBySpace(lines.get(0));
-        timestep = convertStringToInt(splitLines.get(2));
+        timeStep = convertStringToInt(splitLines.get(2));
         removeFirstLinesFrom(lines, 1);
 
-        return timestep;
+        return timeStep;
     }
 
     protected int[] handleTimeAvailabilitySection(final List<String> lines, final int count) {

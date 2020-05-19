@@ -6,6 +6,7 @@ import com.mjakobczyk.vrp.dynamic.impl.solution.impl.DefaultDynamicVrpSolutionPr
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
 import com.mjakobczyk.vrp.model.Location;
+import com.mjakobczyk.vrp.model.Vehicle;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 
@@ -21,18 +22,23 @@ import java.util.logging.Logger;
 public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
 
     /**
-     * DefaultVrpSolutionProvider logger, providing data about runtime behaviour.
+     * DynamicVrpSolutionProvider logger, providing data about runtime behaviour.
      */
     private static final Logger LOG = Logger.getLogger(String.valueOf(DynamicVrpSolutionProvider.class));
 
     /**
-     * Constructor of DynamicVrpSolutionProvider.
+     * List of currently used vehicles.
+     */
+    private List<Vehicle> vehicles;
+
+    /**
+     * Default constructor of DynamicVrpSolutionProvider.
      */
     public DynamicVrpSolutionProvider() {
         this.setVrpSolutionProviderStrategy(new DefaultDynamicVrpSolutionProviderStrategy());
     }
 
-    /*
+    /**
      * Constructor of DynamicVrpSolutionProvider.
      *
      * @param vrpSolutionProviderStrategy to inject
@@ -50,6 +56,10 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
         }
 
         final DynamicVrpInput dynamicVrpInput = (DynamicVrpInput) vrpInput;
+        final List<Location> locations = dynamicVrpInput.getLocations();
+        final List<Location> additionalLocations = dynamicVrpInput.getAdditionalLocations();
+
+
 
         // Step 1 - solve static problem if
         final Optional<VrpOutput> optionalVrpOutput = getVrpSolutionProviderStrategy().findOptimalRouteFor(dynamicVrpInput);
@@ -59,7 +69,6 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
         }
 
         final VrpOutput vrpOutput = optionalVrpOutput.get();
-        final List<Location> locations = vrpOutput.getLocations();
         // final List<Location> additionalLocations
 
         // Step 2 - if having static solution then divide it between available vehicles
