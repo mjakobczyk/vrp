@@ -1,5 +1,6 @@
 package com.mjakobczyk.vrp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class VehicleManager {
     public VehicleManager(final int maxVehicleCapacity, final int maxVehiclesCount) {
         this.maxVehicleCapacity = maxVehicleCapacity;
         this.maxVehiclesCount = maxVehiclesCount;
+        this.vehicles = new ArrayList<>();
     }
 
     public Optional<Vehicle> create() {
@@ -36,11 +38,31 @@ public class VehicleManager {
     }
 
     public boolean canCreateMore() {
-        return vehicles.size() > this.maxVehiclesCount;
+        return vehicles.size() < this.maxVehiclesCount;
+    }
+
+    public void splitLocationsBetweenVehicles(final List<Location> locations) {
+        if (canCreateMore()) {
+            final Optional<Vehicle> optionalVehicle = create();
+            if (optionalVehicle.isPresent()) {
+                final Vehicle vehicle = optionalVehicle.get();
+                vehicle.establishNewPlan(locations);
+            }
+        }
+    }
+
+    /**
+     * Getter for vehicles.
+     *
+     * @return vehicles instances
+     */
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 
     /**
      * Informs about active vehicles count.
+     *
      * @return vehicles count
      */
     public int getVehiclesCount() {
