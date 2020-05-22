@@ -10,12 +10,18 @@ import java.util.List;
  */
 public class DynamicVrpOutput extends VrpOutput {
 
+    private List<List<Location>> listOfListsOfLocations;
+
+    public DynamicVrpOutput(final List<List<Location>> input) {
+        this.listOfListsOfLocations = input;
+    }
+
     /**
-     * Constructor of DynamicVrpOutput
+     * Getter for list of lists of locations.
      *
-     * @param locations list
+     * @return list of lists of locations data
      */
-    public DynamicVrpOutput(final List<Location> locations) {
-        super(locations);
+    public List<List<Location>> getListOfListsOfLocations() {
+        return listOfListsOfLocations;
     }
 }

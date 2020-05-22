@@ -1,11 +1,11 @@
 package com.mjakobczyk.vrp.dynamic.impl.solution.impl;
 
+import com.mjakobczyk.vrp.def.model.DefaultVrpOutput;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpInputValidator;
 import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.solution.impl.DefaultVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
-import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 
@@ -46,6 +46,6 @@ public class DefaultDynamicVrpSolutionProviderStrategy extends VrpSolutionProvid
         final List<Location> locations = dynamicVrpInput.getLocations();
         locations.addAll(dynamicVrpInput.getAdditionalLocations());
 
-        return new DynamicVrpOutput(locations);
+        return new DefaultVrpOutput(locations);
     }
 }

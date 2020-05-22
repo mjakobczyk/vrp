@@ -1,8 +1,8 @@
 package com.mjakobczyk.vrp.def.solution.impl.antcolony;
 
+import com.mjakobczyk.vrp.def.model.DefaultVrpOutput;
 import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.solution.impl.antcolony.utils.AntOptimization;
-import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
 import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
@@ -30,6 +30,6 @@ public class AntColonyOptimizedDynamicVrpSolutionProviderStrategy extends VrpSol
         // Print final cost
         System.out.println("Final solution cost: " + getVrpUtils().countDistanceFor(bestSolution));
 
-        return Optional.of(new DynamicVrpOutput(vrpInput.getLocations()));
+        return Optional.of(new DefaultVrpOutput(bestSolution));
     }
 }
