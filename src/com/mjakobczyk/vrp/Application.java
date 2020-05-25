@@ -1,6 +1,7 @@
 package com.mjakobczyk.vrp;
 
 import com.mjakobczyk.vrp.def.DefaultVrpDataProvider;
+import com.mjakobczyk.vrp.def.DefaultVrpDrawer;
 import com.mjakobczyk.vrp.def.DefaultVrpSolutionProvider;
 import com.mjakobczyk.vrp.def.DefaultVrpSolver;
 import com.mjakobczyk.vrp.def.data.VrpFileDataProvider;
@@ -12,8 +13,10 @@ import com.mjakobczyk.vrp.dynamic.impl.data.impl.DynamicVrpFileDataProvider;
 import com.mjakobczyk.vrp.def.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.solution.impl.antcolony.AntColonyOptimizedDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.impl.data.impl.MendeleyDynamicVrpFileDataProvider;
+import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.service.VrpDataProvider;
+import com.mjakobczyk.vrp.service.VrpDrawer;
 import com.mjakobczyk.vrp.service.VrpSolutionProvider;
 import com.mjakobczyk.vrp.service.VrpSolver;
 import org.apache.commons.lang3.StringUtils;
@@ -65,6 +68,9 @@ public class Application {
             LOG.log(Level.SEVERE, "VrpOutput has not been collected.");
         } else {
             LOG.log(Level.INFO, "VrpOutput has been obtained successfully.");
+            final VrpDrawer vrpDrawer = new DefaultVrpDrawer();
+            final DynamicVrpOutput dynamicVrpOutput = (DynamicVrpOutput) optionalVrpOutput.get();
+            vrpDrawer.draw(dynamicVrpOutput);
         }
     }
 

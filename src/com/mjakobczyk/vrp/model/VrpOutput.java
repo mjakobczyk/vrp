@@ -13,7 +13,12 @@ public abstract class VrpOutput {
     private VrpLocations vrpLocations;
 
     /**
-     * Constructor of VrpInput.
+     * Default constructor of VrpOutput. Does nothing by design.
+     */
+    public VrpOutput() {}
+
+    /**
+     * Constructor of VrpOutput.
      *
      * @param locations to initialize VrpInput with
      */
