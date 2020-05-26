@@ -42,13 +42,38 @@ public class VehicleManager {
     }
 
     public void splitLocationsBetweenVehicles(final List<Location> locations) {
-        if (canCreateMore()) {
-            final Optional<Vehicle> optionalVehicle = create();
-            if (optionalVehicle.isPresent()) {
-                final Vehicle vehicle = optionalVehicle.get();
-                vehicle.establishNewPlan(locations);
+        final Location depot = locations.get(0);
+        final List<Location> locationsToSplit = locations.subList(1, locations.size());
+        final int locationsCount = locationsToSplit.size();
+        final int maxVehiclesCount = this.getMaxVehiclesCount();
+        final int optionalValue = locationsCount < 50 ? locationsCount / 5 : locationsCount / 10;
+
+        while (!locationsToSplit.isEmpty()) {
+            Vehicle vehicle = null;
+            if (canCreateMore()) {
+                final Optional<Vehicle> optionalVehicle = create();
+                if (optionalVehicle.isPresent()) {
+                    vehicle = optionalVehicle.get();
+                }
+            }
+
+            vehicle.addToPlan((DeliveryLocation) depot);
+            for (int i = 0; i < optionalValue; ++i) {
+                if (locationsToSplit.isEmpty()) {
+                    break;
+                }
+                final DeliveryLocation deliveryLocation = (DeliveryLocation) locationsToSplit.get(0);
+                if (!vehicle.canHandle(deliveryLocation)) {
+                    break;
+                }
+                vehicle.addToPlan(deliveryLocation);
+                locationsToSplit.remove(0);
             }
         }
+
+
+
+        System.out.println("Split done");
     }
 
     /**

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Default implementation of {@link VrpDrawer}.
@@ -33,6 +34,8 @@ public class DefaultVrpDrawer implements VrpDrawer {
 
         int XXX = VRP_INFO + X_GAP;
         int YYY = VRP_Y;
+
+        Random random = new Random();
 
         BufferedImage output = new BufferedImage(XXX, YYY, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = output.createGraphics();
@@ -96,6 +99,13 @@ public class DefaultVrpDrawer implements VrpDrawer {
 
         // Iterate over all routes
         for (final List<Location> list : result) {
+            final int Rval = random.nextInt(256);
+            final int Gval = random.nextInt(256);
+            final int Bval = random.nextInt(256);
+
+            Color color = new Color(Rval,Gval,Bval);
+            g.setColor(color);
+
             // For every route
             for (int i = 1; i < list.size(); ++i) {
                 // In this case single node is a Location
@@ -111,6 +121,8 @@ public class DefaultVrpDrawer implements VrpDrawer {
                 g.drawLine(ii1, jj1, ii2, jj2);
             }
         }
+
+        g.setColor(Color.BLACK);
 
         // Iterate over all routes
         for (final List<Location> list : result) {

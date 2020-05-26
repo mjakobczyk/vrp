@@ -93,7 +93,7 @@ public class AntOptimization {
      * Perform ant optimization
      */
     public List<Location> startAntOptimization() {
-        IntStream.rangeClosed(1, 3)
+        IntStream.rangeClosed(1, 1) // TODO: adjust attempts
                 .forEach(i -> {
                     System.out.println("Attempt #" + i);
                     solve();
@@ -170,7 +170,18 @@ public class AntOptimization {
             }
         }
 
-        throw new RuntimeException("There are no other cities");
+//        throw new RuntimeException("There are no other cities");
+
+        // Had to adapt it this way
+        OptionalInt cityIndex = IntStream.range(0, locationsCount)
+                .filter(i -> !ant.visited(i))
+                .findFirst();
+        if (cityIndex.isPresent()) {
+            return cityIndex.getAsInt();
+        }
+        else {
+            throw new RuntimeException("There are no other cities");
+        }
     }
 
     /**
