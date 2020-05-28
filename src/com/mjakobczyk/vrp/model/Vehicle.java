@@ -26,7 +26,7 @@ public class Vehicle {
         if (canHandle(location)) {
             this.allLocations.add(location);
             this.notVisited.add(location);
-            this.currentCapacity -= location.getDemand();
+            this.currentCapacity += location.getDemand();
         }
     }
 
@@ -63,7 +63,7 @@ public class Vehicle {
     }
 
     public boolean canHandle(final DeliveryLocation location) {
-        return currentCapacity - location.getDemand() >= 0;
+        return currentCapacity + location.getDemand() >= 0;
     }
 
     public void changeBusyState() {
@@ -82,4 +82,7 @@ public class Vehicle {
         return this.notVisited;
     }
 
+    public int getCurrentCapacity() {
+        return currentCapacity;
+    }
 }

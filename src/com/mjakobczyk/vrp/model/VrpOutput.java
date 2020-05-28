@@ -13,6 +13,11 @@ public abstract class VrpOutput {
     private VrpLocations vrpLocations;
 
     /**
+     * Cost of tour.
+     */
+    private double cost;
+
+    /**
      * Default constructor of VrpOutput. Does nothing by design.
      */
     public VrpOutput() {}
@@ -42,5 +47,17 @@ public abstract class VrpOutput {
      */
     private VrpLocations getVrpLocations() {
         return vrpLocations;
+    }
+
+    public void setVrpLocations(VrpLocations vrpLocations) {
+        this.vrpLocations = vrpLocations;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(final double cost) {
+        this.cost = cost;
     }
 }

@@ -1,6 +1,7 @@
 package com.mjakobczyk.vrp.def.solution;
 
 import com.mjakobczyk.vrp.def.DefaultVrpUtils;
+import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpInputValidator;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 import com.mjakobczyk.vrp.service.VrpInputValidator;
@@ -35,6 +36,7 @@ public abstract class VrpSolutionProviderStrategy {
      * Default constructor of VrpSolutionProviderStrategy.
      */
     public VrpSolutionProviderStrategy() {
+        this.vrpInputValidator = new DynamicVrpInputValidator();
         this.vrpUtils = new DefaultVrpUtils();
     }
 
