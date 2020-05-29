@@ -152,7 +152,7 @@ public class DefaultVrpDrawer implements VrpDrawer {
         final LocalDateTime ldt = LocalDateTime.now();
         final String time = ldt.getYear() + "-" + ldt.getMonthValue() + "-" + ldt.getDayOfMonth() + "-"
                 + ldt.getHour() + "-" + ldt.getMinute() + "-" + ldt.getSecond();
-        final String fileName = "DVRP-" + time + ".png";
+        final String fileName = "results/DVRP-" + time + ".png";
 
         File f = new File(fileName);
         try
