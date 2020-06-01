@@ -95,7 +95,7 @@ public class AntOptimization {
     public List<Location> startAntOptimization() {
         IntStream.rangeClosed(1, 1) // TODO: adjust attempts
                 .forEach(i -> {
-                    System.out.println("Attempt #" + i);
+//                    System.out.println("Attempt #" + i);
                     solve();
                 });
         // TODO: add mapping back from index to Location
@@ -116,9 +116,9 @@ public class AntOptimization {
                     updateTrails();
                     updateBest(i);
                 });
-        System.out.println("Best tour length: " + (bestTourLength));
+//        System.out.println("Best tour length: " + (bestTourLength));
 //        System.out.println("Best tour order: " + Arrays.toString(bestTourOrder));
-        System.out.println("Best tour iteration: " + bestTourIteration);
+//        System.out.println("Best tour iteration: " + bestTourIteration);
         return bestTourOrder.clone();
     }
 
@@ -240,11 +240,11 @@ public class AntOptimization {
             bestTourOrder = ants.get(0).trail;
             bestTourLength = ants.get(0)
                     .trailLength(graph);
-            System.out.println("First best tour: " + bestTourLength);
+//            System.out.println("First best tour: " + bestTourLength);
         }
         for (AntOpt a : ants) {
             if (a.trailLength(graph) < bestTourLength) {
-                System.out.println("Improving from " + bestTourLength + " to " + a.trailLength(graph) );
+//                System.out.println("Improving from " + bestTourLength + " to " + a.trailLength(graph) );
                 bestTourLength = a.trailLength(graph);
                 bestTourOrder = a.trail.clone();
                 bestTourIteration = iteration;

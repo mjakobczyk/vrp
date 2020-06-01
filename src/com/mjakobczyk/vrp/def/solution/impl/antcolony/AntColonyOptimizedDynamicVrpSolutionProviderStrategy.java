@@ -22,13 +22,13 @@ public class AntColonyOptimizedDynamicVrpSolutionProviderStrategy extends VrpSol
 
     protected Optional<VrpOutput> runAntColonyOptimizationAlgorithm(final VrpInput vrpInput) {
         // Print initial cost
-        System.out.println("Initial solution cost: " + getVrpUtils().countDistanceAndIncludeFirstLocationTwiceFor(vrpInput.getLocations()));
+//        System.out.println("Initial solution cost: " + getVrpUtils().countDistanceAndIncludeFirstLocationTwiceFor(vrpInput.getLocations()));
 
         final AntOptimization antOptimization = new AntOptimization(vrpInput.getLocations());
         final List<Location> bestSolution = antOptimization.startAntOptimization();
 
         // Print final cost
-        System.out.println("Final solution cost: " + getVrpUtils().countDistanceFor(bestSolution));
+//        System.out.println("Final solution cost: " + getVrpUtils().countDistanceFor(bestSolution));
 
         return Optional.of(new DefaultVrpOutput(bestSolution));
     }
