@@ -15,12 +15,12 @@ public abstract class VrpSolver {
     /**
      * VrpDataProvider for VRP.
      */
-    private final VrpDataProvider vrpDataProvider;
+    private VrpDataProvider vrpDataProvider;
 
     /**
      * VrpSolutionProvider as chosen implementation of the algorithm.
      */
-    private final VrpSolutionProvider vrpSolutionProvider;
+    private VrpSolutionProvider vrpSolutionProvider;
 
     /**
      * Solve performs calculations and provides a solution for given data.
@@ -77,6 +77,14 @@ public abstract class VrpSolver {
      */
     protected VrpSolutionProvider getVrpSolutionProvider() {
         return vrpSolutionProvider;
+    }
+
+    public void setVrpDataProvider(VrpDataProvider vrpDataProvider) {
+        this.vrpDataProvider = vrpDataProvider;
+    }
+
+    public void setVrpSolutionProvider(VrpSolutionProvider vrpSolutionProvider) {
+        this.vrpSolutionProvider = vrpSolutionProvider;
     }
 
     /**

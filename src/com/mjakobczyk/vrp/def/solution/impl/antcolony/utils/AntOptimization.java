@@ -16,15 +16,14 @@ public class AntOptimization {
 
     private AntColonyParameters parameters;
 
-    // Merge togeter to parameters
+    // Not used
     private double c = 1.0;
     private double alpha = 1;
     private double beta = 5;
-    private double evaporation = 0.5;
+    private double evaporation = 0.2;
     private double Q = 500;
-    private double antFactor = 0.8;
-    private double randomFactor = 0.1;
-
+    private double antFactor = 3;
+    private double randomFactor = 0.01;
     private int maxIterations = 1000;
 
     private List<Location> allLocations;
@@ -44,15 +43,14 @@ public class AntOptimization {
     private double bestTourLength;
     private int bestTourIteration;
 
-    public AntOptimization(final List<Location> allLocations) {
-//        graph = generateRandomMatrix(noOfCities);
-        // TODO: initialize graph with distances on basis of algorithm input
+    public AntOptimization(final List<Location> allLocations, final AntColonyParameters parameters) {
+        this.parameters = parameters;
         this.allLocations = new ArrayList<>(allLocations);
         locationsCount = allLocations.size();
         mapLocationsToIndexes(allLocations);
         graph = generateDistancesMatrixOnBasisOfLocations();
 
-        numberOfAnts = (int) (locationsCount * antFactor);
+        numberOfAnts = (int) (locationsCount * this.parameters.getAntFactor());
 
         trails = new double[locationsCount][locationsCount];
         // trails
@@ -109,7 +107,7 @@ public class AntOptimization {
     public int[] solve() {
         setupAnts();
         clearTrails();
-        IntStream.range(0, maxIterations)
+        IntStream.range(0, this.parameters.getIterations())
                 .forEach(i -> {
                     setupAnts();
                     moveAnts();
@@ -152,7 +150,7 @@ public class AntOptimization {
      */
     private int selectNextCity(AntOpt ant) {
         int t = random.nextInt(locationsCount - currentIndex);
-        if (random.nextDouble() < randomFactor) {
+        if (random.nextDouble() < this.parameters.getRandomFactor()) {
             OptionalInt cityIndex = IntStream.range(0, locationsCount)
                     .filter(i -> i == t && !ant.visited(i))
                     .findFirst();
@@ -187,19 +185,19 @@ public class AntOptimization {
     /**
      * Calculate the next city picks probabilites
      */
-    public void calculateProbabilities(AntOpt ant) {
+    public void     calculateProbabilities(AntOpt ant) {
         int i = ant.trail[currentIndex];
         double pheromone = 0.0;
         for (int l = 0; l < locationsCount; l++) {
             if (!ant.visited(l)) {
-                pheromone += Math.pow(trails[i][l], alpha) * Math.pow(1.0 / graph[i][l], beta);
+                pheromone += Math.pow(trails[i][l], this.parameters.getAlpha()) * Math.pow(1.0 / graph[i][l], this.parameters.getBeta());
             }
         }
         for (int j = 0; j < locationsCount; j++) {
             if (ant.visited(j)) {
                 probabilities[j] = 0.0;
             } else {
-                double numerator = Math.pow(trails[i][j], alpha) * Math.pow(1.0 / graph[i][j], beta);
+                double numerator = Math.pow(trails[i][j], this.parameters.getAlpha()) * Math.pow(1.0 / graph[i][j], this.parameters.getBeta());
                 probabilities[j] = numerator / pheromone;
             }
         }
@@ -211,11 +209,11 @@ public class AntOptimization {
     private void updateTrails() {
         for (int i = 0; i < locationsCount; i++) {
             for (int j = 0; j < locationsCount; j++) {
-                trails[i][j] *= evaporation;
+                trails[i][j] *= this.parameters.getEvaporation();
             }
         }
         for (AntOpt a : ants) {
-            double contribution = Q / a.trailLength(graph);
+            double contribution = this.parameters.getQ() / a.trailLength(graph);
             for (int i = 0; i < locationsCount - 1; i++) {
                 trails[a.trail[i]][a.trail[i + 1]] += contribution;
 
@@ -259,7 +257,7 @@ public class AntOptimization {
         IntStream.range(0, locationsCount)
                 .forEach(i -> {
                     IntStream.range(0, locationsCount)
-                            .forEach(j -> trails[i][j] = c);
+                            .forEach(j -> trails[i][j] = this.parameters.getC());
                 });
     }
 

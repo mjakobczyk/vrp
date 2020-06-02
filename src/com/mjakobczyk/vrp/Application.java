@@ -6,6 +6,7 @@ import com.mjakobczyk.vrp.def.DefaultVrpSolutionProvider;
 import com.mjakobczyk.vrp.def.DefaultVrpSolver;
 import com.mjakobczyk.vrp.def.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
+import com.mjakobczyk.vrp.def.solution.impl.antcolony.model.AntColonyParameters;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpDataProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolutionProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
@@ -106,7 +107,7 @@ public class Application {
     private void instantiateAntColonyDvrpSolution(final String inputFilePath) {
         final VrpFileDataProvider fileDataProvider = new MendeleyDynamicVrpFileDataProvider();
         final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(inputFilePath, fileDataProvider);
-        final VrpSolutionProviderStrategy strategy = new AntColonyOptimizedDynamicVrpSolutionProviderStrategy();
+        final VrpSolutionProviderStrategy strategy = new AntColonyOptimizedDynamicVrpSolutionProviderStrategy(new AntColonyParameters());
         final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider(strategy);
         this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }

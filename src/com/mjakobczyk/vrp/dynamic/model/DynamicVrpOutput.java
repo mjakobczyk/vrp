@@ -11,9 +11,11 @@ import java.util.List;
 public class DynamicVrpOutput extends VrpOutput {
 
     private List<List<Location>> listOfListsOfLocations;
+    private double totalCost;
 
-    public DynamicVrpOutput(final List<List<Location>> input) {
+    public DynamicVrpOutput(final List<List<Location>> input, final double totalCost) {
         this.listOfListsOfLocations = input;
+        this.totalCost = totalCost;
     }
 
     /**
@@ -23,5 +25,14 @@ public class DynamicVrpOutput extends VrpOutput {
      */
     public List<List<Location>> getListOfListsOfLocations() {
         return listOfListsOfLocations;
+    }
+
+    /**
+     * Getter for total cost.
+     *
+     * @return total cost values
+     */
+    public double getTotalCost() {
+        return totalCost;
     }
 }

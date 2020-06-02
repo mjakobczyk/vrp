@@ -109,7 +109,7 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
 
         System.out.println("Total cost is : " + totalCost);
 
-        return Optional.of(new DynamicVrpOutput(tours)); // temporary, refactor to include routes
+        return Optional.of(new DynamicVrpOutput(tours, totalCost)); // temporary, refactor to include routes
     }
 
 }
