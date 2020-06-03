@@ -37,14 +37,14 @@ public class TestSuite {
 
     public static void main(final String[] args) {
         final TestSuite testSuite = new TestSuite();
-        testSuite.run();
+        testSuite.runAntColony();
     }
 
-    public void run() {
+    public void runAntColony() {
         // Prepare solver
         final DynamicVrpSolver solver = createDefaultVrpSolver();
         final String filesPrefix = "benchmark/";
-        final List<String> files = listOfFiles();
+        final List<String> files = listOfAdditionalFiles(); // TODO: change to listOfFiles()
         final VrpSolutionProviderStrategy strategy = new AntColonyOptimizedDynamicVrpSolutionProviderStrategy(new AntColonyParameters());
         changeStrategyTo(strategy, solver);
         final List<DynamicVrpOutput> resultingOutputs = new ArrayList<>();
@@ -62,45 +62,45 @@ public class TestSuite {
 
             changeInputFilePathTo(filesPrefix + fileName, solver);
 
-            for (final AntColonyParameters params : listOfParameters()) {
-                // Perform tests here
-                antColonyExecutionLog.add("Parameters: ant factor = " + params.getAntFactor() + " evaporation = " + params.getEvaporation());
+            // Perform tests here
+            final AntColonyParameters params = new AntColonyParameters();
+            antColonyExecutionLog.add("Parameters: ant factor = " + params.getAntFactor() + " evaporation = " + params.getEvaporation());
 
-                for (int i = 0; i < 3; ++i){
+            for (int i = 0; i < 5; ++i){
 
-                    final Optional<VrpOutput> optionalVrpOutput = solver.solve();
+                final Optional<VrpOutput> optionalVrpOutput = solver.solve();
 
-                    if (optionalVrpOutput.isEmpty()) {
-                        LOG.log(Level.SEVERE, "VrpOutput has not been collected.");
-                    } else {
-                        LOG.log(Level.INFO, "VrpOutput has been obtained successfully.");
-                        final DynamicVrpOutput dynamicVrpOutput = (DynamicVrpOutput) optionalVrpOutput.get();
-                        resultingOutputs.add(dynamicVrpOutput);
-                        antColonyExecutionLog.add("Cost = " + dynamicVrpOutput.getTotalCost());
+                if (optionalVrpOutput.isEmpty()) {
+                    LOG.log(Level.SEVERE, "VrpOutput has not been collected.");
+                } else {
+                    LOG.log(Level.INFO, "VrpOutput has been obtained successfully.");
+                    final DynamicVrpOutput dynamicVrpOutput = (DynamicVrpOutput) optionalVrpOutput.get();
+                    resultingOutputs.add(dynamicVrpOutput);
 
-                        if (dynamicVrpOutput.getTotalCost() < bestCost) {
-                            bestCost = dynamicVrpOutput.getTotalCost();
-                            bestOutput = dynamicVrpOutput;
-                        }
+                    antColonyExecutionLog.add("Cost = " + dynamicVrpOutput.getTotalCost() + " Vehicles = " + dynamicVrpOutput.getListOfListsOfLocations().size());
+
+                    if (dynamicVrpOutput.getTotalCost() < bestCost) {
+                        bestCost = dynamicVrpOutput.getTotalCost();
+                        bestOutput = dynamicVrpOutput;
                     }
                 }
             }
-        }
 
-        final LocalDateTime ldt = LocalDateTime.now();
-        final String time = ldt.getYear() + "-" + ldt.getMonthValue() + "-" + ldt.getDayOfMonth() + "-"
-                + ldt.getHour() + "-" + ldt.getMinute() + "-" + ldt.getSecond();
-        final String prefix = "ant-colony-log-";
-        final String suffix = ".txt";
-        final String fileName = prefix+time+suffix;
-        final File file = new File(fileName);
+            final LocalDateTime ldt = LocalDateTime.now();
+            final String time = ldt.getYear() + "-" + ldt.getMonthValue() + "-" + ldt.getDayOfMonth() + "-"
+                    + ldt.getHour() + "-" + ldt.getMinute() + "-" + ldt.getSecond();
+            final String prefix = "results/ant-colony-log-" + fileName;
+            final String suffix = ".txt";
+            final String logFileName = prefix+time+suffix;
+            final File file = new File(logFileName);
 
-        try {
-            file.createNewFile();
-            Files.write(Paths.get(fileName), antColonyExecutionLog, StandardCharsets.UTF_8);
+            try {
+                file.createNewFile();
+                Files.write(Paths.get(logFileName), antColonyExecutionLog, StandardCharsets.UTF_8);
 
-        } catch (final IOException e) {
-            e.printStackTrace();
+            } catch (final IOException e) {
+                e.printStackTrace();
+            }
         }
 
         LOG.log(Level.INFO, "Best cost found: " + bestCost);
@@ -189,6 +189,16 @@ public class TestSuite {
                 "c150D.vrp", "c199D.vrp", "f71D.vrp", "f134D.vrp", "tai75aD.vrp", "tai100aD.vrp",
                 "tai150aD.vrp");
 //        return Arrays.asList("c50D.vrp");
+    }
+
+    protected List<String> listOfAdditionalFiles() {
+        return Arrays.asList("c100bD.vrp", "tai75bD.vrp", "tai75cD.vrp", "tai75dD.vrp",
+                "tai100bD.vrp", "tai100cD.vrp", "tai100dD.vrp",
+                "tai150bD.vrp", "tai150cD.vrp", "tai150dD.vrp");
+    }
+
+    protected List<String> bigFile() {
+        return Arrays.asList("big_tai385.vrp");
     }
 
     protected List<AntColonyParameters> listOfParameters() {

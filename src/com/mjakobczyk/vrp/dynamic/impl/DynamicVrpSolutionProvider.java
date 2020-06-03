@@ -59,7 +59,7 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
         final DynamicVrpInput dynamicVrpInput = (DynamicVrpInput) vrpInput;
 
         // dynamismDegree can be a value between 0 and 100.
-        final int dynamismDegree = 0;
+        final int dynamismDegree = 20;
         // Originally getLocation() will return depot only, so there is a necessity to split
         // additional locations on basis of dynamismDegree.
         final List<Location> locations = new ArrayList<>(dynamicVrpInput.getLocations());
@@ -95,7 +95,7 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
         while (!dynamicLocations.isEmpty()) {
             this.vehicleManager.handleDynamic(dynamicLocations.get(0));
             dynamicLocations.remove(0);
-            System.out.println("There are " + dynamicLocations.size() + " dynamic locations left");
+            // System.out.println("There are " + dynamicLocations.size() + " dynamic locations left");
         }
 
         System.out.println(">>> Gathering final data");

@@ -1,6 +1,6 @@
 package com.mjakobczyk.vrp.service;
 
-        import com.mjakobczyk.vrp.model.VrpInput;
+import com.mjakobczyk.vrp.model.VrpInput;
         import com.mjakobczyk.vrp.model.VrpOutput;
 
         import java.util.Optional;
