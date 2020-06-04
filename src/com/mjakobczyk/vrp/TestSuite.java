@@ -37,14 +37,14 @@ public class TestSuite {
 
     public static void main(final String[] args) {
         final TestSuite testSuite = new TestSuite();
-        testSuite.runAntColony();
+        testSuite.runSimulatedAnnealing();
     }
 
     public void runAntColony() {
         // Prepare solver
         final DynamicVrpSolver solver = createDefaultVrpSolver();
         final String filesPrefix = "benchmark/";
-        final List<String> files = listOfAdditionalFiles(); // TODO: change to listOfFiles()
+        final List<String> files = listOfAllFiles();
         final VrpSolutionProviderStrategy strategy = new AntColonyOptimizedDynamicVrpSolutionProviderStrategy(new AntColonyParameters());
         changeStrategyTo(strategy, solver);
         final List<DynamicVrpOutput> resultingOutputs = new ArrayList<>();
@@ -86,21 +86,8 @@ public class TestSuite {
                 }
             }
 
-            final LocalDateTime ldt = LocalDateTime.now();
-            final String time = ldt.getYear() + "-" + ldt.getMonthValue() + "-" + ldt.getDayOfMonth() + "-"
-                    + ldt.getHour() + "-" + ldt.getMinute() + "-" + ldt.getSecond();
             final String prefix = "results/ant-colony-log-" + fileName;
-            final String suffix = ".txt";
-            final String logFileName = prefix+time+suffix;
-            final File file = new File(logFileName);
-
-            try {
-                file.createNewFile();
-                Files.write(Paths.get(logFileName), antColonyExecutionLog, StandardCharsets.UTF_8);
-
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
+            saveToFile(prefix, antColonyExecutionLog);
         }
 
         LOG.log(Level.INFO, "Best cost found: " + bestCost);
@@ -129,31 +116,26 @@ public class TestSuite {
             LOG.log(Level.INFO, "Started processing file: " + fileName);
 
             changeInputFilePathTo(filesPrefix + fileName, solver);
-                // Perform tests here
-//            simulatedAnnealingExecutionLog.add("Parameters: ant factor = " + params.getAntFactor() + " evaporation = " + params.getEvaporation());
+            for (int i = 0; i < 5; ++i) {
+                final Optional<VrpOutput> optionalVrpOutput = solver.solve();
 
-                for (int i = 0; i < 30; ++i) {
-                    final Optional<VrpOutput> optionalVrpOutput = solver.solve();
+                if (optionalVrpOutput.isEmpty()) {
+                    LOG.log(Level.SEVERE, "VrpOutput has not been collected.");
+                } else {
+                    LOG.log(Level.INFO, "VrpOutput has been obtained successfully.");
+                    final DynamicVrpOutput dynamicVrpOutput = (DynamicVrpOutput) optionalVrpOutput.get();
+                    resultingOutputs.add(dynamicVrpOutput);
+                    simulatedAnnealingExecutionLog.add("Cost = " + dynamicVrpOutput.getTotalCost());
 
-                    if (optionalVrpOutput.isEmpty()) {
-                        LOG.log(Level.SEVERE, "VrpOutput has not been collected.");
-                    } else {
-                        LOG.log(Level.INFO, "VrpOutput has been obtained successfully.");
-                        final DynamicVrpOutput dynamicVrpOutput = (DynamicVrpOutput) optionalVrpOutput.get();
-                        resultingOutputs.add(dynamicVrpOutput);
-                        simulatedAnnealingExecutionLog.add("Cost = " + dynamicVrpOutput.getTotalCost());
-
-                        if (dynamicVrpOutput.getTotalCost() < bestCost) {
-                            bestCost = dynamicVrpOutput.getTotalCost();
-                            bestOutput = dynamicVrpOutput;
-                        }
+                    if (dynamicVrpOutput.getTotalCost() < bestCost) {
+                        bestCost = dynamicVrpOutput.getTotalCost();
+                        bestOutput = dynamicVrpOutput;
                     }
                 }
-
+            }
+            final String prefix = "results/sa-log-" + fileName;
+            saveToFile(prefix, simulatedAnnealingExecutionLog);
         }
-
-        final String prefix = "ant-colony-log-";
-        saveToFile(prefix, simulatedAnnealingExecutionLog);
 
         LOG.log(Level.INFO, "Best cost found: " + bestCost);
 
@@ -193,6 +175,14 @@ public class TestSuite {
 
     protected List<String> listOfAdditionalFiles() {
         return Arrays.asList("c100bD.vrp", "tai75bD.vrp", "tai75cD.vrp", "tai75dD.vrp",
+                "tai100bD.vrp", "tai100cD.vrp", "tai100dD.vrp",
+                "tai150bD.vrp", "tai150cD.vrp", "tai150dD.vrp");
+    }
+
+    protected List<String> listOfAllFiles() {
+        return Arrays.asList("c50D.vrp", "c75D.vrp", "c100D.vrp", "c120D.vrp",
+                "c150D.vrp", "c199D.vrp", "f71D.vrp", "f134D.vrp", "tai75aD.vrp", "tai100aD.vrp",
+                "tai150aD.vrp", "c100bD.vrp", "tai75bD.vrp", "tai75cD.vrp", "tai75dD.vrp",
                 "tai100bD.vrp", "tai100cD.vrp", "tai100dD.vrp",
                 "tai150bD.vrp", "tai150cD.vrp", "tai150dD.vrp");
     }
