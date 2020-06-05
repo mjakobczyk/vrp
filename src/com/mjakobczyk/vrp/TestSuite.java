@@ -37,7 +37,7 @@ public class TestSuite {
 
     public static void main(final String[] args) {
         final TestSuite testSuite = new TestSuite();
-        testSuite.runSimulatedAnnealing();
+        testSuite.runAntColony();
     }
 
     public void runAntColony() {

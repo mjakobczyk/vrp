@@ -6,8 +6,6 @@ import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.solution.impl.annealing.model.SimulatedAnnealingTemperature;
 import com.mjakobczyk.vrp.def.solution.impl.annealing.model.SimulatedAnnealingTravelOrder;
-import com.mjakobczyk.vrp.dynamic.model.DynamicVrpInput;
-import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
 import com.mjakobczyk.vrp.model.VrpInput;
 import com.mjakobczyk.vrp.model.VrpOutput;
 
@@ -55,11 +53,7 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
 
     @Override
     public Optional<VrpOutput> findOptimalRouteFor(final VrpInput vrpInput) {
-        if (getVrpInputValidator().isValid(vrpInput)) {
-            return runSimulatedAnnealingAnalysisFor(vrpInput);
-        }
-
-        return Optional.empty();
+        return runSimulatedAnnealingAnalysisFor(vrpInput);
     }
 
     protected Optional<VrpOutput> runSimulatedAnnealingAnalysisFor(final VrpInput vrpInput) {
@@ -88,7 +82,7 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
 
                 if (distanceAfterSwap < bestDistance) {
                     bestSolution.clear();
-                    bestSolution = new ArrayList<>(resultLocationsList);
+                    bestSolution = new ArrayList<>(allLocations);
                     bestDistance = distanceAfterSwap;
                 } else if (shouldAcceptWorseSolution(bestDistance, distanceAfterSwap, temperature)) {
                     Collections.swap(allLocations, travelsOrder.getTravels().get(i).getFirstLocation(), travelsOrder.getTravels().get(i).getSecondLocation());
@@ -98,17 +92,13 @@ public class SimulatedAnnealingDynamicVrpSolutionProviderStrategy extends VrpSol
             temperature.decrease();
         }
 
-        LOG.log(Level.INFO, "Found best distance for " + bestSolution.size() + " locations = " + bestDistance);
+        LOG.log(Level.INFO, "Final distance for " + resultLocationsList.size() + " locations = " + bestDistance);
 
         return Optional.of(new DefaultVrpOutput(bestSolution));
     }
 
-    protected boolean shouldAdditionalLocationAppear() {
-        return random.nextInt(MAX_RANDOM_NUMBER) > ADDITIONAL_PICK_THRESHOLD;
-    }
-
     protected boolean shouldAcceptWorseSolution(final double bestDistance, final double distanceAfterSwap, final SimulatedAnnealingTemperature temperature) {
-        return Math.exp((bestDistance - distanceAfterSwap) / temperature.getCurrent()) < Math.random();
+        return Math.exp((bestDistance - distanceAfterSwap) / temperature.getCurrent()) < Math.  random();
     }
 
 }

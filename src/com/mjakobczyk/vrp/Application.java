@@ -7,6 +7,7 @@ import com.mjakobczyk.vrp.def.DefaultVrpSolver;
 import com.mjakobczyk.vrp.def.data.VrpFileDataProvider;
 import com.mjakobczyk.vrp.def.solution.VrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.solution.impl.antcolony.model.AntColonyParameters;
+import com.mjakobczyk.vrp.def.solution.impl.tabu.TabuSearchDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpDataProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolutionProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
@@ -61,7 +62,7 @@ public class Application {
             inputFilePath = args[0];
         }
 
-        instantiateAntColonyDvrpSolution(inputFilePath);
+        instantiateSimulatedAnnealingDvrpSolution(inputFilePath);
 
         final Optional<VrpOutput> optionalVrpOutput = this.vrpSolver.solve();
 
@@ -97,9 +98,9 @@ public class Application {
     }
 
     private void instantiateSimulatedAnnealingDvrpSolution(final String inputFilePath) {
-        final VrpFileDataProvider fileDataProvider = new DynamicVrpFileDataProvider();
+        final VrpFileDataProvider fileDataProvider = new MendeleyDynamicVrpFileDataProvider();
         final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(inputFilePath, fileDataProvider);
-        final VrpSolutionProviderStrategy strategy = new SimulatedAnnealingDynamicVrpSolutionProviderStrategy();
+        final VrpSolutionProviderStrategy strategy = new TabuSearchDynamicVrpSolutionProviderStrategy();
         final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider(strategy);
         this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }

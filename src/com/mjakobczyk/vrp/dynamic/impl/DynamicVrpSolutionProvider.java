@@ -59,7 +59,7 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
         final DynamicVrpInput dynamicVrpInput = (DynamicVrpInput) vrpInput;
 
         // dynamismDegree can be a value between 0 and 100.
-        final int dynamismDegree = 20;
+        final int dynamismDegree = 0;
         // Originally getLocation() will return depot only, so there is a necessity to split
         // additional locations on basis of dynamismDegree.
         final List<Location> locations = new ArrayList<>(dynamicVrpInput.getLocations());
@@ -107,7 +107,7 @@ public class DynamicVrpSolutionProvider extends DefaultVrpSolutionProvider {
             totalCost += getVrpSolutionProviderStrategy().getVrpUtils().countDistanceFor(vehicleTour);
         }
 
-        System.out.println("Total cost is : " + totalCost);
+        System.out.println("Cost = " + totalCost + " Vehicles = " + tours.size());
 
         return Optional.of(new DynamicVrpOutput(tours, totalCost)); // temporary, refactor to include routes
     }
