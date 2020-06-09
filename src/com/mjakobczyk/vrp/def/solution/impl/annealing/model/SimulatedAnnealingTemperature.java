@@ -35,6 +35,10 @@ public class SimulatedAnnealingTemperature {
         this.step = DEFAULT_STEP_VALUE;
     }
 
+    public void setStep(final int step) {
+        this.step = step;
+    }
+
     /**
      * Constructor of SimulatedAnnealingTemperature using Fluent Builder pattern.
      *

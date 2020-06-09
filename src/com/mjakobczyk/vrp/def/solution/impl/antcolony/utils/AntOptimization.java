@@ -12,21 +12,12 @@ import java.util.OptionalInt;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+/**
+ * AntOptimization performs exact algorithm of ants to search for the optimal route.
+ */
 public class AntOptimization {
 
     private AntColonyParameters parameters;
-
-    // Not used
-    private double c = 1.0;
-    private double alpha = 1;
-    private double beta = 5;
-    private double evaporation = 0.2;
-    private double Q = 500;
-    private double antFactor = 3;
-    private double randomFactor = 0.01;
-    private int maxIterations = 1000;
-
-    private List<Location> allLocations;
     private Map<Integer, Location> indexToLocationMap;
 
     private int locationsCount;
@@ -41,25 +32,26 @@ public class AntOptimization {
 
     private int[] bestTourOrder;
     private double bestTourLength;
-    private int bestTourIteration;
 
+    /**
+     * Default constructor.
+     *
+     * @param allLocations used in sumulation
+     * @param parameters   containing values
+     */
     public AntOptimization(final List<Location> allLocations, final AntColonyParameters parameters) {
         this.parameters = parameters;
-        this.allLocations = new ArrayList<>(allLocations);
         locationsCount = allLocations.size();
         mapLocationsToIndexes(allLocations);
         graph = generateDistancesMatrixOnBasisOfLocations();
-
         numberOfAnts = (int) (locationsCount * this.parameters.getAntFactor());
-
         trails = new double[locationsCount][locationsCount];
-        // trails
         probabilities = new double[locationsCount];
         IntStream.range(0, numberOfAnts)
                 .forEach(i -> ants.add(new AntOpt(locationsCount)));
     }
 
-    public void mapLocationsToIndexes(final List<Location> locations) {
+    protected void mapLocationsToIndexes(final List<Location> locations) {
         this.indexToLocationMap = new HashMap<>();
         int currentLocationIndex = 0;
         for (final Location location : locations) {
@@ -67,7 +59,7 @@ public class AntOptimization {
         }
     }
 
-    public List<Location> mapIndexesToLocations(int[] locationsIndexes) {
+    protected List<Location> mapIndexesToLocations(int[] locationsIndexes) {
         final List<Location> locations = new ArrayList<>();
         for (int i = 0; i < locationsCount; ++i) {
             locations.add(this.indexToLocationMap.get(locationsIndexes[i]));
@@ -76,7 +68,7 @@ public class AntOptimization {
         return locations;
     }
 
-    public double[][] generateDistancesMatrixOnBasisOfLocations() {
+    protected double[][] generateDistancesMatrixOnBasisOfLocations() {
         double[][] matrix = new double[locationsCount][locationsCount];
         for (int i = 0; i < locationsCount; ++i) {
             for (int j = 0; j < locationsCount; ++j) {
@@ -91,20 +83,11 @@ public class AntOptimization {
      * Perform ant optimization
      */
     public List<Location> startAntOptimization() {
-        IntStream.rangeClosed(1, 1) // TODO: adjust attempts
-                .forEach(i -> {
-//                    System.out.println("Attempt #" + i);
-                    solve();
-                });
-        // TODO: add mapping back from index to Location
-
+        solve();
         return mapIndexesToLocations(bestTourOrder);
     }
 
-    /**
-     * Use this method to run the main logic
-     */
-    public int[] solve() {
+    protected int[] solve() {
         setupAnts();
         clearTrails();
         IntStream.range(0, this.parameters.getIterations())
@@ -112,11 +95,8 @@ public class AntOptimization {
                     setupAnts();
                     moveAnts();
                     updateTrails();
-                    updateBest(i);
+                    updateBest();
                 });
-//        System.out.println("Best tour length: " + (bestTourLength));
-//        System.out.println("Best tour order: " + Arrays.toString(bestTourOrder));
-//        System.out.println("Best tour iteration: " + bestTourIteration);
         return bestTourOrder.clone();
     }
 
@@ -168,24 +148,17 @@ public class AntOptimization {
             }
         }
 
-//        throw new RuntimeException("There are no other cities");
-
-        // Had to adapt it this way
         OptionalInt cityIndex = IntStream.range(0, locationsCount)
                 .filter(i -> !ant.visited(i))
                 .findFirst();
         if (cityIndex.isPresent()) {
             return cityIndex.getAsInt();
-        }
-        else {
+        } else {
             throw new RuntimeException("There are no other cities");
         }
     }
 
-    /**
-     * Calculate the next city picks probabilites
-     */
-    public void     calculateProbabilities(AntOpt ant) {
+    public void calculateProbabilities(AntOpt ant) {
         int i = ant.trail[currentIndex];
         double pheromone = 0.0;
         for (int l = 0; l < locationsCount; l++) {
@@ -203,9 +176,6 @@ public class AntOptimization {
         }
     }
 
-    /**
-     * Update trails that ants used
-     */
     private void updateTrails() {
         for (int i = 0; i < locationsCount; i++) {
             for (int j = 0; j < locationsCount; j++) {
@@ -215,50 +185,38 @@ public class AntOptimization {
         for (AntOpt a : ants) {
             double contribution = this.parameters.getQ() / a.trailLength(graph);
             for (int i = 0; i < locationsCount - 1; i++) {
-                trails[a.trail[i]][a.trail[i + 1]] += contribution;
-
-                // Each ant visited all cities but picked different trails,
-                // not all trails were used
-                // A    B    C
-                //
-                // D    E    F
-                // |  /
-                // G -  H    I
-                trails [ a.trail[i] ] [ a.trail[i + 1] ] += contribution;
+                final int firstLocation = a.trail[i];
+                final int secondLocation = a.trail[i + 1];
+                trails[firstLocation][secondLocation] += contribution;
             }
-            trails[a.trail[locationsCount - 1]][a.trail[0]] += contribution;
+
+            final int firstCity = a.trail[0];
+            final int lastCity = a.trail[locationsCount - 1];
+
+            trails[lastCity][firstCity] += contribution;
         }
     }
 
-    /**
-     * Update the best solution
-     */
-    private void updateBest(int iteration) {
+    private void updateBest() {
         if (bestTourOrder == null) {
             bestTourOrder = ants.get(0).trail;
             bestTourLength = ants.get(0)
                     .trailLength(graph);
-//            System.out.println("First best tour: " + bestTourLength);
         }
         for (AntOpt a : ants) {
             if (a.trailLength(graph) < bestTourLength) {
-//                System.out.println("Improving from " + bestTourLength + " to " + a.trailLength(graph) );
                 bestTourLength = a.trailLength(graph);
                 bestTourOrder = a.trail.clone();
-                bestTourIteration = iteration;
             }
         }
     }
 
-    /**
-     * Clear trails after simulation
-     */
     private void clearTrails() {
-        IntStream.range(0, locationsCount)
-                .forEach(i -> {
-                    IntStream.range(0, locationsCount)
-                            .forEach(j -> trails[i][j] = this.parameters.getC());
-                });
+        for (int i = 0; i < locationsCount; ++i) {
+            for (int j = 0; j < locationsCount; ++j) {
+                trails[i][j] = this.parameters.getC();
+            }
+        }
     }
 
 }
