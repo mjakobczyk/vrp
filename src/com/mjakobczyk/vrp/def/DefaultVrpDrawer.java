@@ -6,43 +6,45 @@ import com.mjakobczyk.vrp.model.Location;
 import com.mjakobczyk.vrp.service.VrpDrawer;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Default implementation of {@link VrpDrawer}.
  */
 public class DefaultVrpDrawer implements VrpDrawer {
 
+    private static final Logger LOG = Logger.getLogger(String.valueOf(DefaultVrpDrawer.class));
+
     @Override
-    public void draw(DefaultVrpOutput defaultVrpOutput) {
+    public void draw(final DefaultVrpOutput defaultVrpOutput) {
         // TODO
     }
 
     @Override
     public void draw(final DynamicVrpOutput dynamicVrpOutput) {
-        int VRP_Y = 800;
-        int VRP_INFO = 200;
-        int X_GAP = 600;
-        int margin = 30;
-        int marginNode = 1;
+        final int VRP_Y = 800;
+        final int VRP_INFO = 200;
+        final int X_GAP = 600;
+        final int MARGIN = 30;
+        final int MARGIN_NODE = 1;
+        final int XXX = VRP_INFO + X_GAP;
+        final int YYY = VRP_Y;
 
-        int XXX = VRP_INFO + X_GAP;
-        int YYY = VRP_Y;
-
-        Random random = new Random();
-
-        BufferedImage output = new BufferedImage(XXX, YYY, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g = output.createGraphics();
+        final Random random = new Random();
+        final BufferedImage output = new BufferedImage(XXX, YYY, BufferedImage.TYPE_INT_RGB);
+        final Graphics2D g = output.createGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, XXX, YYY);
         g.setColor(Color.BLACK);
-
 
         double minX = Double.MAX_VALUE;
         double maxX = Double.MIN_VALUE;
@@ -50,11 +52,12 @@ public class DefaultVrpDrawer implements VrpDrawer {
         double maxY = Double.MIN_VALUE;
 
         final List<List<Location>> result = dynamicVrpOutput.getListOfListsOfLocations();
-        int locationsCount = 1; // 1 because deposit is count as the first one
+        // 1 because deposit is being count as the first location
+        int locationsCount = 1;
         // Find out min and max coordinates
         for (final List<Location> list : result) {
             locationsCount += list.size();
-            locationsCount -= 2; // Minus 2
+            locationsCount -= 2;
 
             for (final Location location : list) {
                 if (location.getCoordinates().getCoordinateX() > maxX) {
@@ -72,12 +75,11 @@ public class DefaultVrpDrawer implements VrpDrawer {
             }
         }
 
-        int mX = XXX - 2 * margin;
-        int mY = VRP_Y - 2 * margin;
+        int mX = XXX - 2 * MARGIN;
+        int mY = VRP_Y - 2 * MARGIN;
 
         int A, B;
-        if ((maxX - minX) > (maxY - minY))
-        {
+        if ((maxX - minX) > (maxY - minY)) {
             A = mX;
             B = (int)((double)(A) * (maxY - minY) / (maxX - minX));
             if (B > mY)
@@ -85,9 +87,7 @@ public class DefaultVrpDrawer implements VrpDrawer {
                 B = mY;
                 A = (int)((double)(B) * (maxX - minX) / (maxY - minY));
             }
-        }
-        else
-        {
+        } else {
             B = mY;
             A = (int)((double)(B) * (maxX - minX) / (maxY - minY));
             if (A > mX)
@@ -111,12 +111,16 @@ public class DefaultVrpDrawer implements VrpDrawer {
                 // In this case single node is a Location
                 final Location locationFrom = list.get(i-1);
 
-                int ii1 = (int) ((double) (A) * ((locationFrom.getCoordinates().getCoordinateX() - minX) / (maxX - minX) - 0.5) + (double) mX / 2) + margin;
-                int jj1 = (int) ((double) (B) * (0.5 - (locationFrom.getCoordinates().getCoordinateY() - minY) / (maxY - minY)) + (double) mY / 2) + margin;
+                int ii1 = (int) ((double) (A) * ((locationFrom.getCoordinates().getCoordinateX() - minX) /
+                        (maxX - minX) - 0.5) + (double) mX / 2) + MARGIN;
+                int jj1 = (int) ((double) (B) * (0.5 - (locationFrom.getCoordinates().getCoordinateY() - minY) /
+                        (maxY - minY)) + (double) mY / 2) + MARGIN;
 
                 final Location locationTo = list.get(i);
-                int ii2 = (int) ((double) (A) * ((locationTo.getCoordinates().getCoordinateX() - minX) / (maxX - minX) - 0.5) + (double) mX / 2) + margin;
-                int jj2 = (int) ((double) (B) * (0.5 - (locationTo.getCoordinates().getCoordinateY() - minY) / (maxY - minY)) + (double) mY / 2) + margin;
+                int ii2 = (int) ((double) (A) * ((locationTo.getCoordinates().getCoordinateX() - minX) /
+                        (maxX - minX) - 0.5) + (double) mX / 2) + MARGIN;
+                int jj2 = (int) ((double) (B) * (0.5 - (locationTo.getCoordinates().getCoordinateY() - minY) /
+                        (maxY - minY)) + (double) mY / 2) + MARGIN;
 
                 g.drawLine(ii1, jj1, ii2, jj2);
             }
@@ -131,35 +135,32 @@ public class DefaultVrpDrawer implements VrpDrawer {
                 // In this case single node is a Location
                 final Location location = list.get(i);
 
-                int ii = (int) ((double) (A) * ((location.getCoordinates().getCoordinateX()  - minX) / (maxX - minX) - 0.5) + (double) mX / 2) + margin;
-                int jj = (int) ((double) (B) * (0.5 - (location.getCoordinates().getCoordinateY() - minY) / (maxY - minY)) + (double) mY / 2) + margin;
+                int ii = (int) ((double) (A) * ((location.getCoordinates().getCoordinateX()  - minX) /
+                        (maxX - minX) - 0.5) + (double) mX / 2) + MARGIN;
+                int jj = (int) ((double) (B) * (0.5 - (location.getCoordinates().getCoordinateY() - minY) /
+                        (maxY - minY)) + (double) mY / 2) + MARGIN;
                 if (i != 0) {
-                    g.fillOval(ii - 3 * marginNode, jj - 3 * marginNode, 6 * marginNode, 6 * marginNode); //2244
-                    // Consider drawing ID on every node
-//                    String id = Integer.toString(ID);
-//                    g.drawString(id, ii + 6 * marginNode, jj + 6 * marginNode); //88
+                    g.fillOval(ii - 3 * MARGIN_NODE, jj - 3 * MARGIN_NODE, 6 * MARGIN_NODE, 6 * MARGIN_NODE); //2244
                 } else {
-                    g.fillRect(ii - 3 * marginNode, jj - 3 * marginNode, 6 * marginNode, 6 * marginNode);  //4488
-//                    String id = Integer.toString(n.NodeId);
-//                    g.drawString(id, ii + 6 * marginNode, jj + 6 * marginNode); //88
+                    g.fillRect(ii - 3 * MARGIN_NODE, jj - 3 * MARGIN_NODE, 6 * MARGIN_NODE, 6 * MARGIN_NODE);  //4488
                 }
             }
         }
 
-        String cst = "Locations: " +  locationsCount; // TODO: add cost
-        g.drawString(cst, 10, 10);
+        final String textToDraw = "Locations: " +  locationsCount;
+        g.drawString(textToDraw, 10, 10);
+        // TODO: display total cost as well
 
         final LocalDateTime ldt = LocalDateTime.now();
         final String time = ldt.getYear() + "-" + ldt.getMonthValue() + "-" + ldt.getDayOfMonth() + "-"
                 + ldt.getHour() + "-" + ldt.getMinute() + "-" + ldt.getSecond();
         final String fileName = "results/DVRP-" + time + ".png";
 
-        File f = new File(fileName);
-        try
-        {
+        final File f = new File(fileName);
+        try {
             ImageIO.write(output, "PNG", f);
         } catch (IOException ex) {
-            //  Logger.getLogger(s.class.getName()).log(Level.SEVERE, null, ex);
+              LOG.log(Level.SEVERE, "Exception occurred when saving drawing results to the output file.", ex);
         }
     }
 

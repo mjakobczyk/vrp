@@ -11,8 +11,6 @@ import com.mjakobczyk.vrp.def.solution.impl.tabu.TabuSearchDynamicVrpSolutionPro
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpDataProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolutionProvider;
 import com.mjakobczyk.vrp.dynamic.impl.DynamicVrpSolver;
-import com.mjakobczyk.vrp.dynamic.impl.data.impl.DynamicVrpFileDataProvider;
-import com.mjakobczyk.vrp.def.solution.impl.annealing.SimulatedAnnealingDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.def.solution.impl.antcolony.AntColonyOptimizedDynamicVrpSolutionProviderStrategy;
 import com.mjakobczyk.vrp.dynamic.impl.data.impl.MendeleyDynamicVrpFileDataProvider;
 import com.mjakobczyk.vrp.dynamic.model.DynamicVrpOutput;
@@ -30,7 +28,7 @@ import java.util.logging.Logger;
 /**
  * Application is a singleton which enables running calculations.
  */
-public class Application {
+public final class Application {
 
     /**
      * Application logger, providing data about runtime behaviour.
@@ -40,12 +38,12 @@ public class Application {
     /**
      * Single instance of the class in a static context.
      */
-    private static Application instance = new Application();
+    private static final Application instance = new Application();
 
     /**
-     * DefaultVrpSolver that controls algorithm flow.
+     * Chooses which algorithm to run.
      */
-    private VrpSolver vrpSolver;
+    private static final int SOLVER_CHOICE = 0;
 
     /**
      * Run methods starts the application.
@@ -62,9 +60,8 @@ public class Application {
             inputFilePath = args[0];
         }
 
-        instantiateSimulatedAnnealingDvrpSolution(inputFilePath);
-
-        final Optional<VrpOutput> optionalVrpOutput = this.vrpSolver.solve();
+        final VrpSolver vrpSolver = instantiateVrpSolver(SOLVER_CHOICE, inputFilePath);
+        final Optional<VrpOutput> optionalVrpOutput = vrpSolver.solve();
 
         if (optionalVrpOutput.isEmpty()) {
             LOG.log(Level.SEVERE, "VrpOutput has not been collected.");
@@ -91,25 +88,33 @@ public class Application {
      */
     private Application() {}
 
-    private void instantiateDefaultVrpSolution() {
-        final VrpDataProvider vrpDataProvider = new DefaultVrpDataProvider();
-        final VrpSolutionProvider vrpSolutionProvider = new DefaultVrpSolutionProvider();
-        this.vrpSolver = new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
+    private VrpSolver instantiateVrpSolver(final int choice, final String inputFilePath) {
+        return switch (choice) {
+            case 1 -> createSimulatedAnnealingDvrpSolution(inputFilePath);
+            case 2 -> createAntColonyDvrpSolution(inputFilePath);
+            default -> createDefaultVrpSolution();
+        };
     }
 
-    private void instantiateSimulatedAnnealingDvrpSolution(final String inputFilePath) {
+    private VrpSolver createDefaultVrpSolution() {
+        final VrpDataProvider vrpDataProvider = new DefaultVrpDataProvider();
+        final VrpSolutionProvider vrpSolutionProvider = new DefaultVrpSolutionProvider();
+        return new DefaultVrpSolver(vrpDataProvider, vrpSolutionProvider);
+    }
+
+    private VrpSolver createSimulatedAnnealingDvrpSolution(final String inputFilePath) {
         final VrpFileDataProvider fileDataProvider = new MendeleyDynamicVrpFileDataProvider();
         final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(inputFilePath, fileDataProvider);
         final VrpSolutionProviderStrategy strategy = new TabuSearchDynamicVrpSolutionProviderStrategy();
         final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider(strategy);
-        this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
+        return new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }
 
-    private void instantiateAntColonyDvrpSolution(final String inputFilePath) {
+    private VrpSolver createAntColonyDvrpSolution(final String inputFilePath) {
         final VrpFileDataProvider fileDataProvider = new MendeleyDynamicVrpFileDataProvider();
         final VrpDataProvider vrpDataProvider = new DynamicVrpDataProvider(inputFilePath, fileDataProvider);
         final VrpSolutionProviderStrategy strategy = new AntColonyOptimizedDynamicVrpSolutionProviderStrategy(new AntColonyParameters());
         final VrpSolutionProvider vrpSolutionProvider = new DynamicVrpSolutionProvider(strategy);
-        this.vrpSolver = new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
+        return new DynamicVrpSolver(vrpDataProvider, vrpSolutionProvider);
     }
 }

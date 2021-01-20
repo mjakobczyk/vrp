@@ -6,7 +6,7 @@ This application is dedicated for solving *Vehicle Routing Problem*.
 
 ## Prerequisites
 
-* [Java 11](https://www.java.com/pl/)
+* [Java 14](https://www.java.com/pl/)
 * [Maven](https://maven.apache.org/)
 
 ## Installation
